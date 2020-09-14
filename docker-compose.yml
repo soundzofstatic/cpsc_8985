@@ -1,0 +1,83 @@
+version: '2'
+services:
+
+  # The Application
+  app:
+    image: better_reviews-app
+    container_name: better_reviews-app
+    build:
+      context: ./
+      dockerfile: app.dockerfile
+      args:
+        - WITH_XDEBUG=${WITH_XDEBUG}
+        - XDEBUG_TRIGGER_PROFILER=${XDEBUG_TRIGGER_PROFILER}
+        - XDEBUG_PROFILER_DIR=${XDEBUG_PROFILER_DIR}
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+      - ./docker_tmp:/docker_tmp
+    environment:
+      - "DB_PORT=${DB_PORT}"
+      - "DB_HOST=database"
+      - "PHP_IDE_CONFIG=${PHP_IDE_CONFIG}"
+      - "XDEBUG_CONFIG=${XDEBUG_CONFIG}"
+      - "APP_ENV=${APP_ENV}"
+      - "CONTAINER_ROLE=app"
+
+  scheduler:
+    container_name: better_reviews-scheduler
+    depends_on:
+      - app
+    build:
+      context: ./
+      dockerfile: scheduler.dockerfile
+    volumes:
+      - .:/var/www
+    environment:
+      - "DB_PORT=${DB_PORT}"
+      - "DB_HOST=database"
+      - "APP_ENV=${APP_ENV}"
+      - "CONTAINER_ROLE=scheduler"
+
+  # The Web Server
+  web:
+    container_name: better_reviews-web
+    build:
+      context: ./
+      args:
+        - USER1=${BASICAUTH_USER1}
+        - PASS1=${BASICAUTH_PASS1}
+        - USER2=${BASICAUTH_USER2}
+        - PASS2=${BASICAUTH_PASS2}
+        - USER3=${BASICAUTH_USER3}
+        - PASS3=${BASICAUTH_PASS3}
+        - USER4=${BASICAUTH_USER4}
+        - PASS4=${BASICAUTH_PASS4}
+        - USER5=${BASICAUTH_USER5}
+        - PASS5=${BASICAUTH_PASS5}
+      dockerfile: web.dockerfile
+    working_dir: /var/www
+    volumes_from:
+      - app
+    ports:
+      - "${APP_HOST_PORT}:${APP_CONTAINER_PORT}"
+    environment:
+      - "CONTAINER_ROLE=web"
+
+  # The Database
+  database:
+    container_name: better_reviews-db
+    image: mariadb:10.3.6
+    volumes:
+      - dbdata:/var/lib/mysql
+    environment:
+      - "MYSQL_DATABASE=${DB_DATABASE}"
+      - "MYSQL_USER=${DB_USERNAME}"
+      - "MYSQL_PASSWORD=${DB_PASSWORD}"
+      - "MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}"
+      - "TZ=${TIMEZONE}"
+    ports:
+        - "${DB_HOST_PORT}:${DB_CONTAINER_PORT}"
+
+volumes:
+  dbdata:
