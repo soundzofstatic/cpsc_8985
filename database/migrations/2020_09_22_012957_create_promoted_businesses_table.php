@@ -15,6 +15,12 @@ class CreatePromotedBusinessesTable extends Migration
     {
         Schema::create('promoted_businesses', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('user_id')->unsigned();
+            $table->integer('business_id')->unsigned();
+            $table->boolean('is_active');
+            $table->timestamp('start_date');
+            //$table->timestamp('end_date');
+            $table->string('promo_location',15);
             $table->timestamps();
         });
     }
