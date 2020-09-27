@@ -15,6 +15,7 @@
     @endif
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
     <!-- Css Styles -->
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" type="text/css">
     <!-- PLugins -->
@@ -38,6 +39,8 @@
 <!-- Header Section Begin -->
 @include ('themes.localsdirectory.layout.header.base')
 <!-- Header End -->
+@include ('themes.localsdirectory.layout.section.error.base')
+@include ('themes.localsdirectory.layout.section.message.base')
 @yield('content')
 <!-- Footer Section Begin -->
 @include ('themes.localsdirectory.layout.footer.base')
@@ -45,6 +48,7 @@
 
 <!-- Js Plugins -->
 <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
+{{--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>--}}
 <script src="{{ asset('js/bootstrap.min.js') }}"></script>
 <!-- Plugins -->
 <script src="{{ asset('js/jquery.magnific-popup.min.js') }}"></script>

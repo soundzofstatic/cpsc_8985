@@ -158,9 +158,8 @@ class GoogleTokenController extends Controller
 
                     }
 
-                    // todo - Login the User and redirect
-
-                    return $user;
+                    Auth::login($user, true);
+                    return redirect()->route('console.home')s;
 
                 }
 

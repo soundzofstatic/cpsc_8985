@@ -11,22 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'FrontPageController@index')->name('front-page');
 
-
-Route::get('/google', function () {
-    return view('google');
-});
-
-Route::post('/google/sign-in', 'GoogleTokenController@exchangeAuthCode')->name('google-integrate-auth-token');
-
-
-Route::get('/example', function () {
-    return view('layouts.app');
-});
-
+// Theme Examples
 Route::prefix('theme')->name('theme.')->group(function () {
 
     Route::get('/', function () {
@@ -38,7 +25,7 @@ Route::prefix('theme')->name('theme.')->group(function () {
     Route::get('/single-listing', function () {
         return view('themes.localsdirectory.examples.single-listing');
     })->name('single-listing');
-    Route::get('/how-it-works', function () {
+    Route::get('/how-it-works', function () { // /theme/how-it-works
         return view('themes.localsdirectory.examples.how-it-works');
     })->name('how-it-works');
     Route::get('/contact', function () {
@@ -48,4 +35,13 @@ Route::prefix('theme')->name('theme.')->group(function () {
         return view('themes.localsdirectory.examples.blog');
     })->name('blog');
 
+});
+
+
+Auth::routes();
+Route::post('/google/sign-in', 'GoogleTokenController@exchangeAuthCode')->name('google-integrate-auth-token');
+
+// Console, aka. Logged in area
+Route::prefix('console')->name('console.')->group(function () {
+    Route::get('/home', 'HomeController@index')->name('home');
 });

@@ -14,8 +14,12 @@
         </nav>
         <div class="header-right">
             <div class="user-access">
-                <a href="#">Register/</a>
-                <a href="#">Login</a>
+                @if(!Auth::check())
+                    <a href="{{ route('register') }}">Register/</a>
+                    <a href="{{ route('login') }}">Login</a>
+                @else
+                    <a href="{{ route('console.home') }}">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</a>
+                @endif
             </div>
             <a href="#" class="primary-btn">Add Listing</a>
         </div>
