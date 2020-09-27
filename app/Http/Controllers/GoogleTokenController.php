@@ -159,7 +159,7 @@ class GoogleTokenController extends Controller
                     }
 
                     Auth::login($user, true);
-                    return redirect()->route('console.home')s;
+                    return redirect()->route('console.home');
 
                 }
 
