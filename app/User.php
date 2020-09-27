@@ -36,4 +36,83 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // Relationships
+    public function admin() {
+        return $this->hasOne(
+            Admin::class,
+            'user_id',
+            'id'
+        );
+    }
+    public function googleToken() {
+        return $this->hasOne(
+            GoogleToken::class,
+            'user_id',
+            'id'
+        );
+    }
+    public function alerts() {
+        return $this->hasMany(
+            Alert::class,
+            'user_id',
+            'id'
+        );
+    }
+    public function reviews() {
+        return $this->hasMany(
+            Review::class,
+            'user_id',
+            'id'
+        );
+    }
+    public function questions() {
+        return $this->hasMany(
+            Question::class,
+            'user_id',
+            'id'
+        );
+    }
+    public function feedback() {
+        return $this->hasMany(
+            Feedback::class,
+            'user_id',
+            'id'
+        );
+    }
+    public function businesses() {
+        return $this->hasMany(
+            Business::class,
+            'user_id',
+            'id'
+        );
+    }
+    public function businessVisits() {
+        return $this->hasMany(
+            BusinessVisit::class,
+            'user_id',
+            'id'
+        );
+    }
+    public function businessCheckIns() {
+        return $this->hasMany(
+            BusinessCheckIn::class,
+            'user_id',
+            'id'
+        );
+    }
+    public function bookmarks() {
+        return $this->hasMany(
+            Bookmark::class,
+            'user_id',
+            'id'
+        );
+    }
+    public function promotedBusinesses() {
+        return $this->hasMany(
+            PromotedBusiness::class,
+            'user_id',
+            'id'
+        );
+    }
 }

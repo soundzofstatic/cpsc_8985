@@ -188,6 +188,4 @@ class GoogleTokenController extends Controller
 
     }
 
-
-
 }
