@@ -41,10 +41,10 @@ class BusinessServiceController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\BusinessService  $businessservice
+     * @param  \App\BusinessService  $businessService
      * @return \Illuminate\Http\Response
      */
-    public function show(BusinessService $businessservice)
+    public function show(BusinessService $businessService)
     {
         //
     }
@@ -52,10 +52,10 @@ class BusinessServiceController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\BusinessService  $businessservice
+     * @param  \App\BusinessService  $businessService
      * @return \Illuminate\Http\Response
      */
-    public function edit(BusinessService $businessservice)
+    public function edit(BusinessService $businessService)
     {
         //
     }
@@ -64,10 +64,10 @@ class BusinessServiceController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\BusinessService  $businessservice
+     * @param  \App\BusinessService  $businessService
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, BusinessService $businessservice)
+    public function update(Request $request, BusinessService $businessService)
     {
         //
     }
@@ -75,10 +75,10 @@ class BusinessServiceController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\BusinessService  $businessservice
+     * @param  \App\BusinessService  $businessService
      * @return \Illuminate\Http\Response
      */
-    public function destroy(BusinessService $businessservice)
+    public function destroy(BusinessService $businessService)
     {
         //
     }
