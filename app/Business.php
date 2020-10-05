@@ -14,6 +14,7 @@ class Business extends Model
             'id'
         );
     }
+
     public function businessVisit()
     {
         return $this->hasMany(
@@ -21,5 +22,83 @@ class Business extends Model
             'business_id',
             'id'
         );
+
     }
+    public function businessService()
+    {
+        return $this->hasMany(
+            BusinessService::class,
+            'business_id',
+            'id'
+        );
+
     }
+    public function businessCheckIn()
+    {
+        return $this->hasMany(
+            BusinessCheckIn::class,
+            'business_id',
+            'id'
+        );
+
+    }
+    public function businessEvent()
+    {
+        return $this->hasMany(
+            BusinessEvent::class,
+            'business_id',
+            'id'
+        );
+
+    }
+    public function businessSocialMedia()
+    {
+        return $this->hasOne(
+            BusinessSocialMedia::class,
+            'user_id',
+            'id'
+        );
+    }
+    public function promotedBusiness()
+    {
+        return $this->hasOne(
+            promotedBusiness::class,
+            'user_id',
+            'id'
+        );
+    }
+    public function Bookmark()
+    {
+        return $this->hasOne(
+            Business::class,
+            'user_id',
+            'id'
+        );
+    }
+    public function question()
+    {
+        return $this->hasOne(
+            Question::class,
+            'user_id',
+            'id'
+        );
+    }
+    public function review()
+    {
+        return $this->hasMany(
+            Review::class,
+            'business_id',
+            'id'
+        );
+
+    }
+
+    public function alert()
+    {
+        return $this->hasOne(
+            Alert::class,
+            'user_id',
+            'id'
+        );
+    }
+}
