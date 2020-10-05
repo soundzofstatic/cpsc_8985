@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
@@ -67,9 +69,28 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        //
+
+        try {
+
+            $user->first_name = $request->input('first_name');
+            $user->last_name = $request->input('last_name');
+            $user->save();
+
+            return redirect()
+                ->back()
+                ->with('message', 'Successfully updated user details.');
+
+        } catch (\Exception $e) {
+
+            Log::error($e->getMessage()); // Log the Error to storage/logs
+
+            return redirect()
+                ->back()
+                ->withErrors([$e->getMessage()]);
+
+        }
     }
 
     /**
@@ -112,5 +133,52 @@ class UserController extends Controller
         }
 
 
+    }
+
+    /**
+     * Update password for a user
+     *
+     * @param Request $request
+     * @param User $user
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function updatePassword(Request $request, User $user)
+    {
+
+        try {
+
+            if(empty($request->input('password')) OR empty($request->input('password'))) {
+
+                throw new \Exception('Password or confirmation left empty. Please provide both.');
+
+            }
+
+            if(strlen($request->input('password')) < 8) {
+
+                throw new \Exception('Password must be 8 characters in length.');
+
+            }
+
+            if($request->input('password') != $request->input('password_confirmation')) {
+
+                throw new \Exception('Password must match password confirmation.');
+
+            }
+
+            $user->password = bcrypt($request->input('password'));
+            $user->save();
+
+            return redirect()
+                ->back()
+                ->with('message', 'Successfully updated user password.');
+
+        } catch (\Exception $e) {
+
+            Log::error($e->getMessage());
+            return redirect()
+                ->back()
+                ->withErrors([$e->getMessage()]);
+
+        }
     }
 }

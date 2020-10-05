@@ -1,4 +1,4 @@
-<form method="POST" action="{{ route('console.update.username') }}" class="contact-form">
+<form method="POST" action="{{ route('console.update.user.username', ['user' => \Illuminate\Support\Facades\Auth::user()->id]) }}" class="contact-form">
     @csrf
     <div class="row">
         <div class="col-lg-12">

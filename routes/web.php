@@ -21,12 +21,33 @@ Route::prefix('console')->name('console.')->group(function () {
 
     Route::get('/home', 'HomeController@index')->name('home');
 
+    Route::prefix('user/{user}')->name('user.')->group(function () {
+
+        Route::get('/settings', function () {
+            return view('console.user.settings');
+        })->name('settings');
+
+    });
+
     Route::prefix('update')->name('update.')->group(function () {
 
-        Route::get('/user', function () {
-            return view('forms.update-user');
-        })->name('user');
-        Route::post('/username', 'UserController@username')->name('username');
+        Route::prefix('user/{user}')->name('user.')->group(function () {
+
+            // GET - index/show
+            Route::get('/username', function () {
+                return view('forms.update-user');
+            })->name('username-form');
+
+            // POST - Store
+            Route::post('/username', 'UserController@username')->name('username');
+
+            // PUT - Update
+            Route::put('/details', 'UserController@update')->name('details-update');
+            Route::put('/password', 'UserController@updatePassword')->name('password-update');
+
+            // DELETE - Destroy
+
+        });
 
     });
 });
