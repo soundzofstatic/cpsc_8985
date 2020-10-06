@@ -27,6 +27,12 @@ Route::prefix('console')->name('console.')->group(function () {
             return view('console.user.settings');
         })->name('settings');
 
+        Route::prefix('admin')->name('admin.')->group(function () { // todo - Should have middleware protecting it from non-admin users
+
+            Route::get('/', 'AdminController@index')->name('home');
+
+        });
+
     });
 
     Route::prefix('update')->name('update.')->group(function () {

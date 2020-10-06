@@ -115,4 +115,23 @@ class User extends Authenticatable
             'id'
         );
     }
+
+    /**
+     * Method that denotes whether an User is an admin or not
+     *
+     * @return bool
+     */
+    public function isAdmin()
+    {
+        if(empty($this->admin)) {
+
+            return false;
+
+        } else {
+
+            return true;
+
+        }
+
+    }
 }
