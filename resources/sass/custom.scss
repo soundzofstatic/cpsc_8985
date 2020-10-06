@@ -2,3 +2,42 @@
   padding-top: 120px;
   padding-bottom: 72px;
 }
+
+button {
+  &.promote, &.demote{
+    display: inline-block;
+    padding: 7px 20px;
+    font-size: 14px;
+    color: #fff;
+    letter-spacing: 0.2px;
+    border: none;
+  }
+  &.promote {
+    background: $primary;
+  }
+  &.demote {
+    background: $secondary;
+  }
+}
+
+.arrange-items {
+  .arrange-pic {
+    .tic-text {
+      &.admin {
+        background: $primary
+      }
+      &.reviewer {
+        background: $secondary
+      }
+    }
+  }
+}
+
+.contact-form {
+  button {
+    &.reset {
+      background-color: $secondary;
+      border: none;
+    }
+  }
+}

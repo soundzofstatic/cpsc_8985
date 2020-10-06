@@ -43,6 +43,8 @@ Route::prefix('console')->name('console.')->group(function () {
             Route::get('/username', function () {
                 return view('forms.update-user');
             })->name('username-form');
+            Route::get('/promote-to-admin', 'UserController@promoteToAdmin')->name('promote-user');
+            Route::get('/demote-from-admin', 'UserController@demoteFromAdmin')->name('demote-user');
 
             // POST - Store
             Route::post('/username', 'UserController@username')->name('username');

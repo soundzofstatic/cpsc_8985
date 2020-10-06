@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Admin;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -132,7 +133,6 @@ class UserController extends Controller
 
         }
 
-
     }
 
     /**
@@ -180,5 +180,73 @@ class UserController extends Controller
                 ->withErrors([$e->getMessage()]);
 
         }
+    }
+
+    /**
+     * Method used to promote a user to be an application administrator
+     *
+     * @param User $user
+     */
+    public function promoteToAdmin(User $user)
+    {
+
+        try {
+
+            if($user->isAdmin()) {
+
+                throw new \Exception('User is already an administrative user.');
+
+            }
+
+            $admin = new Admin();
+            $admin->user_id = $user->id;
+            $admin->save();
+
+            return redirect()
+                ->back()
+                ->with('message', 'Successfully promoted user to application administrator.');
+
+        } catch (\Exception $e) {
+
+            Log::error($e->getMessage());
+            return redirect()
+                ->back()
+                ->withErrors([$e->getMessage()]);
+
+        }
+
+    }
+
+    /**
+     * Method used to demote a user to a regular reviewer user
+     *
+     * @param User $user
+     */
+    public function demoteFromAdmin(User $user)
+    {
+
+        try {
+
+            if(!$user->isAdmin()) {
+
+                throw new \Exception('User is not an administrative user.');
+
+            }
+
+            $user->admin->delete();
+
+            return redirect()
+                ->back()
+                ->with('message', 'Successfully demoted user to application administrator.');
+
+        } catch (\Exception $e) {
+
+            Log::error($e->getMessage());
+            return redirect()
+                ->back()
+                ->withErrors([$e->getMessage()]);
+
+        }
+
     }
 }

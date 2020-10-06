@@ -23,6 +23,7 @@
                         </div>
                         <div class="col-lg-12 text-center">
                             <button id="search" type="button">Search</button>
+                            <button id="reset" type="button" class="reset">Reset</button>
                         </div>
                     </div>
                 </div>
@@ -42,44 +43,81 @@
 @endsection
 @section('scripts')
     <script>
-        $(document).ready(function(){
-            $('#search').click(function(){
+        $(document).ready(function() {
+            $('#search').click(function () {
+                searchUsers();
+            });
+            $('#reset').click(function () {
+                resetSearchUsers();
+            });
+            $('input#query').on('keyup', function (event) {
 
+                if (event.key == 'Enter') {
+                    searchUsers();
+                }
+
+                if (event.key == 'Escape') {
+                    resetSearchUsers();
+                }
+
+            });
+            $('#search-results').on('click', 'button.action', function () {
+
+                var action = $(this).data('action');
+
+                if (action == 'promote') {
+
+                    window.location.href = '/console/update/user/' + $(this).data('user') + '/promote-to-admin';
+
+                } else if (action == 'demote') {
+
+                    window.location.href = '/console/update/user/' + $(this).data('user') + '/demote-from-admin';
+
+                }
+
+            });
+
+            /**
+             * Function used to search for users and render them to the page
+             */
+            function searchUsers() {
                 $.ajax({
                     url: "{{ route('user-query') }}",
                     method: 'POST',
                     data: {
                         query: $('input#query').val()
                     },
-                    success: function(json_response) {
+                    success: function (json_response) {
                         var markup = '';
 
-                        json_response.data.forEach(function(element, index) {
+                        json_response.data.forEach(function (element, index) {
 
                             markup += '<div class="col-lg-4 col-sm-6">';
-                            markup += '<a class="arrange-items" href="single-listing.html">';
+                            markup += '<div class="arrange-items">';
                             markup += '<div class="arrange-pic">';
-                            if(element.attributes.is_admin) {
-                                markup += '<div class="tic-text">Admin</div>';
+                            if (element.attributes.is_admin) {
+                                markup += '<div class="tic-text admin">Admin</div>';
                             } else {
-                                markup += '<div class="tic-text">Reviewer</div>';
+                                markup += '<div class="tic-text reviewer">Reviewer</div>';
                             }
 
                             markup += '</div>';
                             markup += '<div class="arrange-text">';
                             markup += '<h5>' + element.attributes.first_name + ' ' + element.attributes.last_name + '</h5>';
-                            markup += '<span>' + element.attributes.username + '</span>';
+                            if (element.attributes.username != null) {
+                                markup += '<span>' + element.attributes.username + '</span>';
+                            }
                             markup += '<p>' + element.attributes.email + '</p>';
 
                             // todo - Connect click functionality
-                            if(element.attributes.is_admin) {
-                                markup += '<div class="closed">Demote</div>';
+                            if (element.attributes.is_admin) {
+                                markup += '<button class="demote action" data-action="demote" data-user="' + element.id + '">Demote</button>';
                             } else {
-                                markup += '<div class="open">Promote</div>';
+                                markup += '<button class="promote action" data-action="promote" data-user="' + element.id + '">Promote</button>';
                             }
 
                             markup += '</div>';
-                            markup += '</a>';
+                            markup += '</div>';
                             markup += '</div>';
 
                         });
@@ -87,14 +125,19 @@
                         $('#search-results .row').html(markup);
 
                     },
-                    error: function(error_response) {
+                    error: function (error_response) {
 
                         // todo
 
                     }
                 })
 
-            });
+            }
+
+            function resetSearchUsers() {
+                $('#search-results .row').html('');
+            }
+
         });
     </script>
 @endsection

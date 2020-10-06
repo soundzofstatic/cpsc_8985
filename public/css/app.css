@@ -22,7 +22,7 @@
   --gray: #6c757d;
   --gray-dark: #343a40;
   --primary: #F60;
-  --secondary: #6c757d;
+  --secondary: #009CFF;
   --success: #38c172;
   --info: #6cb2eb;
   --warning: #ffed4a;
@@ -1849,23 +1849,23 @@ pre code {
 .table-secondary,
 .table-secondary > th,
 .table-secondary > td {
-  background-color: #d6d8db;
+  background-color: #b8e3ff;
 }
 
 .table-secondary th,
 .table-secondary td,
 .table-secondary thead th,
 .table-secondary tbody + tbody {
-  border-color: #b3b7bb;
+  border-color: #7accff;
 }
 
 .table-hover .table-secondary:hover {
-  background-color: #c8cbcf;
+  background-color: #9fd9ff;
 }
 
 .table-hover .table-secondary:hover > td,
 .table-hover .table-secondary:hover > th {
-  background-color: #c8cbcf;
+  background-color: #9fd9ff;
 }
 
 .table-success,
@@ -2708,43 +2708,43 @@ fieldset:disabled a.btn {
 
 .btn-secondary {
   color: #fff;
-  background-color: #6c757d;
-  border-color: #6c757d;
+  background-color: #009CFF;
+  border-color: #009CFF;
 }
 
 .btn-secondary:hover {
   color: #fff;
-  background-color: #5a6268;
-  border-color: #545b62;
+  background-color: #0085d9;
+  border-color: #007dcc;
 }
 
 .btn-secondary:focus,
 .btn-secondary.focus {
   color: #fff;
-  background-color: #5a6268;
-  border-color: #545b62;
-  box-shadow: 0 0 0 0.2rem rgba(130, 138, 145, 0.5);
+  background-color: #0085d9;
+  border-color: #007dcc;
+  box-shadow: 0 0 0 0.2rem rgba(38, 171, 255, 0.5);
 }
 
 .btn-secondary.disabled,
 .btn-secondary:disabled {
   color: #fff;
-  background-color: #6c757d;
-  border-color: #6c757d;
+  background-color: #009CFF;
+  border-color: #009CFF;
 }
 
 .btn-secondary:not(:disabled):not(.disabled):active,
 .btn-secondary:not(:disabled):not(.disabled).active,
 .show > .btn-secondary.dropdown-toggle {
   color: #fff;
-  background-color: #545b62;
-  border-color: #4e555b;
+  background-color: #007dcc;
+  border-color: #0075bf;
 }
 
 .btn-secondary:not(:disabled):not(.disabled):active:focus,
 .btn-secondary:not(:disabled):not(.disabled).active:focus,
 .show > .btn-secondary.dropdown-toggle:focus {
-  box-shadow: 0 0 0 0.2rem rgba(130, 138, 145, 0.5);
+  box-shadow: 0 0 0 0.2rem rgba(38, 171, 255, 0.5);
 }
 
 .btn-success {
@@ -3030,24 +3030,24 @@ fieldset:disabled a.btn {
 }
 
 .btn-outline-secondary {
-  color: #6c757d;
-  border-color: #6c757d;
+  color: #009CFF;
+  border-color: #009CFF;
 }
 
 .btn-outline-secondary:hover {
   color: #fff;
-  background-color: #6c757d;
-  border-color: #6c757d;
+  background-color: #009CFF;
+  border-color: #009CFF;
 }
 
 .btn-outline-secondary:focus,
 .btn-outline-secondary.focus {
-  box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.5);
+  box-shadow: 0 0 0 0.2rem rgba(0, 156, 255, 0.5);
 }
 
 .btn-outline-secondary.disabled,
 .btn-outline-secondary:disabled {
-  color: #6c757d;
+  color: #009CFF;
   background-color: transparent;
 }
 
@@ -3055,14 +3055,14 @@ fieldset:disabled a.btn {
 .btn-outline-secondary:not(:disabled):not(.disabled).active,
 .show > .btn-outline-secondary.dropdown-toggle {
   color: #fff;
-  background-color: #6c757d;
-  border-color: #6c757d;
+  background-color: #009CFF;
+  border-color: #009CFF;
 }
 
 .btn-outline-secondary:not(:disabled):not(.disabled):active:focus,
 .btn-outline-secondary:not(:disabled):not(.disabled).active:focus,
 .show > .btn-outline-secondary.dropdown-toggle:focus {
-  box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.5);
+  box-shadow: 0 0 0 0.2rem rgba(0, 156, 255, 0.5);
 }
 
 .btn-outline-success {
@@ -5358,19 +5358,19 @@ a.badge-primary.focus {
 
 .badge-secondary {
   color: #fff;
-  background-color: #6c757d;
+  background-color: #009CFF;
 }
 
 a.badge-secondary:hover,
 a.badge-secondary:focus {
   color: #fff;
-  background-color: #545b62;
+  background-color: #007dcc;
 }
 
 a.badge-secondary:focus,
 a.badge-secondary.focus {
   outline: 0;
-  box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.5);
+  box-shadow: 0 0 0 0.2rem rgba(0, 156, 255, 0.5);
 }
 
 .badge-success {
@@ -5537,17 +5537,17 @@ a.badge-dark.focus {
 }
 
 .alert-secondary {
-  color: #383d41;
-  background-color: #e2e3e5;
-  border-color: #d6d8db;
+  color: #005185;
+  background-color: #ccebff;
+  border-color: #b8e3ff;
 }
 
 .alert-secondary hr {
-  border-top-color: #c8cbcf;
+  border-top-color: #9fd9ff;
 }
 
 .alert-secondary .alert-link {
-  color: #202326;
+  color: #003252;
 }
 
 .alert-success {
@@ -5954,20 +5954,20 @@ a.badge-dark.focus {
 }
 
 .list-group-item-secondary {
-  color: #383d41;
-  background-color: #d6d8db;
+  color: #005185;
+  background-color: #b8e3ff;
 }
 
 .list-group-item-secondary.list-group-item-action:hover,
 .list-group-item-secondary.list-group-item-action:focus {
-  color: #383d41;
-  background-color: #c8cbcf;
+  color: #005185;
+  background-color: #9fd9ff;
 }
 
 .list-group-item-secondary.list-group-item-action.active {
   color: #fff;
-  background-color: #383d41;
-  border-color: #383d41;
+  background-color: #005185;
+  border-color: #005185;
 }
 
 .list-group-item-success {
@@ -6962,14 +6962,14 @@ button.bg-primary:focus {
 }
 
 .bg-secondary {
-  background-color: #6c757d !important;
+  background-color: #009CFF !important;
 }
 
 a.bg-secondary:hover,
 a.bg-secondary:focus,
 button.bg-secondary:hover,
 button.bg-secondary:focus {
-  background-color: #545b62 !important;
+  background-color: #007dcc !important;
 }
 
 .bg-success {
@@ -7091,7 +7091,7 @@ button.bg-dark:focus {
 }
 
 .border-secondary {
-  border-color: #6c757d !important;
+  border-color: #009CFF !important;
 }
 
 .border-success {
@@ -10694,12 +10694,12 @@ a.text-primary:focus {
 }
 
 .text-secondary {
-  color: #6c757d !important;
+  color: #009CFF !important;
 }
 
 a.text-secondary:hover,
 a.text-secondary:focus {
-  color: #494f54 !important;
+  color: #006db3 !important;
 }
 
 .text-success {
@@ -16401,5 +16401,36 @@ ol {
 .main-pad {
   padding-top: 120px;
   padding-bottom: 72px;
+}
+
+button.promote,
+button.demote {
+  display: inline-block;
+  padding: 7px 20px;
+  font-size: 14px;
+  color: #fff;
+  letter-spacing: 0.2px;
+  border: none;
+}
+
+button.promote {
+  background: #F60;
+}
+
+button.demote {
+  background: #009CFF;
+}
+
+.arrange-items .arrange-pic .tic-text.admin {
+  background: #F60;
+}
+
+.arrange-items .arrange-pic .tic-text.reviewer {
+  background: #009CFF;
+}
+
+.contact-form button.reset {
+  background-color: #009CFF;
+  border: none;
 }
 
