@@ -288,7 +288,7 @@ class UserController extends Controller
     {
 
         try {
-            
+
             return view('console.user.business.home');
 
         } catch (\Exception $e) {
