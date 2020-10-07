@@ -33,6 +33,19 @@ Route::prefix('console')->name('console.')->group(function () {
 
         });
 
+        Route::prefix('reviewer')->name('reviewer.')->group(function () { // todo - Should have middleware protecting it from non-admin users
+
+            Route::get('/', 'UserController@reviewerConsoleIndex')->name('home');
+
+        });
+
+        Route::prefix('business')->name('business.')->group(function () { // todo - Should have middleware protecting it from non-admin users
+
+            Route::get('/', 'UserController@businessConsoleIndex')->name('home');
+            Route::get('/{business}', 'BusinessController@indexConsole')->name('business-console');
+
+        });
+
     });
 
     Route::prefix('update')->name('update.')->group(function () {

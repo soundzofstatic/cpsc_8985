@@ -32,7 +32,7 @@
                         <div class="trend-text">
                             <h4>User Console</h4>
                             <p>Review all actions by your user account.</p>
-                            <div class="closed">Closed Now</div>
+                            <a href="{{ route('console.user.reviewer.home', ['user' => \Illuminate\Support\Facades\Auth::user()->id]) }}" class="closed">Manage</a>
                         </div>
                         <div class="tic-text">User</div>
                     </div>
@@ -48,7 +48,7 @@
                         <div class="trend-text">
                             <h4>Business Console</h4>
                             <p>See latest updates for your businesses.</p>
-                            <div class="open">Open Until 3am</div>
+                            <a href="{{ route('console.user.business.home', ['user' => \Illuminate\Support\Facades\Auth::user()->id]) }}" class="closed">Manage</a>
                         </div>
                         <div class="tic-text">Business</div>
                     </div>
@@ -72,11 +72,6 @@
                     </div>
                     <!-- Admin Console End -->
                 @endif
-            </div>
-            <div class="row mb-5">
-                <div class="col-lg-12 text-center">
-                    <a href="{{ route('console.user.settings', ['user' => \Illuminate\Support\Facades\Auth::user()->id]) }}" class="primary-btn">User Settings</a>
-                </div>
             </div>
     @endif
     <!-- Logout Begin -->
