@@ -47,9 +47,20 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
-        //
+        $countOfCheckIns = $user->businessCheckIns->count();
+
+        // Call User Blade for anonymous viewing
+        return view('user.home')
+            ->with(
+                compact(
+                    [
+                        'user',
+                        'countOfCheckIns'
+                    ]
+                )
+            );
     }
 
     /**

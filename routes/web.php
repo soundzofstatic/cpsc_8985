@@ -73,6 +73,20 @@ Route::prefix('console')->name('console.')->group(function () {
     });
 });
 
+// User Pages/Routes
+Route::prefix('user')->name('user.')->group(function () {
+
+    Route::get('/{user}', 'UserController@show')->name('home');
+
+});
+
+// Business Pages/Routes
+Route::prefix('business')->name('business.')->group(function () {
+
+    Route::get('/{business}', 'BusinessController@show')->name('home');
+
+});
+
 // Theme Examples
 Route::prefix('theme')->name('theme.')->group(function () {
     Route::get('/', function () {
@@ -93,4 +107,54 @@ Route::prefix('theme')->name('theme.')->group(function () {
     Route::get('/blog', function () {
         return view('themes.localsdirectory.examples.blog');
     })->name('blog');
+});
+
+// Proof of Concepts
+Route::get('/poc/check-ins-count', function(){
+
+    // Test count of total check-ins
+    $checkIns = \App\BusinessCheckIn::get();
+    $countCheckIns =  $checkIns->count();
+
+    dd('Total Check-ins ' . $countCheckIns);
+
+});
+
+Route::get('/poc/last-5-check-ins', function(){
+
+    // Test count of total check-ins
+    $checkIns = \App\BusinessCheckIn::orderBy('created_at', 'desc')
+        ->limit(5)
+        ->get();
+
+    dd($checkIns);
+
+});
+
+Route::get('/poc/search-business-send-to-blade', function(){ // todo - should be post route when processing from HTML form
+
+    //
+    // Example logic for controller to search after request has been submitted from form.
+    //
+
+
+    // Normally, the query would be submitted to the controller method using $request->input('NAME_OF_HTML_INPUT_NAME_ATTRIBUTE'), eg. $request->input('search_query')
+
+    $query = 'Apt';
+
+    $businessess = \App\Business::where('name', 'like', '%' . strtolower($query) . '%')
+        ->orWhere('address', 'like', '%' . strtolower($query) . '%')
+        ->get();
+
+//    dd($businessess);
+
+    return view('business.search')
+        ->with(
+            compact(
+                [
+                    'businessess'
+                ]
+            )
+        );
+
 });
