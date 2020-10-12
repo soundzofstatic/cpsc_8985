@@ -25,6 +25,7 @@ class UsersTableSeeder extends Seeder
                 $user->first_name = $faker->firstName;
                 $user->last_name = $faker->lastName;
                 $user->email = $faker->email;
+                $user->username = $faker->userName;
                 $user->password = bcrypt('password');
                 $user->setCreatedAt($randomDate);
                 $user->setUpdatedAt($randomDate);
