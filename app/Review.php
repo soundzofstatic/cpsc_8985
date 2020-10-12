@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Review extends Model
 {
     //Relationships
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(
             User::class,
             'user_id',
@@ -19,6 +20,23 @@ class Review extends Model
             Business::class,
             'business_id',
             'id'
+        );
+    }
+
+    public function originalFeedback() {
+        return $this->hasOne(
+            Feedback::class,
+            'id',
+            'feedback_id'
+        )
+            ->where('sequence_number', '=', 0);
+    }
+
+    public function feedbacks() {
+        return $this->hasMany(
+            Feedback::class,
+            'id',
+            'feedback_id'
         );
     }
 }

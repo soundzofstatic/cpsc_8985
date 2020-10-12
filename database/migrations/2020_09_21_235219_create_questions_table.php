@@ -17,7 +17,7 @@ class CreateQuestionsTable extends Migration
             $table->bigIncrements('id');
             $table->integer('user_id')->unsigned();
             $table->integer('business_id')->unsigned();
-            $table->integer('feedback_id')->unsigned();
+            $table->integer('feedback_id')->nullable()->unsigned();
             $table->boolean('is_active');
             $table->timestamps();
         });

@@ -53,9 +53,9 @@ class Business extends Model
     }
     public function businessSocialMedia()
     {
-        return $this->hasOne(
+        return $this->hasMany(
             BusinessSocialMedia::class,
-            'user_id',
+            'business_id',
             'id'
         );
     }

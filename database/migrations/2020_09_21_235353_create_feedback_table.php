@@ -16,11 +16,10 @@ class CreateFeedbackTable extends Migration
         Schema::create('feedback', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('user_id')->unsigned();
-            $table->integer('question_id')->unsigned();
-            $table->integer('review_id')->unsigned();
-            $table->string('reply_on_type');
-	        $table->string('reply_on_question_id');
-	        $table->string('reply_on_review_id');
+            $table->integer('question_id')->unsigned()->nullable();
+            $table->integer('review_id')->unsigned()->nullable();
+            $table->string('reply_on_type', 18)->nullable();
+	        $table->integer('reply_on_feedback_id')->unsigned()->nullable();
             $table->integer('sequence_number')->unsigned();
             $table->longText('text');
             $table->timestamps();

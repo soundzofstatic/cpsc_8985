@@ -6,6 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class PromotedBusiness extends Model
 {
+    const LOCATIONS = [
+        'location_1',
+        'location_3',
+        'location_2'
+    ];
+
     public function business()
     {
         return $this->belongsTo(
