@@ -14,7 +14,15 @@
                 <p>See your last 5 reviews.</p>
             </div>
             <div class="col-md-12">
-                {{--  todo - Render Data            --}}
+                @foreach($user->lastFiveReviews as $review)
+                    <div class="row mb-2" style="border: thin solid red">
+                        <div class="col-md-12">
+                            <p>{{ $review->business->name }}</p>
+                            <p>{{ $review->originalFeedback->text }}</p>
+                            <p>{{ $review->created_at->format('m/d/Y g:i:s a') }}</p>
+                        </div>
+                    </div>
+                @endforeach
             </div>
         </div>
         <div class="row">
@@ -37,7 +45,8 @@
         </div>
         <div class="row mb-5">
             <div class="col-lg-12 text-center">
-                <a href="{{ route('console.user.settings', ['user' => \Illuminate\Support\Facades\Auth::user()->id]) }}" class="primary-btn">User Settings</a>
+                <a href="{{ route('console.user.settings', ['user' => \Illuminate\Support\Facades\Auth::user()->id]) }}"
+                   class="primary-btn">User Settings</a>
             </div>
         </div>
         <!-- Logout Begin -->
@@ -50,7 +59,7 @@
 @endsection
 @section('scripts')
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('#search').click(function () {
                 searchUsers();
             });

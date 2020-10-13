@@ -66,6 +66,16 @@ class User extends Authenticatable
             'id'
         );
     }
+    public Function lastFiveReviews()
+    {
+        return $this->hasMany(
+            Review::class,
+            'user_id',
+            'id'
+        )
+            ->limit(5)
+            ->orderBy('created_at','desc');
+    }
     public function questions() {
         return $this->hasMany(
             Question::class,
