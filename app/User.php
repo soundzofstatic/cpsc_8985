@@ -111,6 +111,16 @@ class User extends Authenticatable
             'id'
         );
     }
+    public Function lastFiveBusinessCheckIns()
+    {
+        return $this->hasMany(
+            BusinessCheckIn::class,
+            'user_id',
+            'id'
+        )
+            ->limit(5)
+            ->orderBy('created_at','desc');
+    }
     public function bookmarks() {
         return $this->hasMany(
             Bookmark::class,
