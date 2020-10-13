@@ -6,12 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class BusinessCheckIn extends Model
 {
-    public function Business()
+    public function business()
     {
         return $this->hasOne(
             Business::class,
-            'user_id',
-            'id'
+            'id',
+            'business_id'
         );
     }
     public function user()

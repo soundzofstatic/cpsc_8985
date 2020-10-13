@@ -31,7 +31,14 @@
                 <p>See your last 5 check-ins.</p>
             </div>
             <div class="col-md-12">
-                {{--  todo - Render Data            --}}
+                <div class="row mb-2">
+                @foreach($user->lastFiveBusinessCheckIns as $CheckIn)
+                        <div class="col-md-4 m-1" style="border: thin solid red">
+                            <p>{{ $CheckIn->business->name }}</p>
+                            <p>{{ $CheckIn->created_at->format('m/d/Y g:i:s a') }}</p>
+                        </div>
+                @endforeach
+                    </div>
             </div>
         </div>
         <div class="row">
