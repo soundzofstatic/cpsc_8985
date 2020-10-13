@@ -39,8 +39,16 @@
                 <h2>Bookmarks</h2>
                 <p>See all of your bookmarks.</p>
             </div>
+
             <div class="col-md-12">
-                {{--  todo - Render Data            --}}
+                <div class="row">
+                    @foreach($user->bookmarks as $bookmark)
+                        <div class="col-md-3 m-1" style="border:thin solid red">
+                            <p>{{ $bookmark->business->name }}</p>
+                            <p>{{ $bookmark->created_at->format('m/d/Y g:i:s a') }}</p>
+                        </div>
+                    @endforeach
+                </div>
             </div>
         </div>
         <div class="row mb-5">

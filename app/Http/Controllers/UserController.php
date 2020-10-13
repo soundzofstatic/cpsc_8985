@@ -270,14 +270,7 @@ class UserController extends Controller
     {
 
         try {
-
-            // todo - Get last 5 Reviews for $user from the database
-   // dd($user->lastFiveReviews);
-
-
             // todo - Get last 5 check-ins for $user from the database
-
-            // todo - Get bookmarks $user from the database
 
             return view('console.user.reviewer.home')
                 ->with(compact([
