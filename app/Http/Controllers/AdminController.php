@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Admin;
+use App\User;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -14,7 +15,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('console.user.admin.home');
+
     }
 
     /**
@@ -46,7 +47,18 @@ class AdminController extends Controller
      */
     public function show(Admin $admin)
     {
-        //
+        //dd ($user);
+        $users = User::limit(5)
+            ->orderBy('created_at', 'desc')
+            ->get();
+        //dd($users);
+
+        return view('console.user.admin.home')
+            ->with(
+                compact([
+                    'users'
+                ])
+            );
     }
 
     /**

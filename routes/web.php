@@ -29,7 +29,7 @@ Route::prefix('console')->name('console.')->group(function () {
 
         Route::prefix('admin')->name('admin.')->group(function () { // todo - Should have middleware protecting it from non-admin users
 
-            Route::get('/', 'AdminController@index')->name('home');
+            Route::get('/', 'AdminController@show')->name('home');
 
         });
 

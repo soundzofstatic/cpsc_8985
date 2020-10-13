@@ -10,6 +10,26 @@
         </div>
         <div class="row">
             <div class="col-md-12">
+                <h2>Users</h2>
+                <p>See the last 5 users created</p>
+            </div>
+            <div class="col-md-12">
+                @foreach($users as $user)
+                    <div class="row mb-2" style="border: thin solid red">
+                        <div class="col-md-12">
+                            <p>{{ $user->first_name }} {{ $user->last_name }}</p>
+                            <p>{{ $user->email }}</p>
+                            @if(!empty($user->username))
+                                <p>{{ $user->username }}#{{ $user->id }}</p>
+                            @endif
+                            <p>{{ $user->created_at->format('m/d/Y g:i:s a') }}</p>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
                 <h2>Search and Promote</h2>
                 <p>Search for users and promote them administrative level accounts.</p>
             </div>
