@@ -310,4 +310,33 @@ class UserController extends Controller
         }
 
     }
+
+    public function disableUser(User $user) // $user provided via Route-Model binding in Laravel
+    {
+
+        try {
+
+            if($user->id == Auth::user()->id) {
+
+                throw new \Exception('Authenticated user cannot disable themself.');
+
+            }
+
+            $user->is_active = false;
+            $user->save();
+
+            return redirect()
+                ->back()
+                ->with(['message' => 'Successfully disabled user: ' . $user->id]);
+
+        } catch (\Exception $e) {
+
+            Log::error($e->getMessage());
+            return redirect()
+                ->back()
+                ->withErrors([$e->getMessage()]);
+
+        }
+
+    }
 }
