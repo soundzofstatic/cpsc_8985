@@ -17,13 +17,13 @@ class UsersTableSeeder extends Seeder
         if($users->count() < 11) {
 
             // Ensure admin_user exists as a user
-            $user = new \App\User();
-            $user->first_name = 'Admin';
-            $user->last_name = 'Admin';
-            $user->email = 'admin@fake.com';
-            $user->username = 'admin_user';
-            $user->password = bcrypt('password');
-            $user->save();
+            $adminUser = new \App\User();
+            $adminUser->first_name = 'Admin';
+            $adminUser->last_name = 'Admin';
+            $adminUser->email = 'admin@fake.com';
+            $adminUser->username = 'admin_user';
+            $adminUser->password = bcrypt('password');
+            $adminUser->save();
 
             for ($i = 0; $i < 11; $i++) {
 
