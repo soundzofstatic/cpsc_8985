@@ -1,10 +1,10 @@
 <!-- Hero Section Begin -->
-<section class="hero-section set-bg" data-setbg="{{ asset('img/hero-bg.jpg') }}">
+<section class="hero-section set-bg" data-setbg="{{ parse_url(asset('img/hero-bg.jpg'), PHP_URL_PATH) }}">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
                 <div class="hero-text">
-                    <img src="{{ asset('img/placeholder.png') }}" alt="">
+                    <img src="{{ parse_url(asset('img/placeholder.png'), PHP_URL_PATH) }}" alt="">
                     <h1>New York</h1>
                     <form action="#" class="filter-search">
                         <div class="category-search">
