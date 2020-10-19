@@ -23,13 +23,13 @@
                                 <p>{{ $user->username }}#{{ $user->id }}</p>
                             @endif
                             <p>{{ $user->created_at->format('m/d/Y g:i:s a') }}</p>
-                            {{--                            @if($user->is_active)--}}
-                            <a href="{{ route('console.user.admin.update.disable-user', ['user'=> $user->id]) }}"
-                               class="btn btn-sm btn-danger">Disable User</a>
-                            {{--                            @else--}}
-                            <a href="{{route('console.user.admin.update.enable-user', ['user'=> $user->id]) }}"
-                               class="btn btn-sm btn-success">Enable User</a>
-                            {{--                            @endif--}}
+                            @if($user->is_active)
+                                <a href="{{ route('console.user.admin.update.disable-user', ['user'=> $user->id]) }}"
+                                    class="btn btn-sm btn-danger">Disable User</a>
+                            @else
+                                <a href="{{route('console.user.admin.update.enable-user', ['user'=> $user->id]) }}"
+                                    class="btn btn-sm btn-success">Enable User</a>
+                            @endif
                         </div>
                     </div>
                 @endforeach
