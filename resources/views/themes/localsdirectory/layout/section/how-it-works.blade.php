@@ -1,5 +1,5 @@
 <!-- How It Works Section Begin -->
-<section class="work-section set-bg" data-setbg="{{ asset('img/line-bg.jpg') }}">
+<section class="work-section set-bg" data-setbg="{{ parse_url(asset('img/line-bg.jpg'), PHP_URL_PATH) }}">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">

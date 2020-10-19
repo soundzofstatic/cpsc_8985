@@ -1,81 +1,66 @@
 @extends('themes.localsdirectory.layout.base')
-@section ('page_name')User Console
+@section ('page_name')Business Console
 @endsection
 @section ('content')
     <main class="container main-pad">
         <div class="row">
             <div class="col">
-                <h1>User Console</h1>
+                <h1>Business Page</h1>
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
-                <h2>Reviews</h2>
-                <p>See your last 5 reviews.</p>
+                <h2>Review</h2>
             </div>
             <div class="col-md-12">
-                @foreach($user->lastFiveReviews as $review)
-                    <div class="row mb-2" style="border: thin solid red">
-                        <div class="col-md-12 p-3 shadow ">
-                            <p>{{ $review->business->name }}</p>
-                            <p>{{ $review->originalFeedback->text }}</p>
-                            <p>{{ $review->created_at->format('m/d/Y g:i:s a') }}</p>
-                            <div class="d-flex align-items-center justify-content-between my-3">
-                                <div>
-                                    <button type="button" class="btn btn-outline-secondary px-3 btn-sm">Useful</button>
-                                    <button type="button" class="btn btn-outline-secondary px-2 btn-sm">Funny</button>
-                                    <button type="button" class="btn btn-outline-secondary px-2 btn-sm">Cool</button>
-                                    </div>
-                                <div>
-                                    <a href="#" class="mr-2">Reply</a>
-                                    <a href="#" class="mr-2">Comment</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <h2>Check-Ins</h2>
-                <p>See your last 5 check-ins.</p>
-            </div>
-            <div class="col-md-12">
-                <div class="row mb-2">
-                @foreach($user->lastFiveBusinessCheckIns as $CheckIn)
-                        <div class="col-md-4 m-1" style="border: thin solid red">
-                            <p>{{ $CheckIn->business->name }}</p>
-                            <p>{{ $CheckIn->created_at->format('m/d/Y g:i:s a') }}</p>
-                        </div>
-                @endforeach
-                    </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <h2>Bookmarks</h2>
-                <p>See all of your bookmarks.</p>
-            </div>
-
-            <div class="col-md-12">
+                {{--  todo - Render Data            --}}
                 <div class="row">
-                    @foreach($user->bookmarks as $bookmark)
-                        <div class="col-md-3 m-1" style="border:thin solid red">
-                            <p>{{ $bookmark->business->name }}</p>
-                            <p>{{ $bookmark->created_at->format('m/d/Y g:i:s a') }}</p>
-                        </div>
-                    @endforeach
+                    {{--                Write a review:--}}
+                    <div class="col-md-4">
+                        <form action="{{ route('business.action.store-review', ['business' => $business->id]) }}" method="POST">
+                            @csrf
+                            <fieldset>
+                                <legend> RATING SURVEY:</legend>
+                                <label for="name">Name:</label>
+                                <input type="text" name="name" value="">
+                                <br><br>
+                                <label for="email">Please tell us your email address: </label>
+                                <input type="text" name="email" value="">
+                                <br><br>
+
+                                <label for="movie">Restaurant you recently visited: </label>
+                                <input type="text" name=“Restaurant” value="">
+                                <p><label for="rating">Please rate the resturant:</label></p>
+                                <input type="radio" name="rating" value="Very Bad" checked> Very Bad<br>
+                                <input type="radio" name="rating" value="Bad"> Bad<br>
+                                <input type="radio" name="rating" value="Good"> Good<br>
+                                <input type="radio" name="rating" value="Very Good"> Very Good<br>
+
+                                <p>
+                                    <label for="survey">
+                                        Would you like to be contacted again for addtional surveys?
+                                    </label>
+                                </p>
+                                <input type="radio" name="survey" value="yes" checked> Yes<br>
+                                <input type="radio" name="survey" value="no"> No<br>
+                                <p align="center">
+                                    <input type="submit" name="submit" value="Submit My Information"/>
+                                </p>
+                            </fieldset>
+                        </form>
+                    </div>
+                    <div class="col-md-4">
+                        <p>CALL: 998-77-8888</p>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="row mb-5">
-            <div class="col-lg-12 text-center">
-                <a href="{{ route('console.user.settings', ['user' => \Illuminate\Support\Facades\Auth::user()->id]) }}"
-                   class="primary-btn">User Settings</a>
-            </div>
-        </div>
-        <!-- Logout Begin -->
+    {{--        <div class="row mb-5">--}}
+    {{--            <div class="col-lg-12 text-center">--}}
+    {{--                <a href="{{ route('console.user.settings', ['user' => \Illuminate\Support\Facades\Auth::user()->id]) }}" class="primary-btn">User Settings</a>--}}
+    {{--            </div>--}}
+    {{--        </div>--}}
+    <!-- Logout Begin -->
         <form method="POST" action="{{ route('logout') }}">
             @csrf
             <button class="btn btn-danger">Logout</button>
