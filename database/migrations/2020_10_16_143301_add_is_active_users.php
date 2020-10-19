@@ -14,7 +14,7 @@ class AddIsActiveUsers extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->boolean('is-active')->after('remember_token')->default(true);
+            $table->boolean('is_active')->after('remember_token')->default(true);
         });
     }
 
