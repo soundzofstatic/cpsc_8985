@@ -373,5 +373,34 @@ class UserController extends Controller
         }
 
     }
+
+
+    public function listAllUsers()
+    {
+
+        try {
+
+            $users = User::orderBy('created_at', 'asc')
+                ->get();
+
+            return view('console.user.admin.list-users')
+                ->with(
+                    compact(
+                        [
+                            'users'
+                        ]
+                    )
+                );
+
+        } catch (\Exception $e) {
+
+            Log::error($e->getMessage());
+            return redirect()
+                ->back()
+                ->withErrors([$e->getMessage()]);
+
+        }
+
+    }
 }
 
