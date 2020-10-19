@@ -34,6 +34,7 @@ Route::prefix('console')->name('console.')->group(function () {
             Route::prefix('update')->name('update.')->group(function () {
 
                 Route::get('/disable-user', 'UserController@disableUser')->name('disable-user'); // todo - hook this in to Blade where users are displayed for admin
+                Route::get('/enable-user', 'UserController@enableUser')->name('enable-user');
 
             });
 

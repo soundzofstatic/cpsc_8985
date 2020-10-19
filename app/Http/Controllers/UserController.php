@@ -324,7 +324,7 @@ class UserController extends Controller
 
             $user->is_active = false;
             $user->save();
-
+            return view('console.user.business.home');
             return redirect()
                 ->back()
                 ->with(['message' => 'Successfully disabled user: ' . $user->id]);
@@ -339,4 +339,27 @@ class UserController extends Controller
         }
 
     }
+    public function enableUser(User $user)
+    {
+
+        try {
+
+            $user->is_active = true;
+            $user->save();
+            return view('console.user.business.home');
+            return redirect()
+                ->back()
+                ->with(['message' => 'Successfully Enabled user: ' . $user->id]);
+
+        } catch (\Exception $e) {
+
+            Log::error($e->getMessage());
+            return redirect()
+                ->back()
+                ->withErrors([$e->getMessage()]);
+
+        }
+
+    }
 }
+

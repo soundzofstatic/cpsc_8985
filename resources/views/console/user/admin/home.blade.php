@@ -23,11 +23,13 @@
                                 <p>{{ $user->username }}#{{ $user->id }}</p>
                             @endif
                             <p>{{ $user->created_at->format('m/d/Y g:i:s a') }}</p>
-                            @if($user->is_active)
-                                <a href="{{ route('console.user.admin.update.disable-user', ['user'=> $user->id]) }}" class="btn btn-sm btn-danger">Disable User</a>
-                            @else
-                                <a href="#{{--{{ route('console.user.admin.update.disable-user', ['user'=> $user->id]) }}--}}" class="btn btn-sm btn-success">Enable User</a>
-                            @endif
+                            {{--                            @if($user->is_active)--}}
+                            <a href="{{ route('console.user.admin.update.disable-user', ['user'=> $user->id]) }}"
+                               class="btn btn-sm btn-danger">Disable User</a>
+                            {{--                            @else--}}
+                            <a href="{{route('console.user.admin.update.enable-user', ['user'=> $user->id]) }}"
+                               class="btn btn-sm btn-success">Enable User</a>
+                            {{--                            @endif--}}
                         </div>
                     </div>
                 @endforeach
@@ -44,7 +46,8 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <label for="query" class="sr-only">Query</label>
-                            <input id="query" type="text" placeholder="Search for User by username, name, or email" name="query" value="{{ old('query') }}">
+                            <input id="query" type="text" placeholder="Search for User by username, name, or email"
+                                   name="query" value="{{ old('query') }}">
                         </div>
                         <div class="col-lg-12 text-center">
                             <button id="search" type="button">Search</button>
@@ -68,7 +71,7 @@
 @endsection
 @section('scripts')
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('#search').click(function () {
                 searchUsers();
             });
