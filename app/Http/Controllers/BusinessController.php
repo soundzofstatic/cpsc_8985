@@ -46,7 +46,16 @@ class BusinessController extends Controller
      */
     public function show(Business $business)
     {
-        //
+//        dd($business);
+
+        return view('business.home')
+            ->with(
+                compact(
+                    [
+                        'business'
+                    ]
+                )
+            );
     }
 
     /**
@@ -81,5 +90,15 @@ class BusinessController extends Controller
     public function destroy(Business $business)
     {
         //
+    }
+
+
+    public function storeReview(Request $request, Business $business)
+    {
+//        dd($business);
+        dd($request->all());
+
+        // todo - Save the information using Relations from the $business Model.
+
     }
 }

@@ -27,8 +27,8 @@
                                     <button type="button" class="btn btn-outline-secondary px-2 btn-sm">Cool</button>
                                     </div>
                                 <div>
-                                    <a href="/" class="mr-2">Reply</a>
-                                    <a href="/" class="mr-2">Comment</a>
+                                    <a href="#" class="mr-2">Reply</a>
+                                    <a href="#" class="mr-2">Comment</a>
                                 </div>
                             </div>
                         </div>

@@ -84,7 +84,9 @@ Route::prefix('user')->name('user.')->group(function () {
 Route::prefix('business')->name('business.')->group(function () {
 
     Route::get('/{business}', 'BusinessController@show')->name('home');
-
+    Route::prefix('{business}/action')->name('action.')->group(function () {
+        Route::post('/store-review', 'BusinessController@storeReview')->name('store-review');
+    });
 });
 
 // Theme Examples

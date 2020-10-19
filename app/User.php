@@ -66,6 +66,13 @@ class User extends Authenticatable
             'id'
         );
     }
+//    public function Review() { todo - This is a duplicate relationship, see above.
+//        return $this->hasMany(
+//            Review::class,
+//            'Name',
+//            'Email_id'
+//        );
+//    }
     public Function lastFiveReviews()
     {
         return $this->hasMany(
@@ -133,13 +140,6 @@ class User extends Authenticatable
             PromotedBusiness::class,
             'user_id',
             'id'
-        );
-    }
-    public function Review() {
-        return $this->hasMany(
-            Review::class,
-            'Name',
-            'Email_id'
         );
     }
 

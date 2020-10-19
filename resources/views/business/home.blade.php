@@ -5,16 +5,54 @@
     <main class="container main-pad">
         <div class="row">
             <div class="col">
-                <h1>Business Console</h1>
+                <h1>Business Page</h1>
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
-                <h2>Business</h2>
-                <p>See all the details surrounding your business. Select a business</p>
+                <h2>Review</h2>
             </div>
             <div class="col-md-12">
                 {{--  todo - Render Data            --}}
+                <div class="row">
+                    {{--                Write a review:--}}
+                    <div class="col-md-4">
+                        <form action="{{ route('business.action.store-review', ['business' => $business->id]) }}" method="POST">
+                            @csrf
+                            <fieldset>
+                                <legend> RATING SURVEY:</legend>
+                                <label for="name">Name:</label>
+                                <input type="text" name="name" value="">
+                                <br><br>
+                                <label for="email">Please tell us your email address: </label>
+                                <input type="text" name="email" value="">
+                                <br><br>
+
+                                <label for="movie">Restaurant you recently visited: </label>
+                                <input type="text" name=“Restaurant” value="">
+                                <p><label for="rating">Please rate the resturant:</label></p>
+                                <input type="radio" name="rating" value="Very Bad" checked> Very Bad<br>
+                                <input type="radio" name="rating" value="Bad"> Bad<br>
+                                <input type="radio" name="rating" value="Good"> Good<br>
+                                <input type="radio" name="rating" value="Very Good"> Very Good<br>
+
+                                <p>
+                                    <label for="survey">
+                                        Would you like to be contacted again for addtional surveys?
+                                    </label>
+                                </p>
+                                <input type="radio" name="survey" value="yes" checked> Yes<br>
+                                <input type="radio" name="survey" value="no"> No<br>
+                                <p align="center">
+                                    <input type="submit" name="submit" value="Submit My Information"/>
+                                </p>
+                            </fieldset>
+                        </form>
+                    </div>
+                    <div class="col-md-4">
+                        <p>CALL: 998-77-8888</p>
+                    </div>
+                </div>
             </div>
         </div>
     {{--        <div class="row mb-5">--}}
