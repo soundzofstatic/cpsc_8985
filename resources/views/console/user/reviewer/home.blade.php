@@ -16,10 +16,21 @@
             <div class="col-md-12">
                 @foreach($user->lastFiveReviews as $review)
                     <div class="row mb-2" style="border: thin solid red">
-                        <div class="col-md-12">
+                        <div class="col-md-12 p-3 shadow ">
                             <p>{{ $review->business->name }}</p>
                             <p>{{ $review->originalFeedback->text }}</p>
                             <p>{{ $review->created_at->format('m/d/Y g:i:s a') }}</p>
+                            <div class="d-flex align-items-center justify-content-between my-3">
+                                <div>
+                                    <button type="button" class="btn btn-outline-secondary px-3 btn-sm">Useful</button>
+                                    <button type="button" class="btn btn-outline-secondary px-2 btn-sm">Funny</button>
+                                    <button type="button" class="btn btn-outline-secondary px-2 btn-sm">Cool</button>
+                                    </div>
+                                <div>
+                                    <a href="/" class="mr-2">Reply</a>
+                                    <a href="/" class="mr-2">Comment</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 @endforeach

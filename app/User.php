@@ -135,6 +135,14 @@ class User extends Authenticatable
             'id'
         );
     }
+    public function Review() {
+        return $this->hasMany(
+            Review::class,
+            'Name',
+            'Email_id'
+        );
+    }
+
 
     /**
      * Method that denotes whether an User is an admin or not
