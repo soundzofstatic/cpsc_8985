@@ -31,6 +31,13 @@ Route::prefix('console')->name('console.')->group(function () {
 
             Route::get('/', 'AdminController@show')->name('home');
 
+            Route::prefix('update')->name('update.')->group(function () {
+
+                Route::get('/disable-user', 'UserController@disableUser')->name('disable-user'); // todo - hook this in to Blade where users are displayed for admin
+                Route::get('/enable-user', 'UserController@enableUser')->name('enable-user');
+
+            });
+
         });
 
         Route::prefix('reviewer')->name('reviewer.')->group(function () { // todo - Should have middleware protecting it from non-admin users
@@ -71,6 +78,12 @@ Route::prefix('console')->name('console.')->group(function () {
         });
 
     });
+
+    Route::prefix('admin')->name('admin.')->group(function () { // todo - Should have middleware protecting it from non-admin users
+
+        Route::get('/all-users', 'UserController@listAllUsers')->name('list-all-users');
+
+    });
 });
 
 // User Pages/Routes
@@ -84,7 +97,9 @@ Route::prefix('user')->name('user.')->group(function () {
 Route::prefix('business')->name('business.')->group(function () {
 
     Route::get('/{business}', 'BusinessController@show')->name('home');
-
+    Route::prefix('{business}/action')->name('action.')->group(function () {
+        Route::post('/store-review', 'BusinessController@storeReview')->name('store-review');
+    });
 });
 
 // Theme Examples

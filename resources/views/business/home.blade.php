@@ -1,67 +1,66 @@
 @extends('themes.localsdirectory.layout.base')
-@section ('page_name')Admin Console
+@section ('page_name')Business Console
 @endsection
 @section ('content')
     <main class="container main-pad">
         <div class="row">
             <div class="col">
-                <h1>Admin Console</h1>
+                <h1>Business Page</h1>
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
-                <h2>Users</h2>
-                <p>See the last 5 users created. See <a href="{{ route('console.admin.list-all-users') }}" class="btn btn-sm btn-primary">all users</a></p>
+                <h2>Review</h2>
             </div>
             <div class="col-md-12">
-                @foreach($users as $user)
-                    <div class="row mb-2" style="border: thin solid red">
-                        <div class="col-md-12">
-                            <p>{{ $user->first_name }} {{ $user->last_name }}</p>
-                            <p>{{ $user->email }}</p>
-                            @if(!empty($user->username))
-                                <p>{{ $user->username }}#{{ $user->id }}</p>
-                            @endif
-                            <p>{{ $user->created_at->format('m/d/Y g:i:s a') }}</p>
-                            @if($user->is_active)
-                                <a href="{{ route('console.user.admin.update.disable-user', ['user'=> $user->id]) }}"
-                                    class="btn btn-sm btn-danger">Disable User</a>
-                            @else
-                                <a href="{{route('console.user.admin.update.enable-user', ['user'=> $user->id]) }}"
-                                    class="btn btn-sm btn-success">Enable User</a>
-                            @endif
-                        </div>
+                {{--  todo - Render Data            --}}
+                <div class="row">
+                    {{--                Write a review:--}}
+                    <div class="col-md-4">
+                        <form action="{{ route('business.action.store-review', ['business' => $business->id]) }}" method="POST">
+                            @csrf
+                            <fieldset>
+                                <legend> RATING SURVEY:</legend>
+                                <label for="name">Name:</label>
+                                <input type="text" name="name" value="">
+                                <br><br>
+                                <label for="email">Please tell us your email address: </label>
+                                <input type="text" name="email" value="">
+                                <br><br>
+
+                                <label for="movie">Restaurant you recently visited: </label>
+                                <input type="text" name=“Restaurant” value="">
+                                <p><label for="rating">Please rate the resturant:</label></p>
+                                <input type="radio" name="rating" value="Very Bad" checked> Very Bad<br>
+                                <input type="radio" name="rating" value="Bad"> Bad<br>
+                                <input type="radio" name="rating" value="Good"> Good<br>
+                                <input type="radio" name="rating" value="Very Good"> Very Good<br>
+
+                                <p>
+                                    <label for="survey">
+                                        Would you like to be contacted again for addtional surveys?
+                                    </label>
+                                </p>
+                                <input type="radio" name="survey" value="yes" checked> Yes<br>
+                                <input type="radio" name="survey" value="no"> No<br>
+                                <p align="center">
+                                    <input type="submit" name="submit" value="Submit My Information"/>
+                                </p>
+                            </fieldset>
+                        </form>
                     </div>
-                @endforeach
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <h2>Search and Promote</h2>
-                <p>Search for users and promote them administrative level accounts.</p>
-            </div>
-            <div class="col-md-12">
-                <div class="contact-form">
-                    @csrf
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <label for="query" class="sr-only">Query</label>
-                            <input id="query" type="text" placeholder="Search for User by username, name, or email"
-                                   name="query" value="{{ old('query') }}">
-                        </div>
-                        <div class="col-lg-12 text-center">
-                            <button id="search" type="button">Search</button>
-                            <button id="reset" type="button" class="reset">Reset</button>
-                        </div>
-                    </div>
-                </div>
-                <div id="search-results" class="col-lg-12">
-                    <div class="row">
+                    <div class="col-md-4">
+                        <p>CALL: 998-77-8888</p>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Logout Begin -->
+    {{--        <div class="row mb-5">--}}
+    {{--            <div class="col-lg-12 text-center">--}}
+    {{--                <a href="{{ route('console.user.settings', ['user' => \Illuminate\Support\Facades\Auth::user()->id]) }}" class="primary-btn">User Settings</a>--}}
+    {{--            </div>--}}
+    {{--        </div>--}}
+    <!-- Logout Begin -->
         <form method="POST" action="{{ route('logout') }}">
             @csrf
             <button class="btn btn-danger">Logout</button>

@@ -14,77 +14,34 @@
                 <p>See all the details surrounding your business. Select a business</p>
             </div>
             <div class="col-md-12">
-                {{--  todo - Render Data            --}}
+                {{--  todo - Render list of all businesses owned by Authenticated user --}}
+            </div>
+        </div>
+    {{--        <div class="row mb-5">--}}
+    {{--            <div class="col-lg-12 text-center">--}}
+    {{--                <a href="{{ route('console.user.settings', ['user' => \Illuminate\Support\Facades\Auth::user()->id]) }}" class="primary-btn">User Settings</a>--}}
+    {{--            </div>--}}
+    {{--        </div>--}}
+
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Create a Business</h2>
+                <p>Click on the button below to start creating a new business.</p>
+                <a href="{{ route('console.user.businesses.create', ['user' => \Illuminate\Support\Facades\Auth::user()->id]) }}" class="btn btn-primary">Create Business</a>
             </div>
         </div>
 
-        <div style="text-align:center">');
-            <div class='center'>
-                <form action="" method="post">
-                    <div class="imgcontainer">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRbjTzEm1nYw9RNk1X74rPbEU8OWCAgBgSXXg&usqp=CAU"
-                             alt="Avatar" class="avatar">
-                    </div>
-
-                    <div class="container">
-                        <br><label for="uname"><b>Username</b></label>
-                        <input type="text" placeholder="Enter Username" name="uname" required><br/>
-
-                        <br><label for="psw"><b>Password</b></label>
-                        <input type="password" placeholder="Enter Password" name="psw" required><br/>
-
-                        <br><label for="psw"><b>Confirm Password</b></label>
-                        <input type="Confirmpassword" placeholder="Confirm Password" name="psw" required><br/>
-
-                        <br><label for="email"><b>EmailID</b></label>
-                        <input type="text" placeholder="Enter EmailID" name="emailid" required><br/>
-
-                        <br><label for="address"><b>Address</b></label>
-                        <input type="text" placeholder="Enter address" name="address" required><br/>
-
-                        <br><label for="contact"><b>ContactNo</b></label>
-                        <input type="text" placeholder="Enter contact no" name="contact" required><br/>
-
-                        <br><label for="menu_url"><b>Menu_url</b></label>
-                        <input type="text" placeholder="Enter menu_url" name="menu_url" required><br/>
-
-
-                        <br><label for="socialmedia_url"><b>SocialMedia_url</b></label>
-                        <input type="text" placeholder="Enter socialmedia_url" name="socialmedia_url" required><br/>
-
-                        <br><label for="psw"><b>Password</b></label>
-                        <input type="password" placeholder="Enter Password" name="psw" required><br/>
-
-                        <br><label for="psw"><b>Confirm Password</b></label>
-                        <input type="Confirmpassword" placeholder="Confirm Password" name="psw" required><br/>
-                        <br>
-
-                        <label for="EstablishedOn">Established Date:</label>
-                        <input type="date" id="Established" name="EstablishedOn">
-
-                        <br><button type="submit">submit</button>
-                        <br/>
-                    </div>
-                </form>
-
-            </div>
-
-        {{--        <div class="row mb-5">--}}
-        {{--            <div class="col-lg-12 text-center">--}}
-        {{--                <a href="{{ route('console.user.settings', ['user' => \Illuminate\Support\Facades\Auth::user()->id]) }}" class="primary-btn">User Settings</a>--}}
-        {{--            </div>--}}
-        {{--        </div>--}}
-        <!-- Logout Begin -->
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-                <button class="btn btn-danger">Logout</button>
-            </form>
-            <!-- Logout End -->
+    <!-- Logout Begin -->
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <button class="btn btn-danger">Logout</button>
+        </form>
+        <!-- Logout End -->
     </main>
 @endsection
 @section('scripts')
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('#search').click(function () {
                 searchUsers();
             });
