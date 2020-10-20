@@ -52,7 +52,7 @@ Route::prefix('console')->name('console.')->group(function () {
             Route::get('/business-create', 'BusinessController@create')->name('create');
             Route::post('/business-create', 'BusinessController@store')->name('store');
 
-            Route::prefix('business/{business}')->name('business.')->group(function () { // todo - Should have middleware
+            Route::prefix('{business}')->name('business.')->group(function () { // todo - Should have middleware
 
                 Route::get('/', 'BusinessController@showConsole')->name('business-console');
 
@@ -172,5 +172,16 @@ Route::get('/poc/search-business-send-to-blade', function(){ // todo - should be
                 ]
             )
         );
+
+});
+
+Route::get('/poc/relatedFeedback', function(){
+
+    // Test count of total check-ins
+    $review = \App\Review::where('id', '=', 286)
+        ->first();
+
+    dd($review->relatedFeedbacks);
+    dd($review);
 
 });
