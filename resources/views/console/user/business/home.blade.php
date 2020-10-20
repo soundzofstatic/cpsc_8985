@@ -14,58 +14,10 @@
                 <p>See all the details surrounding your business. Select a business</p>
             </div>
             <div class="col-md-12">
-
                 {{--  todo - Render Data            --}}
-                <div class="d-flex align-items-center">
 
-                    <div class="basr-social-share social">
-                        <ul class="">
-                            <li>
-                                <a class="facebook" href="">
-                                    <i class="fa fa-facebook"></i>
-                                    <span>Facebook</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a class="twitter" href="">
-                                    <i class="fa fa-twitter"></i>
-                                    <span>Twitter</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a class="googleplus" href="">
-                                    <i class="fa fa-google-plus"></i>
-                                    <span>Google Plus</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a class="linkedin" href="">
-                                    <i class="fa fa-linkedin"></i>
-                                    <span>Linkedin</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a class="tumblr" href="">
-                                    <i class="fa fa-tumblr"></i>
-                                    <span>Tumblr</span>
-                                </a>
-                            </li>
-
-                        </ul>
-                    </div>
-
-                </div>
-
-
-
-
-
-                </div>
                 {{--  todo - Render list of all businesses owned by Authenticated user --}}
+
             </div>
         </div>
     {{--        <div class="row mb-5">--}}
