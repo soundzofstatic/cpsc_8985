@@ -46,15 +46,19 @@ Route::prefix('console')->name('console.')->group(function () {
 
         });
 
-        Route::prefix('business')->name('business.')->group(function () { // todo - Should have middleware protecting it from non-admin users
+        Route::prefix('businesses')->name('businesses.')->group(function () { // todo - Should have middleware protecting it from non-admin users
 
             Route::get('/', 'UserController@businessConsoleIndex')->name('home');
-            Route::get('/{business}', 'BusinessController@indexConsole')->name('business-console');
+            Route::get('/business-create', 'BusinessController@create')->name('create');
+            Route::post('/business-create', 'BusinessController@store')->name('store');
 
+            Route::prefix('business/{business}')->name('business.')->group(function () { // todo - Should have middleware
+
+                Route::get('/', 'BusinessController@showConsole')->name('business-console');
+
+            });
         });
-
     });
-
     Route::prefix('update')->name('update.')->group(function () {
 
         Route::prefix('user/{user}')->name('user.')->group(function () {
@@ -78,11 +82,8 @@ Route::prefix('console')->name('console.')->group(function () {
         });
 
     });
-
     Route::prefix('admin')->name('admin.')->group(function () { // todo - Should have middleware protecting it from non-admin users
-
         Route::get('/all-users', 'UserController@listAllUsers')->name('list-all-users');
-
     });
 });
 

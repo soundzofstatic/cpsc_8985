@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Business;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class BusinessController extends Controller
 {
@@ -24,7 +26,7 @@ class BusinessController extends Controller
      */
     public function create()
     {
-        //
+        return view('console.user.business.create');
     }
 
     /**
@@ -35,7 +37,25 @@ class BusinessController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        try {
+
+            dd($request->all()); // echo or display of data
+            dd($request->input('name')); // echo or display of data
+
+            // todo - Mythri, add logic here to save a business
+            // todo - Must save Business for Authenticated User
+            $authenticatedUser = Auth::user();
+            dd($authenticatedUser->id);
+
+        } catch (\Exception $e) {
+
+            Log::error($e->getMessage());
+            return redirect()
+                ->back()
+                ->withErrors([$e->getMessage()]);
+
+        }
     }
 
     /**
@@ -92,7 +112,6 @@ class BusinessController extends Controller
         //
     }
 
-
     public function storeReview(Request $request, Business $business)
     {
 //        dd($business);
@@ -100,5 +119,24 @@ class BusinessController extends Controller
 
         // todo - Save the information using Relations from the $business Model.
 
+    }
+
+    public function showConsole($business)
+    {
+        // todo - Route-Model binding not working, going back to traditional method
+
+        // todo - check if Business is Owned by Auth User ID
+
+        $business = Business::find($business)
+            ->first();
+
+        return view('console.user.business.business')
+            ->with(
+                compact(
+                    [
+                        'business'
+                    ]
+                )
+            );
     }
 }
