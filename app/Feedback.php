@@ -8,14 +8,21 @@ use Illuminate\Support\Facades\App;
 class Feedback extends Model
 {
     //Relationship
-    public function Review()
+    public function review()
     {
-        return $this->hasMany(
-            User::class,
-            'user_id',
-            'id'
+        return $this->hasOne(
+            Review::class,
+            'id',
+            'user_id'
         );
+    }
 
-
+    public function user()
+    {
+        return $this->hasOne(
+            User::class,
+            'id',
+            'user_id'
+        );
     }
 }

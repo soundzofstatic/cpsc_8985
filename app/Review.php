@@ -39,4 +39,15 @@ class Review extends Model
             'feedback_id'
         );
     }
+
+    public function relatedFeedbacks() {
+        return $this->hasMany(
+            Feedback::class,
+            'review_id',
+            'id'
+        )
+            ->where('sequence_number', '!=', 0)
+            ->where('review_id', '=', $this->id)
+            ->orderBy('sequence_number', 'ASC');
+    }
 }

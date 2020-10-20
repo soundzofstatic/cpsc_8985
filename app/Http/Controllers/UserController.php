@@ -298,7 +298,14 @@ class UserController extends Controller
 
         try {
 
-            return view('console.user.business.home');
+            return view('console.user.business.home')
+                ->with(
+                    compact(
+                        [
+                            'user'
+                        ]
+                    )
+                );
 
         } catch (\Exception $e) {
 

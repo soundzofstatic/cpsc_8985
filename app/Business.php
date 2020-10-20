@@ -83,7 +83,7 @@ class Business extends Model
             'id'
         );
     }
-    public function review()
+    public function reviews()
     {
         return $this->hasMany(
             Review::class,
@@ -100,5 +100,10 @@ class Business extends Model
             'user_id',
             'id'
         );
+    }
+
+    public function rating()
+    {
+        return round($this->reviews->avg('rating'), 1);
     }
 }

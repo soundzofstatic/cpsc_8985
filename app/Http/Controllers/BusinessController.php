@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Business;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -121,19 +122,18 @@ class BusinessController extends Controller
 
     }
 
-    public function showConsole($business)
+    /**
+     * @param Business $business
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function showConsole(User $user, Business $business)
     {
-        // todo - Route-Model binding not working, going back to traditional method
 
-        // todo - check if Business is Owned by Auth User ID
-
-        $business = Business::find($business)
-            ->first();
-
-        return view('console.user.business.business')
+        return view('console.user.business.single-listing')
             ->with(
                 compact(
                     [
+                        'user',
                         'business'
                     ]
                 )
