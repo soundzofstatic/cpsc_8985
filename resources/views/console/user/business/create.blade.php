@@ -1,72 +1,73 @@
 @extends('themes.localsdirectory.layout.base')
-@section ('page_name')Admin Console
+@section ('page_name')Business Console
 @endsection
 @section ('content')
     <main class="container main-pad">
-        <div class="row">
-            <div class="col">
-                <h1>Admin Console</h1>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <h2>Users</h2>
-                <p>See the last 5 users created. See <a href="{{ route('console.admin.list-all-users') }}" class="btn btn-sm btn-primary">all users</a></p>
-            </div>
-            <div class="col-md-12">
-                @foreach($users as $user)
-                    <div class="row mb-2" style="border: thin solid red">
-                        <div class="col-md-12">
-                            <p>{{ $user->first_name }} {{ $user->last_name }}</p>
-                            <p>{{ $user->email }}</p>
-                            @if(!empty($user->username))
-                                <p>{{ $user->username }}#{{ $user->id }}</p>
-                            @endif
-                            <p>{{ $user->created_at->format('m/d/Y g:i:s a') }}</p>
-                            @if($user->is_active)
-                                <a href="{{ route('console.user.admin.update.disable-user', ['user'=> $user->id]) }}"
-                                    class="btn btn-sm btn-danger">Disable User</a>
-                            @else
-                                <a href="{{route('console.user.admin.update.enable-user', ['user'=> $user->id]) }}"
-                                    class="btn btn-sm btn-success">Enable User</a>
-                            @endif
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <h2>Search and Promote</h2>
-                <p>Search for users and promote them administrative level accounts.</p>
-            </div>
-            <div class="col-md-12">
-                <div class="contact-form">
+        <div style="text-align:center">
+            <div class='center'>
+{{--                todo - Replace front-page with actual route that stores/processes the data submitted in the form --}}
+                <form action="{{ route('front-page') }}" method="POST">
                     @csrf
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <label for="query" class="sr-only">Query</label>
-                            <input id="query" type="text" placeholder="Search for User by username, name, or email"
-                                   name="query" value="{{ old('query') }}">
-                        </div>
-                        <div class="col-lg-12 text-center">
-                            <button id="search" type="button">Search</button>
-                            <button id="reset" type="button" class="reset">Reset</button>
-                        </div>
+                    <div class="imgcontainer">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRbjTzEm1nYw9RNk1X74rPbEU8OWCAgBgSXXg&usqp=CAU"
+                             alt="Avatar" class="avatar">
                     </div>
-                </div>
-                <div id="search-results" class="col-lg-12">
-                    <div class="row">
+
+                    <div class="container">
+                        <br><label for="uname"><b>Username</b></label>
+                        <input type="text" placeholder="Enter Username" name="uname" required><br/>
+
+                        <br><label for="psw"><b>Password</b></label>
+                        <input type="password" placeholder="Enter Password" name="psw" required><br/>
+
+                        <br><label for="psw"><b>Confirm Password</b></label>
+                        <input type="Confirmpassword" placeholder="Confirm Password" name="psw" required><br/>
+
+                        <br><label for="email"><b>EmailID</b></label>
+                        <input type="text" placeholder="Enter EmailID" name="emailid" required><br/>
+
+                        <br><label for="address"><b>Address</b></label>
+                        <input type="text" placeholder="Enter address" name="address" required><br/>
+
+                        <br><label for="contact"><b>ContactNo</b></label>
+                        <input type="text" placeholder="Enter contact no" name="contact" required><br/>
+
+                        <br><label for="menu_url"><b>Menu_url</b></label>
+                        <input type="text" placeholder="Enter menu_url" name="menu_url" required><br/>
+
+
+                        <br><label for="socialmedia_url"><b>SocialMedia_url</b></label>
+                        <input type="text" placeholder="Enter socialmedia_url" name="socialmedia_url" required><br/>
+
+                        <br><label for="psw"><b>Password</b></label>
+                        <input type="password" placeholder="Enter Password" name="psw" required><br/>
+
+                        <br><label for="psw"><b>Confirm Password</b></label>
+                        <input type="Confirmpassword" placeholder="Confirm Password" name="psw" required><br/>
+                        <br>
+
+                        <label for="EstablishedOn">Established Date:</label>
+                        <input type="date" id="Established" name="EstablishedOn">
+
+                        <br><button type="submit">submit</button>
+                        <br/>
                     </div>
-                </div>
+                </form>
+
             </div>
-        </div>
+
+        {{--        <div class="row mb-5">--}}
+        {{--            <div class="col-lg-12 text-center">--}}
+        {{--                <a href="{{ route('console.user.settings', ['user' => \Illuminate\Support\Facades\Auth::user()->id]) }}" class="primary-btn">User Settings</a>--}}
+        {{--            </div>--}}
+        {{--        </div>--}}
         <!-- Logout Begin -->
-        <form method="POST" action="{{ route('logout') }}">
-            @csrf
-            <button class="btn btn-danger">Logout</button>
-        </form>
-        <!-- Logout End -->
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button class="btn btn-danger">Logout</button>
+            </form>
+            <!-- Logout End -->
+        </div>
     </main>
 @endsection
 @section('scripts')

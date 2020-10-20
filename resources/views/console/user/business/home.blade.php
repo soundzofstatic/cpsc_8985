@@ -14,6 +14,7 @@
                 <p>See all the details surrounding your business. Select a business</p>
             </div>
             <div class="col-md-12">
+
                 {{--  todo - Render Data            --}}
                 <div class="d-flex align-items-center">
 
@@ -64,14 +65,24 @@
 
 
                 </div>
+                {{--  todo - Render list of all businesses owned by Authenticated user --}}
             </div>
         </div>
-{{--        <div class="row mb-5">--}}
-{{--            <div class="col-lg-12 text-center">--}}
-{{--                <a href="{{ route('console.user.settings', ['user' => \Illuminate\Support\Facades\Auth::user()->id]) }}" class="primary-btn">User Settings</a>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-        <!-- Logout Begin -->
+    {{--        <div class="row mb-5">--}}
+    {{--            <div class="col-lg-12 text-center">--}}
+    {{--                <a href="{{ route('console.user.settings', ['user' => \Illuminate\Support\Facades\Auth::user()->id]) }}" class="primary-btn">User Settings</a>--}}
+    {{--            </div>--}}
+    {{--        </div>--}}
+
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Create a Business</h2>
+                <p>Click on the button below to start creating a new business.</p>
+                <a href="{{ route('console.user.businesses.create', ['user' => \Illuminate\Support\Facades\Auth::user()->id]) }}" class="btn btn-primary">Create Business</a>
+            </div>
+        </div>
+
+    <!-- Logout Begin -->
         <form method="POST" action="{{ route('logout') }}">
             @csrf
             <button class="btn btn-danger">Logout</button>

@@ -310,4 +310,97 @@ class UserController extends Controller
         }
 
     }
+
+    /**
+     * Method used to disable a User
+     * This action can only be done by a User who is also an Admin
+     *
+     * @param User $user
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
+    public function disableUser(User $user) // $user provided via Route-Model binding in Laravel
+    {
+
+        try {
+
+            if($user->id == Auth::user()->id) {
+
+                throw new \Exception('Authenticated user cannot disable themself.');
+
+            }
+
+            $user->is_active = false;
+            $user->save();
+            return redirect()
+                ->back()
+                ->with(['message' => 'Successfully disabled user: ' . $user->id]);
+
+        } catch (\Exception $e) {
+
+            Log::error($e->getMessage());
+            return redirect()
+                ->back()
+                ->withErrors([$e->getMessage()]);
+
+        }
+
+    }
+
+    /**
+     * Method used to enable a user
+     *
+     * @param User $user
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function enableUser(User $user)
+    {
+
+        try {
+
+            $user->is_active = true;
+            $user->save();
+            return redirect()
+                ->back()
+                ->with(['message' => 'Successfully Enabled user: ' . $user->id]);
+
+        } catch (\Exception $e) {
+
+            Log::error($e->getMessage());
+            return redirect()
+                ->back()
+                ->withErrors([$e->getMessage()]);
+
+        }
+
+    }
+
+
+    public function listAllUsers()
+    {
+
+        try {
+
+            $users = User::orderBy('created_at', 'asc')
+                ->get();
+
+            return view('console.user.admin.list-users')
+                ->with(
+                    compact(
+                        [
+                            'users'
+                        ]
+                    )
+                );
+
+        } catch (\Exception $e) {
+
+            Log::error($e->getMessage());
+            return redirect()
+                ->back()
+                ->withErrors([$e->getMessage()]);
+
+        }
+
+    }
 }
+

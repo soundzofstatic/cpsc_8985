@@ -13,7 +13,7 @@
             <div class="col-lg-6">
                 <div class="trend-item">
                     <div class="trend-pic">
-                        <img src="{{ asset('img/trending/trending-1.jpg') }}" alt="">
+                        <img src="{{ parse_url(asset('img/trending/trending-1.jpg'), PHP_URL_PATH) }}" alt="">
                         <div class="rating">4.9</div>
                     </div>
                     <div class="trend-text">
@@ -29,7 +29,7 @@
             <div class="col-lg-6">
                 <div class="trend-item nightlife">
                     <div class="trend-pic">
-                        <img src="{{ asset('img/trending/trending-2.jpg') }}" alt="">
+                        <img src="{{ parse_url(asset('img/trending/trending-2.jpg'), PHP_URL_PATH) }}" alt="">
                         <div class="rating">4.9</div>
                     </div>
                     <div class="trend-text">
@@ -44,7 +44,7 @@
             <div class="col-lg-6">
                 <div class="trend-item hotels">
                     <div class="trend-pic">
-                        <img src="{{ asset('img/trending/trending-3.jpg') }}" alt="">
+                        <img src="{{ parse_url(asset('img/trending/trending-3.jpg'), PHP_URL_PATH) }}" alt="">
                         <div class="rating">4.6</div>
                     </div>
                     <div class="trend-text">
@@ -60,7 +60,7 @@
             <div class="col-lg-6">
                 <div class="trend-item events">
                     <div class="trend-pic">
-                        <img src="{{ asset('img/trending/trending-4.jpg') }}" alt="">
+                        <img src="{{ parse_url(asset('img/trending/trending-4.jpg'), PHP_URL_PATH) }}" alt="">
                         <div class="rating">5.0</div>
                     </div>
                     <div class="trend-text">

@@ -1,17 +1,16 @@
 @extends('themes.localsdirectory.layout.base')
-@section ('page_name')Admin Console
+@section ('page_name')User Listing
 @endsection
 @section ('content')
     <main class="container main-pad">
         <div class="row">
             <div class="col">
-                <h1>Admin Console</h1>
+                <h1>User Listing</h1>
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
                 <h2>Users</h2>
-                <p>See the last 5 users created. See <a href="{{ route('console.admin.list-all-users') }}" class="btn btn-sm btn-primary">all users</a></p>
             </div>
             <div class="col-md-12">
                 @foreach($users as $user)
