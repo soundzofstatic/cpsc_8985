@@ -131,6 +131,7 @@
                         <div style="display: inline-flex">
                             <i style="margin-top: 10px" class="fa fa-external-link fa-lg" aria-hidden="true"></i>
                             <p style="margin-left: 20px; font-size: 15px"> www.LANDOFSHARK.com</p>
+                            <p style="margin-left: 20px; font-size: 15px"> www.LANDOFSOUTH.com</p>
                         </div>
 
                     </div>
