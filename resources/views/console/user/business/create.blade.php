@@ -3,52 +3,19 @@
 @endsection
 @section ('content')
     <main class="container main-pad">
-        <div class="row">
-            <div class="col">
-                <h1>Business Console</h1>
-            </div>
-
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <h2>Business</h2>
-                <p>See all the details surrounding your business. Select a business</p>
-            </div>
-            {{--  todo - Render Data            --}}
-            <div class="col-md-12">
-
-                <div class="row">
-{{--                    <div class="col-lg-12">--}}
-{{--                        <form action="#" class="arrange-select">--}}
-{{--                            <span>Arrange by</span>--}}
-{{--                            <select>--}}
-{{--                                <option>Newest</option>--}}
-{{--                                <option>Oldest</option>--}}
-{{--                            </select>--}}
-{{--                        </form>--}}
-{{--                    </div>--}}
-                    @foreach($user->businesses as $business)
-                    <div class="col-lg-4 col-sm-6">
-                        <a class="arrange-items" href="{{ route('console.user.businesses.business.business-console', ['user'=>$user->id, 'business'=>$business->id]) }}">
-                            <div class="arrange-pic">
-                                <img src="{{ parse_url(asset('img/arrange/arrange-1.jpg'), PHP_URL_PATH) }}" alt="">
-                                <div class="rating">{{ $business->rating() }}</div>
-                                <div class="tic-text">Restaurants</div>
-                            </div>
-                            <div class="arrange-text">
-                                <h5>{{ $business->name  }}</h5>
-                                <span>{{ $business->address }}</span>
-                            </div>
-                        </a>
+        <div style="text-align:center">
+            <div class='center'>
+{{--                todo - Replace front-page with actual route that stores/processes the data submitted in the form --}}
+                <form action="{{ route('front-page') }}" method="POST">
+                    @csrf
+                    <div class="imgcontainer">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRbjTzEm1nYw9RNk1X74rPbEU8OWCAgBgSXXg&usqp=CAU"
+                             alt="Avatar" class="avatar">
                     </div>
-
 
                     <div class="container">
                         <br><label for="uname"><b>Username</b></label>
                         <input type="text" placeholder="Enter Username" name="uname" required><br/>
-
-                        <br><label for="uname"><b>Businessname</b></label>
-                        <input type="text" placeholder="Enter Businessname" name="uname" required><br/>
 
                         <br><label for="psw"><b>Password</b></label>
                         <input type="password" placeholder="Enter Password" name="psw" required><br/>
@@ -82,46 +49,12 @@
                         <label for="EstablishedOn">Established Date:</label>
                         <input type="date" id="Established" name="EstablishedOn">
 
-                        <br>
-                        <button type="submit">submit</button>
+                        <br><button type="submit">submit</button>
                         <br/>
-
-                    @endforeach
-                    <div class="col-lg-12 text-right">
-                        <div class="pagination-num">
-                            <a href="#">01</a>
-                            <a href="#">02</a>
-                            <a href="#">03</a>
-                        </div>
-
                     </div>
-                </div>
+                </form>
 
-
-{{--                @foreach($user->businesses as $business)--}}
-{{--                    <div class="row mb-2" style="border: thin solid red">--}}
-{{--                        <div class="col-md-12 p-3 shadow ">--}}
-{{--                            <p>{{ $review->business->name }}</p>--}}
-{{--                            <p>{{ $review->originalFeedback->text }}</p>--}}
-{{--                            <p>{{ $review->created_at->format('m/d/Y g:i:s a') }}</p>--}}
-{{--                            <div class="d-flex align-items-center justify-content-between my-3">--}}
-{{--                                <div>--}}
-{{--                                    <button type="button" class="btn btn-outline-secondary px-3 btn-sm">Useful</button>--}}
-{{--                                    <button type="button" class="btn btn-outline-secondary px-2 btn-sm">Funny</button>--}}
-{{--                                    <button type="button" class="btn btn-outline-secondary px-2 btn-sm">Cool</button>--}}
-{{--                                </div>--}}
-{{--                                <div>--}}
-{{--                                    <a href="#" class="mr-2">Reply</a>--}}
-{{--                                    <a href="#" class="mr-2">Comment</a>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-                {{--  todo - Render list of all businesses owned by Authenticated user --}}
-{{--                @endforeach--}}
             </div>
-
-
 
         {{--        <div class="row mb-5">--}}
         {{--            <div class="col-lg-12 text-center">--}}
@@ -132,23 +65,8 @@
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
                 <button class="btn btn-danger">Logout</button>
-            </form><!-- Logout End -->
-
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <h2>Create a Business</h2>
-                <p>Click on the button below to start creating a new business.</p>
-                <a href="{{ route('console.user.businesses.create', ['user' => \Illuminate\Support\Facades\Auth::user()->id]) }}"
-                   class="btn btn-primary">Create Business</a>
-            </div>
-        </div>
-        <!-- Logout Begin -->
-        <form method="POST" action="{{ route('logout') }}">
-            @csrf
-            <button class="btn btn-danger">Logout</button>
-        </form>
-        <!-- Logout End -->
+            </form>
+            <!-- Logout End -->
         </div>
     </main>
 @endsection

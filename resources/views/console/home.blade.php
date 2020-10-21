@@ -48,7 +48,7 @@
                         <div class="trend-text">
                             <h4>Business Console</h4>
                             <p>See latest updates for your businesses.</p>
-                            <a href="{{ route('console.user.business.home', ['user' => \Illuminate\Support\Facades\Auth::user()->id]) }}" class="closed">Manage</a>
+                            <a href="{{ route('console.user.businesses.home', ['user' => \Illuminate\Support\Facades\Auth::user()->id]) }}" class="closed">Manage</a>
                         </div>
                         <div class="tic-text">Business</div>
                     </div>

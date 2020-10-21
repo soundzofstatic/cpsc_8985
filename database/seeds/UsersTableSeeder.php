@@ -14,9 +14,18 @@ class UsersTableSeeder extends Seeder
 
         $users = \App\User::get();
 
-        if($users->count() < 10) {
+        if($users->count() < 11) {
 
-            for ($i = 0; $i < 10; $i++) {
+            // Ensure admin_user exists as a user
+            $adminUser = new \App\User();
+            $adminUser->first_name = 'Admin';
+            $adminUser->last_name = 'Admin';
+            $adminUser->email = 'admin@fake.com';
+            $adminUser->username = 'admin_user';
+            $adminUser->password = bcrypt('password');
+            $adminUser->save();
+
+            for ($i = 0; $i < 11; $i++) {
 
                 $faker = Faker\Factory::create('en_US');
                 $randomDate = \Carbon\Carbon::now()->subDays(rand(5, 180));

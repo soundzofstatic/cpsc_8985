@@ -23,7 +23,7 @@ class BookmarkSeeder extends Seeder
 
                 for($i=0;$i<=$randomNumber;$i++) {
 
-                    $business = $users[rand(0, ($businesses->count()-1))];
+                    $business = $users[rand(0, ($users->count()-1))];
 
                     $exists = \App\Bookmark::where('user_id', '=', $user->id)
                         ->where('business_id', '=', $business->id)
