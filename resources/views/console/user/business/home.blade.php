@@ -7,6 +7,7 @@
             <div class="col">
                 <h1>Business Console</h1>
             </div>
+
         </div>
         <div class="row">
             <div class="col-md-12">
@@ -29,6 +30,9 @@
                     <div class="container">
                         <br><label for="uname"><b>Username</b></label>
                         <input type="text" placeholder="Enter Username" name="uname" required><br/>
+
+                        <br><label for="uname"><b>Businessname</b></label>
+                        <input type="text" placeholder="Enter Businessname" name="uname" required><br/>
 
                         <br><label for="psw"><b>Password</b></label>
                         <input type="password" placeholder="Enter Password" name="psw" required><br/>
@@ -62,12 +66,14 @@
                         <label for="EstablishedOn">Established Date:</label>
                         <input type="date" id="Established" name="EstablishedOn">
 
-                        <br><button type="submit">submit</button>
+                        <br>
+                        <button type="submit">submit</button>
                         <br/>
                     </div>
                 </form>
 
             </div>
+
 
         {{--        <div class="row mb-5">--}}
         {{--            <div class="col-lg-12 text-center">--}}
@@ -78,8 +84,7 @@
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
                 <button class="btn btn-danger">Logout</button>
-            </form>
-            <!-- Logout End -->
+            </form><!-- Logout End -->
     </main>
 @endsection
 @section('scripts')
