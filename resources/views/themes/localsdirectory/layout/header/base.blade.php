@@ -1,7 +1,7 @@
 <header class="header-section">
     <div class="container-fluid">
         <div class="logo">
-            <a href="/"><img src="{{ asset('img/logo.png') }}" alt=""></a>
+            <a href="/"><img src="{{ parse_url(asset('img/logo.png'), PHP_URL_PATH) }}" alt=""></a>
         </div>
         <nav class="main-menu mobile-menu">
             <ul>

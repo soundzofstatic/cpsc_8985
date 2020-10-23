@@ -16,7 +16,7 @@ class ReviewSeeder extends Seeder
 
         $reviews = \App\Review::get();
 
-        if($reviews->count() < 100) {
+        if($reviews->count() < 300) {
 
             $randomReviewCount = rand(15, 20);
 
@@ -33,6 +33,7 @@ class ReviewSeeder extends Seeder
                     $review->business_id = $business->id;
                     $review->feedback_id = null;
                     $review->is_active = true;
+                    $review->rating = rand(0,5);
                     $review->save();
 
                     // Now Set the feedback associated with the review

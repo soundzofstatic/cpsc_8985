@@ -66,6 +66,13 @@ class User extends Authenticatable
             'id'
         );
     }
+//    public function Review() { todo - This is a duplicate relationship, see above.
+//        return $this->hasMany(
+//            Review::class,
+//            'Name',
+//            'Email_id'
+//        );
+//    }
     public Function lastFiveReviews()
     {
         return $this->hasMany(
@@ -135,6 +142,7 @@ class User extends Authenticatable
             'id'
         );
     }
+
 
     /**
      * Method that denotes whether an User is an admin or not

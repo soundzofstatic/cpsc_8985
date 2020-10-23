@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddIsActiveUsers extends Migration
+class AddReviewRatingReviews extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddIsActiveUsers extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->boolean('is_active')->after('remember_token')->default(true);
+        Schema::table('reviews', function (Blueprint $table) {
+            $table->integer('rating')->default(0)->after('is_active');
         });
     }
 
@@ -25,8 +25,8 @@ class AddIsActiveUsers extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('is_active');
+        Schema::table('reviews', function (Blueprint $table) {
+            $table->dropColumn('rating');
         });
     }
 }

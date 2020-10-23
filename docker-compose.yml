@@ -55,6 +55,8 @@ services:
         - PASS4=${BASICAUTH_PASS4}
         - USER5=${BASICAUTH_USER5}
         - PASS5=${BASICAUTH_PASS5}
+        - USER6=${BASICAUTH_USER6}
+        - PASS6=${BASICAUTH_PASS6}
       dockerfile: web.dockerfile
     working_dir: /var/www
     volumes_from:

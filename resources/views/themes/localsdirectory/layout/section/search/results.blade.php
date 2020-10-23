@@ -17,7 +17,7 @@
                     <div class="col-lg-4 col-sm-6">
                         <a class="arrange-items" href="single-listing.html">
                             <div class="arrange-pic">
-                                <img src="{{ asset('img/arrange/arrange-1.jpg') }}" alt="">
+                                <img src="{{ parse_url(asset('img/arrange/arrange-1.jpg'), PHP_URL_PATH) }}" alt="">
                                 <div class="rating">4.9</div>
                                 <div class="tic-text">Restaurants</div>
                             </div>
@@ -32,7 +32,7 @@
                     <div class="col-lg-4 col-sm-6">
                         <a class="arrange-items" href="single-listing.html">
                             <div class="arrange-pic">
-                                <img src="{{ asset('img/arrange/arrange-2.jpg') }}" alt="">
+                                <img src="{{ parse_url(asset('img/arrange/arrange-2.jpg'), PHP_URL_PATH) }}" alt="">
                                 <div class="rating">4.9</div>
                                 <div class="tic-text">Restaurants</div>
                             </div>
@@ -47,7 +47,7 @@
                     <div class="col-lg-4 col-sm-6">
                         <a class="arrange-items" href="single-listing.html">
                             <div class="arrange-pic">
-                                <img src="{{ asset('img/arrange/arrange-3.jpg') }}" alt="">
+                                <img src="{{ parse_url(asset('img/arrange/arrange-3.jpg'), PHP_URL_PATH) }}" alt="">
                                 <div class="rating">4.9</div>
                                 <div class="tic-text">Restaurants</div>
                             </div>
@@ -62,7 +62,7 @@
                     <div class="col-lg-4 col-sm-6">
                         <a class="arrange-items" href="single-listing.html">
                             <div class="arrange-pic">
-                                <img src="{{ asset('img/arrange/arrange-4.jpg') }}" alt="">
+                                <img src="{{ parse_url(asset('img/arrange/arrange-4.jpg'), PHP_URL_PATH) }}" alt="">
                                 <div class="rating">4.9</div>
                                 <div class="tic-text">Restaurants</div>
                             </div>
@@ -77,7 +77,7 @@
                     <div class="col-lg-4 col-sm-6">
                         <a class="arrange-items" href="single-listing.html">
                             <div class="arrange-pic">
-                                <img src="{{ asset('img/arrange/arrange-5.jpg') }}" alt="">
+                                <img src="{{ parse_url(asset('img/arrange/arrange-5.jpg'), PHP_URL_PATH) }}" alt="">
                                 <div class="rating">4.9</div>
                                 <div class="tic-text">Restaurants</div>
                             </div>
@@ -92,7 +92,7 @@
                     <div class="col-lg-4 col-sm-6">
                         <a class="arrange-items" href="single-listing.html">
                             <div class="arrange-pic">
-                                <img src="{{ asset('img/arrange/arrange-6.jpg') }}" alt="">
+                                <img src="{{ parse_url(asset('img/arrange/arrange-6.jpg'), PHP_URL_PATH) }}" alt="">
                                 <div class="rating">4.9</div>
                                 <div class="tic-text">Restaurants</div>
                             </div>
@@ -107,7 +107,7 @@
                     <div class="col-lg-4 col-sm-6">
                         <a class="arrange-items" href="single-listing.html">
                             <div class="arrange-pic">
-                                <img src="{{ asset('img/arrange/arrange-7.jpg') }}" alt="">
+                                <img src="{{ parse_url(asset('img/arrange/arrange-7.jpg'), PHP_URL_PATH) }}" alt="">
                                 <div class="rating">4.9</div>
                                 <div class="tic-text">Restaurants</div>
                             </div>
@@ -122,7 +122,7 @@
                     <div class="col-lg-4 col-sm-6">
                         <a class="arrange-items" href="single-listing.html">
                             <div class="arrange-pic">
-                                <img src="{{ asset('img/arrange/arrange-8.jpg') }}" alt="">
+                                <img src="{{ parse_url(asset('img/arrange/arrange-8.jpg'), PHP_URL_PATH) }}" alt="">
                                 <div class="rating">4.9</div>
                                 <div class="tic-text">Restaurants</div>
                             </div>
@@ -137,7 +137,7 @@
                     <div class="col-lg-4 col-sm-6">
                         <a class="arrange-items" href="single-listing.html">
                             <div class="arrange-pic">
-                                <img src="{{ asset('img/arrange/arrange-9.jpg') }}" alt="">
+                                <img src="{{ parse_url(asset('img/arrange/arrange-9.jpg'), PHP_URL_PATH) }}" alt="">
                                 <div class="rating">4.9</div>
                                 <div class="tic-text">Restaurants</div>
                             </div>

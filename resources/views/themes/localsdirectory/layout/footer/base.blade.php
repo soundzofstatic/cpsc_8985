@@ -50,7 +50,7 @@
                     <h4>From the Blog</h4>
                     <div class="single-blog">
                         <div class="blog-pic">
-                            <img src="{{ asset('img/f-blog-1.jpg') }}" alt="">
+                            <img src="{{ parse_url(asset('img/f-blog-1.jpg'), PHP_URL_PATH) }}" alt="">
                         </div>
                         <div class="blog-text">
                             <h6>10 Best clubs in town</h6>
@@ -59,7 +59,7 @@
                     </div>
                     <div class="single-blog">
                         <div class="blog-pic">
-                            <img src="{{ asset('img/f-blog-2.jpg') }}" alt="">
+                            <img src="{{ parse_url(asset('img/f-blog-2.jpg'), PHP_URL_PATH) }}" alt="">
                         </div>
                         <div class="blog-text">
                             <h6>10 Best clubs in town</h6>

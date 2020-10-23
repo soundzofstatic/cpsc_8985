@@ -16,7 +16,7 @@ class QuestionSeeder extends Seeder
 
         $questions = \App\Question::get();
 
-        if($questions->count() < 100) {
+        if($questions->count() < 300) {
 
             $randomQuestionCount = rand(15, 20);
 
