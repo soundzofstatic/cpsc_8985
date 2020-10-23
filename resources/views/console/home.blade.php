@@ -73,6 +73,7 @@
                     <!-- Admin Console End -->
                 @endif
             </div>
+
     @endif
     <!-- Logout Begin -->
         <form method="POST" action="{{ route('logout') }}">
