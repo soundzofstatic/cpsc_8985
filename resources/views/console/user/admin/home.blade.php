@@ -49,6 +49,28 @@
                             <input id="query" type="text" placeholder="Search for User by username, name, or email"
                                    name="query" value="{{ old('query') }}">
                         </div>
+                    </div>
+                </div>
+                <div id="search-results" class="col-lg-12">
+                    <div class="row">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Search Businesses</h2>
+                <p>Search for businesses to enable or disable them.</p>
+            </div>
+            <div class="col-md-12">
+                <div class="contact-form">
+                    @csrf
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <label for="query" class="sr-only">Query</label>
+                            <input id="query" type="text" placeholder="Search for Businesses by name, email, phone, or url"
+                                   name="query" value="{{ old('query') }}">
+                        </div>
                         <div class="col-lg-12 text-center">
                             <button id="search" type="button">Search</button>
                             <button id="reset" type="button" class="reset">Reset</button>
@@ -57,6 +79,13 @@
                 </div>
                 <div id="search-results" class="col-lg-12">
                     <div class="row">
+{{--                    <div>--}}
+{{--                        @if($user->is_active)--}}
+{{--                            <a href="{{ route('console.user.admin.PromotedBusiness', ['user'=> $user->id]) }}"--}}
+{{--                        @else--}}
+{{--                            <a href="{{route('console.user.admin.PromotedBusiness', ['user'=> $user->id]) }}"--}}
+{{--                        @endif--}}
+{{--                    </div>--}}
                     </div>
                 </div>
             </div>

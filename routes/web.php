@@ -36,6 +36,8 @@ Route::prefix('console')->name('console.')->group(function () {
                 Route::get('/disable-user', 'UserController@disableUser')->name('disable-user'); // todo - hook this in to Blade where users are displayed for admin
                 Route::get('/enable-user', 'UserController@enableUser')->name('enable-user');
 
+                Route::get('/listAllBusinesses', 'AdminController@listAllBusinesses')->name('listAllBusinesses');
+
             });
 
         });
@@ -49,7 +51,9 @@ Route::prefix('console')->name('console.')->group(function () {
         Route::prefix('businesses')->name('businesses.')->group(function () { // todo - Should have middleware protecting it from non-admin users
 
             Route::get('/', 'UserController@businessConsoleIndex')->name('home');
+
             Route::get('/business-create', 'BusinessController@create')->name('create');
+
             Route::post('/business-create', 'BusinessController@store')->name('store');
 
             Route::prefix('{business}')->name('business.')->group(function () { // todo - Should have middleware

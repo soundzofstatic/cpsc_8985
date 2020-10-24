@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Admin;
+use App\Business;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -395,6 +396,33 @@ class UserController extends Controller
                     compact(
                         [
                             'users'
+                        ]
+                    )
+                );
+
+        } catch (\Exception $e) {
+
+            Log::error($e->getMessage());
+            return redirect()
+                ->back()
+                ->withErrors([$e->getMessage()]);
+
+        }
+
+    }
+    public function listAllBusinesses()
+    {
+
+        try {
+
+            $users = Business::orderBy('name','contact_email', 'contact_phone', 'web_url', 'asc')
+                ->get();
+
+            return view('console.user.admin.search')
+                ->with(
+                    compact(
+                        [
+                            'businesses'
                         ]
                     )
                 );

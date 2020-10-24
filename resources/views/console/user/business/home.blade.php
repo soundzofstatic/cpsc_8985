@@ -7,6 +7,7 @@
             <div class="col">
                 <h1>Business Console</h1>
             </div>
+
         </div>
         <div class="row">
             <div class="col-md-12">
@@ -40,6 +41,51 @@
                             </div>
                         </a>
                     </div>
+
+
+                    <div class="container">
+                        <br><label for="uname"><b>Username</b></label>
+                        <input type="text" placeholder="Enter Username" name="uname" required><br/>
+
+                        <br><label for="uname"><b>Businessname</b></label>
+                        <input type="text" placeholder="Enter Businessname" name="uname" required><br/>
+
+                        <br><label for="psw"><b>Password</b></label>
+                        <input type="password" placeholder="Enter Password" name="psw" required><br/>
+
+                        <br><label for="psw"><b>Confirm Password</b></label>
+                        <input type="Confirmpassword" placeholder="Confirm Password" name="psw" required><br/>
+
+                        <br><label for="email"><b>EmailID</b></label>
+                        <input type="text" placeholder="Enter EmailID" name="emailid" required><br/>
+
+                        <br><label for="address"><b>Address</b></label>
+                        <input type="text" placeholder="Enter address" name="address" required><br/>
+
+                        <br><label for="contact"><b>ContactNo</b></label>
+                        <input type="text" placeholder="Enter contact no" name="contact" required><br/>
+
+                        <br><label for="menu_url"><b>Menu_url</b></label>
+                        <input type="text" placeholder="Enter menu_url" name="menu_url" required><br/>
+
+
+                        <br><label for="socialmedia_url"><b>SocialMedia_url</b></label>
+                        <input type="text" placeholder="Enter socialmedia_url" name="socialmedia_url" required><br/>
+
+                        <br><label for="psw"><b>Password</b></label>
+                        <input type="password" placeholder="Enter Password" name="psw" required><br/>
+
+                        <br><label for="psw"><b>Confirm Password</b></label>
+                        <input type="Confirmpassword" placeholder="Confirm Password" name="psw" required><br/>
+                        <br>
+
+                        <label for="EstablishedOn">Established Date:</label>
+                        <input type="date" id="Established" name="EstablishedOn">
+
+                        <br>
+                        <button type="submit">submit</button>
+                        <br/>
+
                     @endforeach
                     <div class="col-lg-12 text-right">
                         <div class="pagination-num">
@@ -47,6 +93,7 @@
                             <a href="#">02</a>
                             <a href="#">03</a>
                         </div>
+
                     </div>
                 </div>
 
@@ -73,53 +120,16 @@
                 {{--  todo - Render list of all businesses owned by Authenticated user --}}
 {{--                @endforeach--}}
             </div>
-<<<<<<< HEAD
-            <div class="col-md-4">
-
-                <div class="card" style="width:300px;">
-                    <div class="card-body">
-                        <h5 class="card-title">DELIVERY</h5>
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Delivery Address" id="usr">
-                        </div>
-                        <a style="width: 100%" href="#" class="btn btn-primary">Start Order</a>
-                    </div>
-                    <hr>
-                    <div class="card-body">
-                        <h5 class="card-title">ORDER</h5>
-                        <p class="card-text">The pick up and delivery time is 40-50min and delivery fee is $3</p>
-                    </div>
-                </div>
-
-                <div class="card" style="width: 300px;margin-top: 20px">
-                    <div class="card-body">
-                        <h5 class="card-title">Details</h5>
-                        <div style="display: inline-flex">
-                            <i style="margin-top: 10px" class="fa fa-phone fa-lg" aria-hidden="true"></i>
-                            <p style="margin-left: 20px; font-size: 15px"> 123-345-679</p>
-                        </div>
-
-                        <hr style="border: 1px solid black">
-                        <div style="display: inline-flex">
-                            <i style="margin-top: 10px" class="fa fa-cutlery fa-lg" aria-hidden="true"></i>
-                            <a style="color: black; margin-left: 20px; font-size: 15px" href="">Menu</a>
-                        </div>
-                        <hr style="border: 1px solid black">
-                        <div style="display: inline-flex">
-                            <i style="margin-top: 10px" class="fa fa-location-arrow fa-lg" aria-hidden="true"></i>
-                            <a style="color: black; margin-left: 20px; font-size: 15px" href="">Location</a>
-                        </div>
-                        <hr style="border: 1px solid black">
-                        <div style="display: inline-flex">
-                            <i style="margin-top: 10px" class="fa fa-external-link fa-lg" aria-hidden="true"></i>
-                            <p style="margin-left: 20px; font-size: 15px"> www.LANDOFSHARK.com</p>
-                            <p style="margin-left: 20px; font-size: 15px"> www.LANDOFSOUTH.com</p>
-                        </div>
-
-                    </div>
-                </div>
-
-=======
+        {{--        <div class="row mb-5">--}}
+        {{--            <div class="col-lg-12 text-center">--}}
+        {{--                <a href="{{ route('console.user.settings', ['user' => \Illuminate\Support\Facades\Auth::user()->id]) }}" class="primary-btn">User Settings</a>--}}
+        {{--            </div>--}}
+        {{--        </div>--}}
+        <!-- Logout Begin -->
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button class="btn btn-danger">Logout</button>
+            </form><!-- Logout End -->
         </div>
         <div class="row">
             <div class="col-md-12">
@@ -127,7 +137,6 @@
                 <p>Click on the button below to start creating a new business.</p>
                 <a href="{{ route('console.user.businesses.create', ['user' => \Illuminate\Support\Facades\Auth::user()->id]) }}"
                    class="btn btn-primary">Create Business</a>
->>>>>>> 32af891e02bd77c9aaeb6ca11c86555184982967
             </div>
         </div>
         <!-- Logout Begin -->
@@ -136,6 +145,7 @@
             <button class="btn btn-danger">Logout</button>
         </form>
         <!-- Logout End -->
+        </div>
     </main>
 @endsection
 @section('scripts')
