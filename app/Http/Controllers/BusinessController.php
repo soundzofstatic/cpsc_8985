@@ -69,7 +69,7 @@ class BusinessController extends Controller
     {
 //        dd($business);
 
-        return view('business.home')
+        return view('business.single-listing')
             ->with(
                 compact(
                     [
