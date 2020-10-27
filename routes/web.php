@@ -36,7 +36,7 @@ Route::prefix('console')->name('console.')->group(function () {
                 Route::get('/disable-user', 'UserController@disableUser')->name('disable-user'); // todo - hook this in to Blade where users are displayed for admin
                 Route::get('/enable-user', 'UserController@enableUser')->name('enable-user');
 
-                Route::get('/listAllBusinesses', 'AdminController@listAllBusinesses')->name('listAllBusinesses');
+                Route::post('/listAllBusinesses', 'BusinessController@listAllBusinesses')->name('listAllBusinesses');
 
             });
 

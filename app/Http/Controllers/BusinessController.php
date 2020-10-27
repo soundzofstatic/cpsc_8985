@@ -139,4 +139,39 @@ class BusinessController extends Controller
                 )
             );
     }
+    public function listAllBusinesses(Request $request)
+    {
+
+        try {
+
+            $businesses = Business::where('name' , 'like', '%'. $request->input('query') . '%')
+                ->orWhere('contact_email', 'like', '%'. $request->input('query') . '%')
+                ->orWhere('web_url', 'like', '%'. $request->input('query') . '%')
+                ->orWhere('contact_phone', 'like', '%'. $request->input('query') . '%')
+                ->orderBy('name', 'asc')
+                ->orderBy('contact_email', 'asc')
+                ->orderBy('contact_phone', 'asc')
+                ->orderBy('web_url', 'asc')
+                ->get();
+
+            return view('console.user.admin.search-business')
+                ->with(
+                    compact(
+                        [
+                            'businesses'
+                        ]
+                    )
+                );
+
+        } catch (\Exception $e) {
+
+            Log::error($e->getMessage());
+            return redirect()
+                ->back()
+                ->withErrors([$e->getMessage()]);
+
+        }
+
+    }
 }
+

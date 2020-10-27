@@ -410,32 +410,5 @@ class UserController extends Controller
         }
 
     }
-    public function listAllBusinesses()
-    {
-
-        try {
-
-            $users = Business::orderBy('name','contact_email', 'contact_phone', 'web_url', 'asc')
-                ->get();
-
-            return view('console.user.admin.search')
-                ->with(
-                    compact(
-                        [
-                            'businesses'
-                        ]
-                    )
-                );
-
-        } catch (\Exception $e) {
-
-            Log::error($e->getMessage());
-            return redirect()
-                ->back()
-                ->withErrors([$e->getMessage()]);
-
-        }
-
-    }
 }
 

@@ -60,10 +60,11 @@
         <div class="row">
             <div class="col-md-12">
                 <h2>Search Businesses</h2>
-                <p>Search for businesses to enable or disable them.</p>
+                <p>Search for all businesses</p>
             </div>
             <div class="col-md-12">
                 <div class="contact-form">
+                    <form method="POST" action="{{ route('console.user.admin.update.listAllBusinesses', ['user'=> \Illuminate\Support\Facades\Auth::user()->id]) }}">
                     @csrf
                     <div class="row">
                         <div class="col-lg-12">
@@ -72,25 +73,13 @@
                                    name="query" value="{{ old('query') }}">
                         </div>
                         <div class="col-lg-12 text-center">
-                            <button id="search" type="button">Search</button>
+                            <button id="search" type="submit">Search</button>
                             <button id="reset" type="button" class="reset">Reset</button>
                         </div>
                     </div>
+                    </form>
                 </div>
-                <div id="search-results" class="col-lg-12">
-                    <div class="row">
-{{--                    <div>--}}
-{{--                        @if($user->is_active)--}}
-{{--                            <a href="{{ route('console.user.admin.PromotedBusiness', ['user'=> $user->id]) }}"--}}
-{{--                        @else--}}
-{{--                            <a href="{{route('console.user.admin.PromotedBusiness', ['user'=> $user->id]) }}"--}}
-{{--                        @endif--}}
-{{--                    </div>--}}
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Logout Begin -->
+                       <!-- Logout Begin -->
         <form method="POST" action="{{ route('logout') }}">
             @csrf
             <button class="btn btn-danger">Logout</button>
