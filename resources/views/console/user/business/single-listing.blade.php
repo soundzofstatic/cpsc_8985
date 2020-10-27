@@ -45,7 +45,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-8">
-                        <div class="about-left">
+                        <br class="about-left">
                             <!-- About Begin -->
                             <div class="about-desc">
                                 <h4>About the Restaurant</h4>
@@ -53,9 +53,12 @@
                             </div>
                             <!-- About End -->
                             <!-- Reviews Begin -->
-                            <div class="client-reviews">
-                                <h3>Reviews</h3>
-                                @foreach($business->reviews as $review)
+
+
+                        <h3>Reviews</h3>
+                        <b> Total number of reviews - {{count($business->reviews)}} </b>
+                        <br><br>
+                        @foreach($business->reviews as $review)
                                     <div class="reviews-item">
                                     <div class="rating">
                                         @for($i=0;$i<$review->rating;$i++)

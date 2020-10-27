@@ -124,6 +124,10 @@ Route::prefix('theme')->name('theme.')->group(function () {
         return view('themes.localsdirectory.examples.blog');
     })->name('blog');
 });
+//Review form
+Route::get('/review/{business}', 'ReviewController@create')->name('review-create');
+
+Route::post('/review-store' ,'ReviewController@store')->name('review-store');
 
 // Proof of Concepts
 Route::get('/poc/check-ins-count', function(){
