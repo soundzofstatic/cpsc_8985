@@ -120,9 +120,6 @@
                 {{--  todo - Render list of all businesses owned by Authenticated user --}}
 {{--                @endforeach--}}
             </div>
-
-
-
         {{--        <div class="row mb-5">--}}
         {{--            <div class="col-lg-12 text-center">--}}
         {{--                <a href="{{ route('console.user.settings', ['user' => \Illuminate\Support\Facades\Auth::user()->id]) }}" class="primary-btn">User Settings</a>--}}
@@ -133,7 +130,6 @@
                 @csrf
                 <button class="btn btn-danger">Logout</button>
             </form><!-- Logout End -->
-
         </div>
         <div class="row">
             <div class="col-md-12">
