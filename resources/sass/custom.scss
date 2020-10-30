@@ -41,3 +41,12 @@ button {
     }
   }
 }
+a {
+  &:hover {
+    color: $secondary;
+    text-decoration: underline;
+  }
+}
+.review-item {
+  border-bottom: thin solid $primary;
+}

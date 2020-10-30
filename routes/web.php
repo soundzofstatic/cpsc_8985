@@ -94,6 +94,9 @@ Route::prefix('console')->name('console.')->group(function () {
 Route::prefix('user')->name('user.')->group(function () {
 
     Route::get('/{user}', 'UserController@show')->name('home');
+//    Route::prefix('{user}/action')->name('action.')->group(function () {
+//        Route::post('/store-review', 'BusinessController@storeReview')->name('store-review');
+//    });
 
 });
 

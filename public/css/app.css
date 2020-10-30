@@ -16434,3 +16434,12 @@ button.demote {
   border: none;
 }
 
+a:hover {
+  color: #009CFF;
+  text-decoration: underline;
+}
+
+.review-item {
+  border-bottom: thin solid #F60;
+}
+
