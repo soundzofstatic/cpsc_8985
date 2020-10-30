@@ -53,7 +53,6 @@ Route::prefix('console')->name('console.')->group(function () {
             Route::get('/', 'UserController@businessConsoleIndex')->name('home');
 
             Route::get('/business-create', 'BusinessController@create')->name('create');
-
             Route::post('/business-create', 'BusinessController@store')->name('store');
 
             Route::prefix('{business}')->name('business.')->group(function () { // todo - Should have middleware

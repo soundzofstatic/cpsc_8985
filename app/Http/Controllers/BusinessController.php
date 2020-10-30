@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Business;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -36,18 +37,36 @@ class BusinessController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(User $user, Request $request)
     {
-
         try {
 
-            dd($request->all()); // echo or display of data
-            dd($request->input('name')); // echo or display of data
+            // Because the $user is passed from the route, let's compare it to the Authenticated user
+            if($user->id != Auth::user()->id) {
 
-            // todo - Mythri, add logic here to save a business
-            // todo - Must save Business for Authenticated User
-            $authenticatedUser = Auth::user();
-            dd($authenticatedUser->id);
+                throw new \Exception('Authenticated user must match the user who owns business.');
+
+            }
+
+            $business = new \App\Business();
+            $business->name = $request->input('name');
+            $business->user_id = $user->id;
+
+            $business->address = $request->input('address');
+            $business->hours = $request->input('hours');
+            $business->est_date = Carbon::createFromFormat('Y-m-d', $request->input('established_on'))->format('m/d/Y');
+            $business->description = $request->input('description');
+            $business->dollar_rating = $request->input('dollar_rating');
+            $business->web_url = $request->input('web_url');
+            $business->menu_url = $request->input('menu_url');
+            $business->contact_phone = $request->input('contact_phone');
+            $business->contact_email = $request->input('contact_email');
+            $business->view_count = 0;
+            $business->is_active = true;
+            $business->save();
+
+            return redirect()
+                ->route('business.home', ['business' => $business->id]);
 
         } catch (\Exception $e) {
 
@@ -78,6 +97,7 @@ class BusinessController extends Controller
                 )
             );
     }
+
 
     /**
      * Show the form for editing the specified resource.
