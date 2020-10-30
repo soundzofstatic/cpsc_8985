@@ -140,54 +140,15 @@
         </div>
         <div style="text-align:center">');
             <div class='center'>
-                <form action="" method="post">
+                <form action="{{route('business-store')}}" method="post">
                     <div class="imgcontainer">
                         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRbjTzEm1nYw9RNk1X74rPbEU8OWCAgBgSXXg&usqp=CAU"
                              alt="Avatar" class="avatar">
                     </div>
 
-                    <div class="container">
-                        <br><label for="uname"><b>Username</b></label>
-                        <input type="text" placeholder="Enter Username" name="uname" required><br/>
-
-                        <br><label for="psw"><b>Password</b></label>
-                        <input type="password" placeholder="Enter Password" name="psw" required><br/>
-
-                        <br><label for="psw"><b>Confirm Password</b></label>
-                        <input type="Confirmpassword" placeholder="Confirm Password" name="psw" required><br/>
-
-                        <br><label for="email"><b>EmailID</b></label>
-                        <input type="text" placeholder="Enter EmailID" name="emailid" required><br/>
-
-                        <br><label for="address"><b>Address</b></label>
-                        <input type="text" placeholder="Enter address" name="address" required><br/>
-
-                        <br><label for="contact"><b>ContactNo</b></label>
-                        <input type="text" placeholder="Enter contact no" name="contact" required><br/>
-
-                        <br><label for="menu_url"><b>Menu_url</b></label>
-                        <input type="text" placeholder="Enter menu_url" name="menu_url" required><br/>
 
 
-                        <br><label for="socialmedia_url"><b>SocialMedia_url</b></label>
-                        <input type="text" placeholder="Enter socialmedia_url" name="socialmedia_url" required><br/>
 
-                        <br><label for="psw"><b>Password</b></label>
-                        <input type="password" placeholder="Enter Password" name="psw" required><br/>
-
-                        <br><label for="psw"><b>Confirm Password</b></label>
-                        <input type="Confirmpassword" placeholder="Confirm Password" name="psw" required><br/>
-                        <br>
-
-                        <label for="EstablishedOn">Established Date:</label>
-                        <input type="date" id="Established" name="EstablishedOn">
-
-                        <br><button type="submit">submit</button>
-                        <br/>
-                    </div>
-                </form>
-
-            </div>
 
         {{--        <div class="row mb-5">--}}
         {{--            <div class="col-lg-12 text-center">--}}

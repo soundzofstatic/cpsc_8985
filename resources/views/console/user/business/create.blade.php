@@ -39,12 +39,7 @@
                         <br><label for="socialmedia_url"><b>SocialMedia_url</b></label>
                         <input type="text" placeholder="Enter socialmedia_url" name="socialmedia_url" required><br/>
 
-                        <br><label for="psw"><b>Password</b></label>
-                        <input type="password" placeholder="Enter Password" name="psw" required><br/>
 
-                        <br><label for="psw"><b>Confirm Password</b></label>
-                        <input type="Confirmpassword" placeholder="Confirm Password" name="psw" required><br/>
-                        <br>
 
                         <label for="EstablishedOn">Established Date:</label>
                         <input type="date" id="Established" name="EstablishedOn">
