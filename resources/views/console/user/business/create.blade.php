@@ -20,8 +20,6 @@
                         <br><label for="psw"><b>Password</b></label>
                         <input type="password" placeholder="Enter Password" name="psw" required><br/>
 
-                        <br><label for="psw"><b>Confirm Password</b></label>
-                        <input type="Confirmpassword" placeholder="Confirm Password" name="psw" required><br/>
 
                         <br><label for="email"><b>EmailID</b></label>
                         <input type="text" placeholder="Enter EmailID" name="emailid" required><br/>

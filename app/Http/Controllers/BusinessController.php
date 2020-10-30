@@ -76,8 +76,13 @@ class BusinessController extends Controller
         // todo - Mythri, add logic here to save a business
         // todo - Must save Business for Authenticated User
 
-        $authenticatedUser = Auth::user();
-        dd($authenticatedUser->id);
+        if($business) {
+            return redirect()->route('business.home', ['business' => $request->input('business_id')]);
+        }
+          if(Auth::check()) {
+              $authenticatedUser = Auth::user();
+              dd($authenticatedUser->id);
+          }
     }
 
 
