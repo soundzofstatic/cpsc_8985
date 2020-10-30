@@ -1,66 +1,122 @@
 @extends('themes.localsdirectory.layout.base')
-@section ('page_name')Business Console
+@section ('page_name')Create a Business
 @endsection
 @section ('content')
     <main class="container main-pad">
-        <div style="text-align:center">
-            <div class='center'>
-{{--                todo - Replace front-page with actual route that stores/processes the data submitted in the form --}}
-                <form action="{{ route('front-page') }}" method="POST">
-                    @csrf
-                    <div class="imgcontainer">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRbjTzEm1nYw9RNk1X74rPbEU8OWCAgBgSXXg&usqp=CAU"
-                             alt="Avatar" class="avatar">
-                    </div>
-
-                    <div class="container">
-                        <br><label for="uname"><b>Username</b></label>
-                        <input type="text" placeholder="Enter Username" name="uname" required><br/>
-
-                        <br><label for="psw"><b>Password</b></label>
-                        <input type="password" placeholder="Enter Password" name="psw" required><br/>
-
-
-                        <br><label for="email"><b>EmailID</b></label>
-                        <input type="text" placeholder="Enter EmailID" name="emailid" required><br/>
-
-                        <br><label for="address"><b>Address</b></label>
-                        <input type="text" placeholder="Enter address" name="address" required><br/>
-
-                        <br><label for="contact"><b>ContactNo</b></label>
-                        <input type="text" placeholder="Enter contact no" name="contact" required><br/>
-
-                        <br><label for="menu_url"><b>Menu_url</b></label>
-                        <input type="text" placeholder="Enter menu_url" name="menu_url" required><br/>
-
-
-                        <br><label for="socialmedia_url"><b>SocialMedia_url</b></label>
-                        <input type="text" placeholder="Enter socialmedia_url" name="socialmedia_url" required><br/>
-
-
-
-                        <label for="EstablishedOn">Established Date:</label>
-                        <input type="date" id="Established" name="EstablishedOn">
-
-                        <br><button type="submit">submit</button>
-                        <br/>
-                    </div>
-                </form>
-
+        {{--                todo - Replace front-page with actual route that stores/processes the data submitted in the form --}}
+        <h1>Register a new Business</h1>
+        <p>Register your business by submitting the details in the form below.</p>
+        <form action="{{ route('console.user.businesses.store', ['user'=>\Illuminate\Support\Facades\Auth::user()->id]) }}"
+              method="POST">
+            @csrf
+            <div class="form-group row">
+                <label for="name" class="col-md-4 col-form-label text-md-right"><b>Name</b></label>
+                <div class="col-md-6">
+                    <input type="text" placeholder="Enter Business Name" name="name" required class="form-control">
+                </div>
             </div>
-
-        {{--        <div class="row mb-5">--}}
-        {{--            <div class="col-lg-12 text-center">--}}
-        {{--                <a href="{{ route('console.user.settings', ['user' => \Illuminate\Support\Facades\Auth::user()->id]) }}" class="primary-btn">User Settings</a>--}}
-        {{--            </div>--}}
-        {{--        </div>--}}
-        <!-- Logout Begin -->
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-                <button class="btn btn-danger">Logout</button>
-            </form>
-            <!-- Logout End -->
-        </div>
+            <div class="form-group row">
+                <label for="description" class="col-md-4 col-form-label text-md-right"><b>Description</b></label>
+                <div class="col-md-6">
+                    <textarea name="description" class="form-control" required></textarea>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="hours" class="col-md-4 col-form-label text-md-right"><b>Business Hours</b></label>
+                <div class="col-md-6">
+                    <input type="text" placeholder="Enter Hours" name="hours" required class="form-control">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="address" class="col-md-4 col-form-label text-md-right"><b>Address</b></label>
+                <div class="col-md-6">
+                    <input type="text" placeholder="Enter Address" name="address" required class="form-control">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="contact_email" class="col-md-4 col-form-label text-md-right"><b>Contact Email</b></label>
+                <div class="col-md-6">
+                    <input type="text" placeholder="Enter Contact Email" name="contact_email" required
+                           class="form-control">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="contact_phone" class="col-md-4 col-form-label text-md-right"><b>Contact Phone
+                        Number</b></label>
+                <div class="col-md-6">
+                    <input type="text" placeholder="Enter Contact Phone Number" name="contact_phone" required
+                           class="form-control">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="menu_url" class="col-md-4 col-form-label text-md-right"><b>Menu URL</b></label>
+                <div class="col-md-6">
+                    <input type="text" placeholder="Enter Menu URL" name="menu_url" required class="form-control">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="web_url" class="col-md-4 col-form-label text-md-right"><b>Web URL</b></label>
+                <div class="col-md-6">
+                    <input type="text" placeholder="Enter Website URL" name="web_url" required class="form-control">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="established_on" class="col-md-4 col-form-label text-md-right"><b>Established On</b></label>
+                <div class="col-md-6">
+                    <input type="date" placeholder="Enter Established Dates" name="established_on" required
+                           class="form-control">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="dollar_rating" class="col-md-4 col-form-label text-md-right"><b>Dollar Rating</b></label>
+                <div class="col-md-6">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="dollar_rating" id="dollar_rating1" value="1">
+                        <label class="form-check-label" for="dollar_rating1">
+                            1
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="dollar_rating" id="dollar_rating2" value="2">
+                        <label class="form-check-label" for="dollar_rating2">
+                            2
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="dollar_rating" id="dollar_rating3" value="3">
+                        <label class="form-check-label" for="dollar_rating3">
+                            3
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="dollar_rating" id="dollar_rating4" value="4">
+                        <label class="form-check-label" for="dollar_rating4">
+                            4
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="dollar_rating" id="dollar_rating5" value="5">
+                        <label class="form-check-label" for="dollar_rating5">
+                            5
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12 text-center">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    {{--        <div class="row mb-5">--}}
+    {{--            <div class="col-lg-12 text-center">--}}
+    {{--                <a href="{{ route('console.user.settings', ['user' => \Illuminate\Support\Facades\Auth::user()->id]) }}" class="primary-btn">User Settings</a>--}}
+    {{--            </div>--}}
+    {{--        </div>--}}
+    <!-- Logout Begin -->
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <button class="btn btn-danger">Logout</button>
+        </form>
+        <!-- Logout End -->
     </main>
 @endsection
 @section('scripts')
