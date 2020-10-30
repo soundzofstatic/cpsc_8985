@@ -36,6 +36,8 @@ Route::prefix('console')->name('console.')->group(function () {
                 Route::get('/disable-user', 'UserController@disableUser')->name('disable-user'); // todo - hook this in to Blade where users are displayed for admin
                 Route::get('/enable-user', 'UserController@enableUser')->name('enable-user');
 
+                Route::post('/listAllBusinesses', 'BusinessController@listAllBusinesses')->name('listAllBusinesses');
+
             });
 
         });
@@ -49,11 +51,16 @@ Route::prefix('console')->name('console.')->group(function () {
         Route::prefix('businesses')->name('businesses.')->group(function () { // todo - Should have middleware protecting it from non-admin users
 
             Route::get('/', 'UserController@businessConsoleIndex')->name('home');
+
             Route::get('/business-create', 'BusinessController@create')->name('create');
+
           //business create form
             Route::get('/business-store' ,'BusinessController@store')->name('business-store');
 
             //Route::post('/business-create', 'BusinessController@store')->name('store');
+
+            Route::post('/business-create', 'BusinessController@store')->name('store');
+
 
             Route::prefix('{business}')->name('business.')->group(function () { // todo - Should have middleware
 
@@ -127,6 +134,10 @@ Route::prefix('theme')->name('theme.')->group(function () {
         return view('themes.localsdirectory.examples.blog');
     })->name('blog');
 });
+//Review form
+Route::get('/review/{business}', 'ReviewController@create')->name('review-create');
+
+Route::post('/review-store' ,'ReviewController@store')->name('review-store');
 
 // Proof of Concepts
 Route::get('/poc/check-ins-count', function(){

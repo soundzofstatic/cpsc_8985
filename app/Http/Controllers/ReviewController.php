@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Business;
 use App\Review;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ReviewController extends Controller
 {
@@ -14,7 +16,7 @@ class ReviewController extends Controller
      */
     public function index()
     {
-        //
+
     }
 
     /**
@@ -22,9 +24,14 @@ class ReviewController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Business $business)
     {
-        //
+       //dd($business);
+
+        return view('forms.review')
+            ->with(compact([
+                'business'
+            ]));
     }
 
     /**
@@ -35,7 +42,36 @@ class ReviewController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //dd($request->all());
+        if (Auth::check()) {
+
+            $user = Auth::user();
+
+            $review = new \App\Review();
+            $review->user_id = $user->id;
+            $review->business_id = $request->input('business_id');
+            $review->feedback_id = null;
+            $review->is_active = true;
+            $review->rating = $request->input('rating');
+            $review->save();
+
+            // Now Set the feedback associated with the review
+            $feedback = new \App\Feedback();
+            $feedback->user_id = $user->id;
+            $feedback->review_id = $review->id;
+            $feedback->question_id = null;
+            $feedback->reply_on_type = null;
+            $feedback->reply_on_feedback_id = null;
+            $feedback->sequence_number = 0;
+            $feedback->text = $request->input('review');
+            $feedback->save();
+
+            // Update the $review with the feedback_id
+            $review->feedback_id = $feedback->id;
+            $review->save();
+
+            return redirect()->route('business.home' , ['business'=>$request->input('business_id')]);
+        }
     }
 
     /**

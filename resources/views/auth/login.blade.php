@@ -30,9 +30,10 @@
                         </span>
                         <span class="buttonText">Continue with Google</span>
                     </button>
-                    <form id="sign-in" method="POST" action="{{ route('google-integrate-auth-token') }}" enctype="multipart/form-data">
+                    <form id="sign-in" method="POST" action="{{ route('google-integrate-auth-token') }}"
+                          enctype="multipart/form-data">
                         @csrf
-                        <input type="hidden" name="code" id="code" value="" />
+                        <input type="hidden" name="code" id="code" value=""/>
                     </form>
                 </div>
             </div>
@@ -44,9 +45,9 @@
     <script src="https://apis.google.com/js/client:platform.js?onload=start" async defer></script>
     <script>
 
-        $(document).ready(function(){
+        $(document).ready(function () {
 
-            $('#signinButton').click(function() {
+            $('#signinButton').click(function () {
                 // signInCallback defined in step 6.
                 auth2.grantOfflineAccess().then(signInCallback);
             });
@@ -54,7 +55,7 @@
         });
 
         function start() {
-            gapi.load('auth2', function() {
+            gapi.load('auth2', function () {
                 auth2 = gapi.auth2.init({
                     client_id: '615012713472-n3n5dlm46tnla94g4tvnboghcr0bq42n.apps.googleusercontent.com',
                     // Scopes to request in addition to 'profile' and 'email'

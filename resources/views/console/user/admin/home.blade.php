@@ -49,10 +49,6 @@
                             <input id="query" type="text" placeholder="Search for User by username, name, or email"
                                    name="query" value="{{ old('query') }}">
                         </div>
-                        <div class="col-lg-12 text-center">
-                            <button id="search" type="button">Search</button>
-                            <button id="reset" type="button" class="reset">Reset</button>
-                        </div>
                     </div>
                 </div>
                 <div id="search-results" class="col-lg-12">
@@ -61,7 +57,29 @@
                 </div>
             </div>
         </div>
-        <!-- Logout Begin -->
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Search Businesses</h2>
+                <p>Search for all businesses</p>
+            </div>
+            <div class="col-md-12">
+                <div class="contact-form">
+                    <form method="POST" action="{{ route('console.user.admin.update.listAllBusinesses', ['user'=> \Illuminate\Support\Facades\Auth::user()->id]) }}">
+                    @csrf
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <label for="query" class="sr-only">Query</label>
+                            <input id="query" type="text" placeholder="Search for Businesses by name, email, phone, or url"
+                                   name="query" value="{{ old('query') }}">
+                        </div>
+                        <div class="col-lg-12 text-center">
+                            <button id="search" type="submit">Search</button>
+                            <button id="reset" type="button" class="reset">Reset</button>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+                       <!-- Logout Begin -->
         <form method="POST" action="{{ route('logout') }}">
             @csrf
             <button class="btn btn-danger">Logout</button>
