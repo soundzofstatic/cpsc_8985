@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Bookmark;
+use App\Business;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class BookmarkController extends Controller
 {
@@ -81,5 +85,93 @@ class BookmarkController extends Controller
     public function destroy(Bookmark $bookmark)
     {
         //
+    }
+
+    /**
+     * @param User $user
+     * @param Bookmark $bookmark
+     */
+    public function markPublic(User $user, Bookmark $bookmark)
+    {
+
+        try {
+
+            if($user->id != Auth::user()->id) {
+
+                throw new \Exception('Authenticated user must match the user who owns business.');
+
+            }
+
+            if($user->id != $bookmark->user_id) {
+
+                throw new \Exception('Bookmark does not belong to the user making the request.');
+
+            }
+
+            if($bookmark->is_public) {
+
+                throw new \Exception('Bookmark is already public.');
+
+            }
+
+            $bookmark->is_public = true;
+            $bookmark->save();
+
+            return redirect()
+                ->route('console.user.reviewer.home', ['user' => $user->id]);
+
+        } catch (\Exception $e) {
+
+            Log::error($e->getMessage());
+            return redirect()
+                ->back()
+                ->withErrors([$e->getMessage()]);
+
+        }
+
+    }
+
+    /**
+     * @param User $user
+     * @param Bookmark $bookmark
+     */
+    public function markPrivate(User $user, Bookmark $bookmark)
+    {
+
+        try {
+
+            if($user->id != Auth::user()->id) {
+
+                throw new \Exception('Authenticated user must match the user who owns business.');
+
+            }
+
+            if($user->id != $bookmark->user_id) {
+
+                throw new \Exception('Bookmark does not belong to the user making the request.');
+
+            }
+
+            if(!$bookmark->is_public) {
+
+                throw new \Exception('Bookmark is already private.');
+
+            }
+
+            $bookmark->is_public = false;
+            $bookmark->save();
+
+            return redirect()
+                ->route('console.user.reviewer.home', ['user' => $user->id]);
+
+        } catch (\Exception $e) {
+
+            Log::error($e->getMessage());
+            return redirect()
+                ->back()
+                ->withErrors([$e->getMessage()]);
+
+        }
+
     }
 }

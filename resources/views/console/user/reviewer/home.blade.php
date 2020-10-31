@@ -56,6 +56,13 @@
                         <div class="col-md-3 m-1" style="border:thin solid red">
                             <p>{{ $bookmark->business->name }}</p>
                             <p>{{ $bookmark->created_at->format('m/d/Y g:i:s a') }}</p>
+                            @if($bookmark->is_public)
+                                <a href="{{ route('console.user.reviewer.update.bookmark.private-bookmark', ['user'=> $user->id, 'bookmark'=> $bookmark->id]) }}"
+                                   class="btn btn-sm btn-danger">Make Private</a>
+                            @else
+                                <a href="{{route('console.user.reviewer.update.bookmark.public-bookmark', ['user'=> $user->id, 'bookmark'=> $bookmark->id]) }}"
+                                   class="btn btn-sm btn-success">Make Public</a>
+                            @endif
                         </div>
                     @endforeach
                 </div>

@@ -46,6 +46,19 @@ Route::prefix('console')->name('console.')->group(function () {
 
             Route::get('/', 'UserController@reviewerConsoleIndex')->name('home');
 
+            Route::prefix('update')->name('update.')->group(function () {
+
+                Route::prefix('bookmark')->name('bookmark.')->group(function () {
+
+                    Route::prefix('{bookmark}')->group(function () {
+
+                        Route::get('/public-bookmark', 'BookmarkController@markPublic')->name('public-bookmark');
+                        Route::get('/private-bookmark', 'BookmarkController@markPrivate')->name('private-bookmark');
+
+                    });
+                });
+            });
+
         });
 
         Route::prefix('businesses')->name('businesses.')->group(function () { // todo - Should have middleware protecting it from non-admin users
