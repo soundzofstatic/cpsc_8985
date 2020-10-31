@@ -81,8 +81,6 @@
             </div>
 
 
-
-
         {{--        <div class="row mb-5">--}}
         {{--            <div class="col-lg-12 text-center">--}}
         {{--                <a href="{{ route('console.user.settings', ['user' => \Illuminate\Support\Facades\Auth::user()->id]) }}" class="primary-btn">User Settings</a>--}}
@@ -90,13 +88,6 @@
         {{--        </div>--}}
         <!-- Logout Begin -->
 
-
-
-
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-                <button class="btn btn-danger">Logout</button>
-            </form><!-- Logout End -->
 
         </div>
         <div class="row">
@@ -107,13 +98,19 @@
                    class="btn btn-primary">Create Business</a>
             </div>
         </div>
+        <form method="POST" action="{{ route('console.user.businesses.destroy', [ 'id'=> $business->id ]) }}">
+            @csrf
+            <input type="hidden" name="_method" value="DELETE">
+            <button type="submit" class="btn btn-danger btn-icon">Delete a business
+                <i data-feather="delete"></i>
+            </button>
+        </form>
         <!-- Logout Begin -->
         <form method="POST" action="{{ route('logout') }}">
             @csrf
             <button class="btn btn-danger">Logout</button>
         </form>
         <!-- Logout End -->
-
     </main>
 @endsection
 @section('scripts')

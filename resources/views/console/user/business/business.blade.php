@@ -161,8 +161,7 @@
                 <button class="btn btn-danger">Logout</button>
             </form>
             <!-- Logout End -->
-        </div>
-    </main>
+
 @endsection
 @section('scripts')
     <script>

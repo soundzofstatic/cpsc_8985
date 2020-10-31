@@ -131,6 +131,7 @@ class BusinessController extends Controller
     public function destroy(Business $business)
     {
         //
+
     }
 
     public function storeReview(Request $request, Business $business)

@@ -81,6 +81,7 @@ Route::prefix('console')->name('console.')->group(function () {
             Route::put('/password', 'UserController@updatePassword')->name('password-update');
 
             // DELETE - Destroy
+            Route::delete('/username', 'UserController@destroy')->name('username');
 
         });
 
