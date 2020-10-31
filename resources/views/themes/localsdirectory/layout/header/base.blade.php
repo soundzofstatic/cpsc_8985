@@ -21,7 +21,7 @@
                     <a href="{{ route('console.home') }}">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</a>
                 @endif
             </div>
-            <a href="#" class="primary-btn">Add Listing</a>
+            <a href="{{ route('business-create') }}" class="primary-btn">Add Business</a>
         </div>
         <div id="mobile-menu-wrap"></div>
     </div>

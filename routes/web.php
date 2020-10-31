@@ -122,6 +122,13 @@ Route::prefix('business')->name('business.')->group(function () {
     });
 });
 
+Route::get('/create', 'BusinessController@createFromAnywhere')->name('business-create');
+
+Route::prefix('search')->name('search.')->group(function () {
+    Route::get('/', 'BusinessController@search')->name('home');
+    Route::post('/query', 'BusinessController@query')->name('query');
+});
+
 // Theme Examples
 Route::prefix('theme')->name('theme.')->group(function () {
     Route::get('/', function () {

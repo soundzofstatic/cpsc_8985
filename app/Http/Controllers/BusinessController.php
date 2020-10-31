@@ -32,6 +32,26 @@ class BusinessController extends Controller
     }
 
     /**
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function createFromAnywhere()
+    {
+
+        if(Auth::check()) {
+
+            return redirect()
+                ->route('console.user.businesses.create', ['user' => Auth::user()->id]);
+
+        } else {
+
+            return redirect()
+                ->route('login')
+                ->withErrors(['Must be logged in before you can create Business.']);
+
+        }
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -175,6 +195,45 @@ class BusinessController extends Controller
                 ->get();
 
             return view('console.user.admin.search-business')
+                ->with(
+                    compact(
+                        [
+                            'businesses'
+                        ]
+                    )
+                );
+
+        } catch (\Exception $e) {
+
+            Log::error($e->getMessage());
+            return redirect()
+                ->back()
+                ->withErrors([$e->getMessage()]);
+
+        }
+
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
+    public function query(Request $request)
+    {
+
+        try {
+
+            $businesses = Business::where('name' , 'like', '%'. $request->input('query') . '%')
+                ->orWhere('contact_email', 'like', '%'. $request->input('query') . '%')
+                ->orWhere('web_url', 'like', '%'. $request->input('query') . '%')
+                ->orWhere('contact_phone', 'like', '%'. $request->input('query') . '%')
+                ->orderBy('name', 'asc')
+                ->orderBy('contact_email', 'asc')
+                ->orderBy('contact_phone', 'asc')
+                ->orderBy('web_url', 'asc')
+                ->get();
+
+            return view('search.results')
                 ->with(
                     compact(
                         [
