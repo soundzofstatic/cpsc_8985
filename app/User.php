@@ -116,7 +116,8 @@ class User extends Authenticatable
             BusinessCheckIn::class,
             'user_id',
             'id'
-        );
+        )
+            ->orderBy('created_at', 'desc');
     }
     public Function lastFiveBusinessCheckIns()
     {
@@ -134,6 +135,14 @@ class User extends Authenticatable
             'user_id',
             'id'
         );
+    }
+    public function publicBookmarks() {
+        return $this->hasMany(
+            Bookmark::class,
+            'user_id',
+            'id'
+        )
+            ->where('is_public', '=', true);
     }
     public function promotedBusinesses() {
         return $this->hasMany(

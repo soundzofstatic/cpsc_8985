@@ -46,6 +46,19 @@ Route::prefix('console')->name('console.')->group(function () {
 
             Route::get('/', 'UserController@reviewerConsoleIndex')->name('home');
 
+            Route::prefix('update')->name('update.')->group(function () {
+
+                Route::prefix('bookmark')->name('bookmark.')->group(function () {
+
+                    Route::prefix('{bookmark}')->group(function () {
+
+                        Route::get('/public-bookmark', 'BookmarkController@markPublic')->name('public-bookmark');
+                        Route::get('/private-bookmark', 'BookmarkController@markPrivate')->name('private-bookmark');
+
+                    });
+                });
+            });
+
         });
 
         Route::prefix('businesses')->name('businesses.')->group(function () { // todo - Should have middleware protecting it from non-admin users
@@ -95,6 +108,9 @@ Route::prefix('console')->name('console.')->group(function () {
 Route::prefix('user')->name('user.')->group(function () {
 
     Route::get('/{user}', 'UserController@show')->name('home');
+//    Route::prefix('{user}/action')->name('action.')->group(function () {
+//        Route::post('/store-review', 'BusinessController@storeReview')->name('store-review');
+//    });
 
 });
 
@@ -105,6 +121,13 @@ Route::prefix('business')->name('business.')->group(function () {
     Route::prefix('{business}/action')->name('action.')->group(function () {
         Route::post('/store-review', 'BusinessController@storeReview')->name('store-review');
     });
+});
+
+Route::get('/create', 'BusinessController@createFromAnywhere')->name('business-create');
+
+Route::prefix('search')->name('search.')->group(function () {
+    Route::get('/', 'BusinessController@search')->name('home');
+    Route::post('/query', 'BusinessController@query')->name('query');
 });
 
 // Theme Examples

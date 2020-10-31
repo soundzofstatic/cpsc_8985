@@ -89,7 +89,7 @@
                                         <h5>Review Title</h5>
                                         <p>{{ $review->originalFeedback->text }}</p>
                                         <div class="client-text">
-                                            <h5>{{ $review->user->first_name }} {{ $review->user->last_name }}</h5>
+                                            <h5><a href="{{ route('user.home', ['user' => $review->user_id]) }}" class="author-link">{{ $review->user->first_name }} {{ $review->user->last_name }}</a></h5>
                                             <span>{{ $review->created_at->format('F j, Y, g:i a') }}</span>
                                         </div>
                                         <div class="col-md-12 mt-2">
@@ -99,7 +99,7 @@
                                                          style="border-left: solid thin red;">
                                                         <p>{{ $relatedFeedback->text }}</p>
                                                         <div class="client-text">
-                                                            <h5>{{ $relatedFeedback->user->first_name }} {{ $relatedFeedback->user->last_name }}</h5>
+                                                            <h5><a href="{{ route('user.home', ['user' => $review->user_id]) }}" class="author-link">{{ $relatedFeedback->user->first_name }} {{ $relatedFeedback->user->last_name }}</a></h5>
                                                             <span>{{ $relatedFeedback->created_at->format('F j, Y, g:i a') }}</span>
                                                         </div>
                                                     </div>
