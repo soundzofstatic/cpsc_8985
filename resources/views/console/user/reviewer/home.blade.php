@@ -11,10 +11,10 @@
         <div class="row">
             <div class="col-md-12">
                 <h2>Reviews</h2>
-                <p>See your last 5 reviews.</p>
+                <p>See your last 100 reviews.</p>
             </div>
             <div class="col-md-12">
-                @foreach($user->lastFiveReviews as $review)
+                @foreach($user->lastHundredReviews as $review)
                     <div class="row mb-2" style="border: thin solid red">
                         <div class="col-md-12 p-3 shadow ">
                             <p>{{ $review->business->name }}</p>

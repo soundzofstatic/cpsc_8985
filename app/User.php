@@ -73,14 +73,14 @@ class User extends Authenticatable
 //            'Email_id'
 //        );
 //    }
-    public Function lastFiveReviews()
+    public Function lastHundredReviews()
     {
         return $this->hasMany(
             Review::class,
             'user_id',
             'id'
         )
-            ->limit(5)
+            ->limit(100)
             ->orderBy('created_at','desc');
     }
     public function questions() {

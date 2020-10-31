@@ -28,7 +28,8 @@
                             <div class="share-btn">
                                 {{--                                <a href="#" class="share">Share</a>--}}
 
-                                <a href="{{route('review-create',['business'=>$business->id])}}">Submit a Review</a>
+                                
+                                <a href ="{{route('review-create',['business'=>$business->id])}}"> Submit a Review </a>
                             </div>
                             <div class="share-icon">
                                 <a href="#"><i class="fa fa-map-marker"></i></a>
