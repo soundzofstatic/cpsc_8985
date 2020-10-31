@@ -72,6 +72,12 @@ Route::prefix('console')->name('console.')->group(function () {
 
                 Route::get('/', 'BusinessController@showConsole')->name('business-console');
 
+                Route::prefix('update')->name('update.')->group(function () {
+
+                    Route::delete('/destroy', 'BusinessController@destroy')->name('destroy');
+
+                });
+
             });
         });
     });

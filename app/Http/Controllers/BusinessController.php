@@ -148,9 +148,11 @@ class BusinessController extends Controller
      * @param  \App\Business  $business
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Business $business)
+    public function destroy(User $user, Business $business)
     {
         //
+        dd('Hi Mythri!');
+        dd($business);
 
     }
 
