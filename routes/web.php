@@ -38,6 +38,17 @@ Route::prefix('console')->name('console.')->group(function () {
 
                 Route::post('/listAllBusinesses', 'BusinessController@listAllBusinesses')->name('listAllBusinesses');
 
+                Route::prefix('review')->name('review.')->group(function () {
+
+                    Route::prefix('{review}')->group(function () {
+
+                        Route::get('/disable', 'ReviewController@disableReview')->name('disable');
+                        Route::get('/enable', 'ReviewController@enableReview')->name('enable');
+
+                    });
+
+                });
+
             });
 
         });
