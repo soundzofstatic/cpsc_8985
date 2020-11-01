@@ -39,6 +39,7 @@
                                 <div class="arrange-text">
                                     <h5>{{ $business->name  }}</h5>
                                     <span>{{ $business->address }}</span>
+                                    <div class="open tomorrow">Visits - {{ $business->businessVisit->count() }}</div>
                                 </div>
                             </a>
                         </div>

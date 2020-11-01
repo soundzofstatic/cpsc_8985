@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Business;
+use App\BusinessVisit;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -106,7 +107,16 @@ class BusinessController extends Controller
      */
     public function show(Business $business)
     {
-//        dd($business);
+
+        // Save a Visit
+        $visit = new BusinessVisit();
+        $visit->business_id = $business->id;
+        if(Auth::check()) {
+            $visit->user_id = Auth::user()->id;
+        } else {
+            $visit->user_id = null;
+        }
+        $visit->save();
 
         return view('business.single-listing')
             ->with(

@@ -13,25 +13,32 @@
                 <h2>Users</h2>
             </div>
             <div class="col-md-12">
-                @foreach($users as $user)
-                    <div class="row mb-2" style="border: thin solid red">
-                        <div class="col-md-12">
-                            <p>{{ $user->first_name }} {{ $user->last_name }}</p>
-                            <p>{{ $user->email }}</p>
-                            @if(!empty($user->username))
-                                <p>{{ $user->username }}#{{ $user->id }}</p>
-                            @endif
-                            <p>{{ $user->created_at->format('m/d/Y g:i:s a') }}</p>
-                            @if($user->is_active)
-                                <a href="{{ route('console.user.admin.update.disable-user', ['user'=> $user->id]) }}"
-                                    class="btn btn-sm btn-danger">Disable User</a>
-                            @else
-                                <a href="{{route('console.user.admin.update.enable-user', ['user'=> $user->id]) }}"
-                                    class="btn btn-sm btn-success">Enable User</a>
-                            @endif
+                <div class="row mb-2">
+                    @foreach($users as $user)
+                        <div class="col-lg-4 col-sm-6">
+                            <a class="arrange-items"
+                               href="{{--{{ route('console.user.businesses.business.business-console', ['user'=>$user->id, 'business'=>$business->id]) }}--}}">
+                                <div class="arrange-text p-3" style="border: thin solid red">
+                                    <h5>{{ $user->first_name }} {{ $user->last_name }}</h5>
+                                    <span>{{ $user->email }}</span>
+                                    <br/>
+                                    <span>{{ $user->created_at->format('m/d/Y g:i:s a') }}</span>
+                                    <br/>
+                                    @if(!empty($user->username))
+                                        <span>{{ $user->username }}#{{ $user->id }}</span>
+                                    @endif
+                                    @if($user->is_active)
+                                        <a href="{{ route('console.user.admin.update.disable-user', ['user'=> $user->id]) }}"
+                                           class="btn btn-sm btn-danger">Disable User</a>
+                                    @else
+                                        <a href="{{route('console.user.admin.update.enable-user', ['user'=> $user->id]) }}"
+                                           class="btn btn-sm btn-success">Enable User</a>
+                                    @endif
+                                </div>
+                            </a>
                         </div>
-                    </div>
-                @endforeach
+                    @endforeach
+                </div>
             </div>
         </div>
         <div class="row">

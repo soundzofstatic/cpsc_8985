@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Business;
 use App\Review;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class ReviewController extends Controller
 {
@@ -100,7 +102,7 @@ class ReviewController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Review  $review
+     * @param  \App\Review  $review`
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Review $review)
@@ -117,5 +119,85 @@ class ReviewController extends Controller
     public function destroy(Review $review)
     {
         //
+    }
+
+    /**
+     * @param User $user
+     * @param Review $review
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function disableReview(User $user, Review $review)
+    {
+
+        try {
+
+            if($user->id != Auth::user()->id) {
+
+                throw new \Exception('Requesting user must be the authenticated user.');
+
+            }
+
+            if(!$user->isAdmin()) {
+
+                throw new \Exception('Requesting user must be administrator.');
+
+            }
+
+            $review->is_active = false;
+            $review->save();
+
+            return redirect()
+                ->back()
+                ->with(['message' => 'Successfully disabled review: ' . $review->id]);
+
+        } catch (\Exception $e) {
+
+            Log::error($e->getMessage());
+            return redirect()
+                ->back()
+                ->withErrors([$e->getMessage()]);
+
+        }
+
+    }
+
+    /**
+     * @param User $user
+     * @param Review $review
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function enableReview(User $user, Review $review)
+    {
+
+        try {
+
+            if($user->id != Auth::user()->id) {
+
+                throw new \Exception('Requesting user must be the authenticated user.');
+
+            }
+
+            if(!$user->isAdmin()) {
+
+                throw new \Exception('Requesting user must be administrator.');
+
+            }
+
+            $review->is_active = true;
+            $review->save();
+
+            return redirect()
+                ->back()
+                ->with(['message' => 'Successfully enabled review: ' . $review->id]);
+
+        } catch (\Exception $e) {
+
+            Log::error($e->getMessage());
+            return redirect()
+                ->back()
+                ->withErrors([$e->getMessage()]);
+
+        }
+
     }
 }
