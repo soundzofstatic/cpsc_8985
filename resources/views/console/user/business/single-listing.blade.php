@@ -26,15 +26,29 @@
                     <div class="col-lg-4 offset-lg-1">
                         <div class="intro-share">
                             <div class="share-btn">
-{{--                                <a href="#" class="share">Share</a>--}}
+                                <a href="{{ route('console.user.businesses.business.update.social-media.create', ['user' => \Illuminate\Support\Facades\Auth::user()->id, 'business' => $business->id]) }}" class="share">Add Social Media Link</a>
 {{--                                <a href="#">Submit a Review</a>--}}
                             </div>
                             <div class="share-icon">
-                                <a href="#"><i class="fa fa-map-marker"></i></a>
-                                <a href="#"><i class="fa fa-book"></i></a>
-                                <a href="#"><i class="fa fa-hand-o-right"></i></a>
-                                <a href="#"><i class="fa fa-user-o"></i></a>
-                                <a href="#"><i class="fa fa-star-o"></i></a>
+{{--                                <a href="#"><i class="fa fa-map-marker"></i></a>--}}
+{{--                                <a href="#"><i class="fa fa-book"></i></a>--}}
+{{--                                <a href="#"><i class="fa fa-hand-o-right"></i></a>--}}
+{{--                                <a href="#"><i class="fa fa-user-o"></i></a>--}}
+{{--                                <a href="#"><i class="fa fa-star-o"></i></a>--}}
+                                @foreach($business->businessSocialMedia as $socialMedia)
+                                    @if(\App\BusinessSocialMedia::SOCIAL_MEDIA_PROVIDERS[0] == $socialMedia->social_media_provider)
+                                        <a href="{{ $socialMedia->social_media_link }}" target="_blank"><i class="fa fa-twitter"></i></a>
+                                    @endif
+                                    @if(\App\BusinessSocialMedia::SOCIAL_MEDIA_PROVIDERS[1] == $socialMedia->social_media_provider)
+                                        <a href="{{ $socialMedia->social_media_link }}" target="_blank"><i class="fa fa-facebook"></i></a>
+                                    @endif
+                                    @if(\App\BusinessSocialMedia::SOCIAL_MEDIA_PROVIDERS[2] == $socialMedia->social_media_provider)
+                                        <a href="{{ $socialMedia->social_media_link }}" target="_blank"><i class="fa fa-instagram"></i></a>
+                                    @endif
+                                    @if(\App\BusinessSocialMedia::SOCIAL_MEDIA_PROVIDERS[3] == $socialMedia->social_media_provider)
+                                        <a href="{{ $socialMedia->social_media_link }}" target="_blank"><i class="fa fa-youtube"></i></a>
+                                    @endif
+                                @endforeach
                             </div>
                         </div>
                     </div>

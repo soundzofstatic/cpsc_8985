@@ -72,6 +72,19 @@ Route::prefix('console')->name('console.')->group(function () {
 
                 Route::get('/', 'BusinessController@showConsole')->name('business-console');
 
+                Route::prefix('update')->name('update.')->group(function () {
+
+                    Route::prefix('social-media')->name('social-media.')->group(function () {
+
+                        Route::get('/create', 'BusinessSocialMediaController@create')->name('create');
+                        Route::post('/store', 'BusinessSocialMediaController@store')->name('store');
+
+                        Route::prefix('{social_media}')->group(function () {
+
+                        });
+                    });
+                });
+
             });
         });
     });
