@@ -60,6 +60,11 @@
                                     @endif
                                 @endforeach
                             </div>
+                            <div class="share-icon">
+                                @for($i=0;$i<$business->dollar_rating;$i++)
+                                    <i class="fa fa-usd"></i>
+                                @endfor
+                            </div>
                         </div>
                     </div>
                 </div>

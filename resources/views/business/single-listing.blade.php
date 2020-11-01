@@ -51,6 +51,11 @@
                                         @endif
                                 @endforeach
                             </div>
+                            <div class="share-icon">
+                                @for($i=0;$i<$business->dollar_rating;$i++)
+                                    <i class="fa fa-usd"></i>
+                                @endfor
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -69,13 +74,9 @@
                             <!-- About End -->
                             <!-- Reviews Begin -->
                             <div class="client-reviews">
-
                                 <a href="#">Submit a Review</a>
-
                                 <h3>Reviews</h3>
                                 <p> Total number of reviews - {{count($business->reviews)}} </p>
-
-
                                 @foreach($business->reviews as $review)
                                     <div class="reviews-item">
                                         <div class="rating">
