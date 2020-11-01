@@ -20,6 +20,7 @@
                                 <p>Explore some of the best places in the world</p>
 {{--                                <div class="open">Opens Tomorow at 10am</div>--}}
 {{--                                <div class="closed">Closed now</div>--}}
+                                <div class="open">Visits - {{ $business->businessVisit->count() }}</div>
                             </div>
                         </div>
                     </div>
