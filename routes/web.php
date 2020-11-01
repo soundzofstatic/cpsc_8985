@@ -18,6 +18,9 @@ Route::post('/google/sign-in', 'GoogleTokenController@exchangeAuthCode')->name('
 
 // Console, aka. Logged in area
 Route::prefix('console')->name('console.')->group(function () {
+    Route::get('/login/{social}','Auth\LoginController@socialLogin')->where('social','twitter|facebook|linkedin|google|github|bitbucket');
+
+    Route::get('/login/{social}/callback','Auth\LoginController@handleProviderCallback')->where('social','twitter|facebook|linkedin|google|github|bitbucket');
 
     Route::get('/home', 'HomeController@index')->name('home');
 
@@ -102,6 +105,7 @@ Route::prefix('console')->name('console.')->group(function () {
         Route::get('/all-users', 'UserController@listAllUsers')->name('list-all-users');
     });
 });
+
 
 // User Pages/Routes
 Route::prefix('user')->name('user.')->group(function () {
