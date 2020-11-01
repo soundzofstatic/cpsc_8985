@@ -57,8 +57,7 @@ class UserController extends Controller
             ->with(
                 compact(
                     [
-                        'user',
-                        'countOfCheckIns'
+                        'user'
                     ]
                 )
             );
