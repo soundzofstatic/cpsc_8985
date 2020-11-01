@@ -262,5 +262,87 @@ class BusinessController extends Controller
         }
 
     }
+
+    /**
+     * @param User $user
+     * @param Business $business
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function disableBusiness(User $user, Business $business)
+    {
+
+        try {
+
+            if($user->id != Auth::user()->id) {
+
+                throw new \Exception('Requesting user must be the authenticated user.');
+
+            }
+
+            if(!$user->isAdmin()) {
+
+                throw new \Exception('Requesting user must be administrator.');
+
+            }
+
+            $business->is_active = false;
+            $business->save();
+
+            return redirect()
+                ->route('console.user.businesses.business.business-console', ['user' => $user->id, 'business' => $business->id])
+                ->with(['message' => 'Successfully disabled business: ' . $business->name]);
+
+        } catch (\Exception $e) {
+
+            Log::error($e->getMessage());
+            return redirect()
+                ->back()
+                ->withErrors([$e->getMessage()]);
+
+        }
+
+    }
+
+    /**
+     * @param User $user
+     * @param Business $business
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function enableBusiness(User $user, Business $business)
+    {
+
+        try {
+
+            if($user->id != Auth::user()->id) {
+
+                throw new \Exception('Requesting user must be the authenticated user.');
+
+            }
+
+            if(!$user->isAdmin()) {
+
+                throw new \Exception('Requesting user must be administrator.');
+
+            }
+
+            $business->is_active = true;
+            $business->save();
+
+            return redirect()
+                ->route('console.user.businesses.business.business-console', ['user' => $user->id, 'business' => $business->id])
+                ->with(['message' => 'Successfully enabled business: ' . $business->name]);
+
+        } catch (\Exception $e) {
+
+            Log::error($e->getMessage());
+            return redirect()
+                ->back()
+                ->withErrors([$e->getMessage()]);
+
+        }
+
+    }
+
+
 }
 

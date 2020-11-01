@@ -49,6 +49,17 @@ Route::prefix('console')->name('console.')->group(function () {
 
                 });
 
+                Route::prefix('business')->name('business.')->group(function () {
+
+                    Route::prefix('{business}')->group(function () {
+
+                        Route::get('/disable', 'BusinessController@disableBusiness')->name('disable');
+                        Route::get('/enable', 'BusinessController@enableBusiness')->name('enable');
+
+                    });
+
+                });
+
             });
 
         });

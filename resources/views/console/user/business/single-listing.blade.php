@@ -28,7 +28,16 @@
                         <div class="intro-share">
                             <div class="share-btn">
                                 <a href="{{ route('console.user.businesses.business.update.social-media.create', ['user' => \Illuminate\Support\Facades\Auth::user()->id, 'business' => $business->id]) }}" class="share">Add Social Media Link</a>
-{{--                                <a href="#">Submit a Review</a>--}}
+                                {{--                                <a href="#">Submit a Review</a>--}}
+                                @if(\Illuminate\Support\Facades\Auth::user()->isAdmin())
+                                    @if($business->is_active)
+                                        <a href="{{ route('console.user.admin.update.business.disable', ['user'=> \Illuminate\Support\Facades\Auth::user()->id, 'business' => $business->id]) }}"
+                                           class="btn btn-sm btn-danger">Suspend Business</a>
+                                    @else
+                                        <a href="{{ route('console.user.admin.update.business.enable', ['user'=> \Illuminate\Support\Facades\Auth::user()->id, 'business' => $business->id]) }}"
+                                           class="btn btn-sm btn-success">Enable Business</a>
+                                    @endif
+                                @endif
                             </div>
                             <div class="share-icon">
 {{--                                <a href="#"><i class="fa fa-map-marker"></i></a>--}}
