@@ -53,8 +53,11 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <label for="query" class="sr-only">Query</label>
-                            <input id="query" type="text" placeholder="Search for User by username, name, or email"
-                                   name="query" value="{{ old('query') }}">
+                            <input id="query" type="text" placeholder="Search for User by username, name, or email" name="query" value="{{ old('query') }}">
+                        </div>
+                        <div class="col-lg-12 text-center">
+                            <button id="search" type="button">Search</button>
+                            <button id="reset" type="button" class="reset">Reset</button>
                         </div>
                     </div>
                 </div>
@@ -237,7 +240,9 @@
 
                             markup += '</div>';
                             markup += '<div class="arrange-text">';
+                            markup += '<a href="/user/' + element.id + '">';
                             markup += '<h5>' + element.attributes.first_name + ' ' + element.attributes.last_name + '</h5>';
+                            markup += '</a>';
                             if (element.attributes.username != null) {
                                 markup += '<span>' + element.attributes.username + '</span>';
                             }

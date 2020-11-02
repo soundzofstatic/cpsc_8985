@@ -152,24 +152,26 @@
                         </div>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h2>Bookmarks</h2>
+                <div class="row">
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h2>Check-ins</h2>
+                                <p>The last 5 check-ins:</p>
+                            </div>
                         </div>
-                        {{--                    <p>{{ $user->first_name }} has checked into {{ $user->businessCheckIns->count() }} businesses. See--}}
-                        {{--                        which businesses {{ $user->first_name }} has visted.</p>--}}
-                    </div>
-                    <div class="col-md-12">
-                        <div class="row mb-2">
-                            <ul>
-                                @foreach($business->businessCheckIn->slice(0, 5) as $checkIn)
-                                    <li><a href="{{ route('user.home', ['user' => $checkIn->user_id]) }}" class="author-link">{{ $checkIn->user->first_name }} {{ $checkIn->user->last_name }}</a> on {{ $checkIn->created_at->format('F j, Y, g:i a') }}</li>
-                                @endforeach
-                            </ul>
+                        <div class="col-md-12">
+                            <div class="row mb-2">
+                                <ul>
+                                    @foreach($business->businessCheckIn->slice(0, 5) as $checkIn)
+                                        <li><a href="{{ route('user.home', ['user' => $checkIn->user_id]) }}" class="author-link">{{ $checkIn->user->first_name }} {{ $checkIn->user->last_name }}</a> on {{ $checkIn->created_at->format('F j, Y, g:i a') }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
