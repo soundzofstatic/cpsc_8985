@@ -5,73 +5,26 @@
     <main class="container main-pad">
         <div class="row">
             <div class="col">
-                <h1>User Console</h1>
+                <h1>Last 100 Reviews</h1>
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
                 <h2>Reviews</h2>
-                <p>See your last 5 reviews. See <a href="{{ route('console.user.reviewer.last-hundred-reviews', ['user' => \Illuminate\Support\Facades\Auth::user()->id]) }}" class="btn btn-sm btn-primary">last 100 reviews</a>.</p>
+                <p>See your last 100 reviews.</p>
             </div>
             <div class="col-md-12">
-                @foreach($user->lastFiveReviews as $review)
+                @foreach($user->lastHundredReviews as $review)
                     <div class="row mb-2" style="border: thin solid red">
                         <div class="col-md-12 p-3 shadow ">
                             <p>{{ $review->business->name }}</p>
                             <p>{{ $review->originalFeedback->text }}</p>
                             <p>{{ $review->created_at->format('m/d/Y g:i:s a') }}</p>
                             <div class="d-flex align-items-center justify-content-between my-3">
-
                             </div>
                         </div>
                     </div>
                 @endforeach
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <h2>Check-Ins</h2>
-                <p>See your last 5 check-ins.</p>
-            </div>
-            <div class="col-md-12">
-                <div class="row mb-2">
-                @foreach($user->lastFiveBusinessCheckIns as $CheckIn)
-                        <div class="col-md-4 m-1" style="border: thin solid red">
-                            <p>{{ $CheckIn->business->name }}</p>
-                            <p>{{ $CheckIn->created_at->format('m/d/Y g:i:s a') }}</p>
-                        </div>
-                @endforeach
-                    </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <h2>Bookmarks</h2>
-                <p>See all of your bookmarks.</p>
-            </div>
-
-            <div class="col-md-12">
-                <div class="row">
-                    @foreach($user->bookmarks as $bookmark)
-                        <div class="col-md-3 m-1" style="border:thin solid red">
-                            <p>{{ $bookmark->business->name }}</p>
-                            <p>{{ $bookmark->created_at->format('m/d/Y g:i:s a') }}</p>
-                            @if($bookmark->is_public)
-                                <a href="{{ route('console.user.reviewer.update.bookmark.private-bookmark', ['user'=> $user->id, 'bookmark'=> $bookmark->id]) }}"
-                                   class="btn btn-sm btn-danger">Make Private</a>
-                            @else
-                                <a href="{{route('console.user.reviewer.update.bookmark.public-bookmark', ['user'=> $user->id, 'bookmark'=> $bookmark->id]) }}"
-                                   class="btn btn-sm btn-success">Make Public</a>
-                            @endif
-                        </div>
-                    @endforeach
-                </div>
-            </div>
-        </div>
-        <div class="row mb-5">
-            <div class="col-lg-12 text-center">
-                <a href="{{ route('console.user.settings', ['user' => \Illuminate\Support\Facades\Auth::user()->id]) }}"
-                   class="primary-btn">User Settings</a>
             </div>
         </div>
         <!-- Logout Begin -->
