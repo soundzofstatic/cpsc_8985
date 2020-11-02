@@ -189,7 +189,7 @@ class BusinessController extends Controller
                 )
             );
     }
-    public function listAllBusinesses(Request $request)
+    public function listAllBusinesses(Request $request) // todo - This method is not named properly, it used for querying, not listing all Businesses
     {
 
         try {
@@ -205,6 +205,33 @@ class BusinessController extends Controller
                 ->get();
 
             return view('console.user.admin.search-business')
+                ->with(
+                    compact(
+                        [
+                            'businesses'
+                        ]
+                    )
+                );
+
+        } catch (\Exception $e) {
+
+            Log::error($e->getMessage());
+            return redirect()
+                ->back()
+                ->withErrors([$e->getMessage()]);
+
+        }
+
+    }
+
+    public function listAllBusinesses2(User $user) // todo - This method is not named properly, it used for querying, not listing all Businesses
+    {
+
+        try {
+
+            $businesses = Business::get();
+
+            return view('console.user.admin.list-businesses')
                 ->with(
                     compact(
                         [

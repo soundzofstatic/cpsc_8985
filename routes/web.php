@@ -135,6 +135,7 @@ Route::prefix('console')->name('console.')->group(function () {
     });
     Route::prefix('admin')->name('admin.')->group(function () { // todo - Should have middleware protecting it from non-admin users
         Route::get('/all-users', 'UserController@listAllUsers')->name('list-all-users');
+        Route::get('/all-businesses', 'BusinessController@listAllBusinesses2')->name('list-all-businesses');
     });
 });
 
