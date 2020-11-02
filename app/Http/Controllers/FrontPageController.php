@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\BusinessCheckIn;
 use Illuminate\Http\Request;
 
 class FrontPageController extends Controller
@@ -13,7 +14,18 @@ class FrontPageController extends Controller
      */
     public function index()
     {
-        return view('index');
+        $checkIns = BusinessCheckIn::limit(4)
+            ->orderBy('created_at', 'DESC')
+            ->get();
+
+        return view('index')
+            ->with(
+                compact(
+                    [
+                        'checkIns'
+                    ]
+                )
+            );
     }
 
     /**
