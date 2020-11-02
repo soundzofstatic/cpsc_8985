@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Admin;
+use App\Business;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -56,8 +57,7 @@ class UserController extends Controller
             ->with(
                 compact(
                     [
-                        'user',
-                        'countOfCheckIns'
+                        'user'
                     ]
                 )
             );

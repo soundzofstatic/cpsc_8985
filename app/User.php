@@ -73,6 +73,16 @@ class User extends Authenticatable
 //            'Email_id'
 //        );
 //    }
+    public Function lastFiveReviews()
+    {
+        return $this->hasMany(
+            Review::class,
+            'user_id',
+            'id'
+        )
+            ->limit(5)
+            ->orderBy('created_at','desc');
+    }
     public Function lastHundredReviews()
     {
         return $this->hasMany(
@@ -116,7 +126,8 @@ class User extends Authenticatable
             BusinessCheckIn::class,
             'user_id',
             'id'
-        );
+        )
+            ->orderBy('created_at', 'desc');
     }
     public Function lastFiveBusinessCheckIns()
     {
@@ -134,6 +145,14 @@ class User extends Authenticatable
             'user_id',
             'id'
         );
+    }
+    public function publicBookmarks() {
+        return $this->hasMany(
+            Bookmark::class,
+            'user_id',
+            'id'
+        )
+            ->where('is_public', '=', true);
     }
     public function promotedBusinesses() {
         return $this->hasMany(
@@ -161,5 +180,18 @@ class User extends Authenticatable
 
         }
 
+    }
+
+    /**
+     * @param Business $business
+     * @return mixed
+     */
+    public function specificBusinessBookmark(Business $business) {
+
+        $bookmark = Bookmark::where('business_id', '=', $business->id)
+            ->where('user_id', '=', $this->id)
+            ->first();
+
+        return $bookmark;
     }
 }

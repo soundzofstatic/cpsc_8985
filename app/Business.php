@@ -39,7 +39,8 @@ class Business extends Model
             BusinessCheckIn::class,
             'business_id',
             'id'
-        );
+        )
+            ->orderBy('created_at', 'DESC');
 
     }
     public function businessEvent()

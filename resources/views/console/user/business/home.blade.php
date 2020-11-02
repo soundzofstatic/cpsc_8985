@@ -18,73 +18,33 @@
             <div class="col-md-12">
 
                 <div class="row">
-{{--                    <div class="col-lg-12">--}}
-{{--                        <form action="#" class="arrange-select">--}}
-{{--                            <span>Arrange by</span>--}}
-{{--                            <select>--}}
-{{--                                <option>Newest</option>--}}
-{{--                                <option>Oldest</option>--}}
-{{--                            </select>--}}
-{{--                        </form>--}}
-{{--                    </div>--}}
+                    {{--                    <div class="col-lg-12">--}}
+                    {{--                        <form action="#" class="arrange-select">--}}
+                    {{--                            <span>Arrange by</span>--}}
+                    {{--                            <select>--}}
+                    {{--                                <option>Newest</option>--}}
+                    {{--                                <option>Oldest</option>--}}
+                    {{--                            </select>--}}
+                    {{--                        </form>--}}
+                    {{--                    </div>--}}
                     @foreach($user->businesses as $business)
-                    <div class="col-lg-4 col-sm-6">
-                        <a class="arrange-items" href="{{ route('console.user.businesses.business.business-console', ['user'=>$user->id, 'business'=>$business->id]) }}">
-                            <div class="arrange-pic">
-                                <img src="{{ parse_url(asset('img/arrange/arrange-1.jpg'), PHP_URL_PATH) }}" alt="">
-                                <div class="rating">{{ $business->rating() }}</div>
-                                <div class="tic-text">Restaurants</div>
-                            </div>
-                            <div class="arrange-text">
-                                <h5>{{ $business->name  }}</h5>
-                                <span>{{ $business->address }}</span>
-                            </div>
-                        </a>
-                    </div>
+                        <div class="col-lg-4 col-sm-6">
+                            <a class="arrange-items"
+                               href="{{ route('console.user.businesses.business.business-console', ['user'=>$user->id, 'business'=>$business->id]) }}">
+                                <div class="arrange-pic">
+                                    <img src="{{ parse_url(asset('img/arrange/arrange-1.jpg'), PHP_URL_PATH) }}" alt="">
+                                    <div class="rating">{{ $business->rating() }}</div>
+                                    <div class="tic-text">Restaurants</div>
+                                </div>
+                                <div class="arrange-text">
+                                    <h5>{{ $business->name  }}</h5>
+                                    <span>{{ $business->address }}</span>
+                                    <div class="open tomorrow">Visits - {{ $business->businessVisit->count() }}</div>
+                                </div>
+                            </a>
+                        </div>
 
 
-                    <div class="container">
-                        <br><label for="uname"><b>Username</b></label>
-                        <input type="text" placeholder="Enter Username" name="uname" required><br/>
-
-                        <br><label for="uname"><b>Businessname</b></label>
-                        <input type="text" placeholder="Enter Businessname" name="uname" required><br/>
-
-                        <br><label for="psw"><b>Password</b></label>
-                        <input type="password" placeholder="Enter Password" name="psw" required><br/>
-
-                        <br><label for="psw"><b>Confirm Password</b></label>
-                        <input type="Confirmpassword" placeholder="Confirm Password" name="psw" required><br/>
-
-                        <br><label for="email"><b>EmailID</b></label>
-                        <input type="text" placeholder="Enter EmailID" name="emailid" required><br/>
-
-                        <br><label for="address"><b>Address</b></label>
-                        <input type="text" placeholder="Enter address" name="address" required><br/>
-
-                        <br><label for="contact"><b>ContactNo</b></label>
-                        <input type="text" placeholder="Enter contact no" name="contact" required><br/>
-
-                        <br><label for="menu_url"><b>Menu_url</b></label>
-                        <input type="text" placeholder="Enter menu_url" name="menu_url" required><br/>
-
-
-                        <br><label for="socialmedia_url"><b>SocialMedia_url</b></label>
-                        <input type="text" placeholder="Enter socialmedia_url" name="socialmedia_url" required><br/>
-
-                        <br><label for="psw"><b>Password</b></label>
-                        <input type="password" placeholder="Enter Password" name="psw" required><br/>
-
-                        <br><label for="psw"><b>Confirm Password</b></label>
-                        <input type="Confirmpassword" placeholder="Confirm Password" name="psw" required><br/>
-                        <br>
-
-                        <label for="EstablishedOn">Established Date:</label>
-                        <input type="date" id="Established" name="EstablishedOn">
-
-                        <br>
-                        <button type="submit">submit</button>
-                        <br/>
 
                     @endforeach
                     <div class="col-lg-12 text-right">
@@ -98,28 +58,29 @@
                 </div>
 
 
-{{--                @foreach($user->businesses as $business)--}}
-{{--                    <div class="row mb-2" style="border: thin solid red">--}}
-{{--                        <div class="col-md-12 p-3 shadow ">--}}
-{{--                            <p>{{ $review->business->name }}</p>--}}
-{{--                            <p>{{ $review->originalFeedback->text }}</p>--}}
-{{--                            <p>{{ $review->created_at->format('m/d/Y g:i:s a') }}</p>--}}
-{{--                            <div class="d-flex align-items-center justify-content-between my-3">--}}
-{{--                                <div>--}}
-{{--                                    <button type="button" class="btn btn-outline-secondary px-3 btn-sm">Useful</button>--}}
-{{--                                    <button type="button" class="btn btn-outline-secondary px-2 btn-sm">Funny</button>--}}
-{{--                                    <button type="button" class="btn btn-outline-secondary px-2 btn-sm">Cool</button>--}}
-{{--                                </div>--}}
-{{--                                <div>--}}
-{{--                                    <a href="#" class="mr-2">Reply</a>--}}
-{{--                                    <a href="#" class="mr-2">Comment</a>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
+                {{--                @foreach($user->businesses as $business)--}}
+                {{--                    <div class="row mb-2" style="border: thin solid red">--}}
+                {{--                        <div class="col-md-12 p-3 shadow ">--}}
+                {{--                            <p>{{ $review->business->name }}</p>--}}
+                {{--                            <p>{{ $review->originalFeedback->text }}</p>--}}
+                {{--                            <p>{{ $review->created_at->format('m/d/Y g:i:s a') }}</p>--}}
+                {{--                            <div class="d-flex align-items-center justify-content-between my-3">--}}
+                {{--                                <div>--}}
+                {{--                                    <button type="button" class="btn btn-outline-secondary px-3 btn-sm">Useful</button>--}}
+                {{--                                    <button type="button" class="btn btn-outline-secondary px-2 btn-sm">Funny</button>--}}
+                {{--                                    <button type="button" class="btn btn-outline-secondary px-2 btn-sm">Cool</button>--}}
+                {{--                                </div>--}}
+                {{--                                <div>--}}
+                {{--                                    <a href="#" class="mr-2">Reply</a>--}}
+                {{--                                    <a href="#" class="mr-2">Comment</a>--}}
+                {{--                                </div>--}}
+                {{--                            </div>--}}
+                {{--                        </div>--}}
+                {{--                    </div>--}}
                 {{--  todo - Render list of all businesses owned by Authenticated user --}}
-{{--                @endforeach--}}
+                {{--                @endforeach--}}
             </div>
+
 
 
 
@@ -129,6 +90,10 @@
         {{--            </div>--}}
         {{--        </div>--}}
         <!-- Logout Begin -->
+
+
+
+
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
                 <button class="btn btn-danger">Logout</button>
@@ -149,7 +114,7 @@
             <button class="btn btn-danger">Logout</button>
         </form>
         <!-- Logout End -->
-        </div>
+
     </main>
 @endsection
 @section('scripts')

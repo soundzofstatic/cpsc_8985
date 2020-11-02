@@ -36,6 +36,30 @@ Route::prefix('console')->name('console.')->group(function () {
                 Route::get('/disable-user', 'UserController@disableUser')->name('disable-user'); // todo - hook this in to Blade where users are displayed for admin
                 Route::get('/enable-user', 'UserController@enableUser')->name('enable-user');
 
+                Route::post('/listAllBusinesses', 'BusinessController@listAllBusinesses')->name('listAllBusinesses');
+
+                Route::prefix('review')->name('review.')->group(function () {
+
+                    Route::prefix('{review}')->group(function () {
+
+                        Route::get('/disable', 'ReviewController@disableReview')->name('disable');
+                        Route::get('/enable', 'ReviewController@enableReview')->name('enable');
+
+                    });
+
+                });
+
+                Route::prefix('business')->name('business.')->group(function () {
+
+                    Route::prefix('{business}')->group(function () {
+
+                        Route::get('/disable', 'BusinessController@disableBusiness')->name('disable');
+                        Route::get('/enable', 'BusinessController@enableBusiness')->name('enable');
+
+                    });
+
+                });
+
             });
 
         });
@@ -44,17 +68,44 @@ Route::prefix('console')->name('console.')->group(function () {
 
             Route::get('/', 'UserController@reviewerConsoleIndex')->name('home');
 
+            Route::prefix('update')->name('update.')->group(function () {
+
+                Route::prefix('bookmark')->name('bookmark.')->group(function () {
+
+                    Route::prefix('{bookmark}')->group(function () {
+
+                        Route::get('/public-bookmark', 'BookmarkController@markPublic')->name('public-bookmark');
+                        Route::get('/private-bookmark', 'BookmarkController@markPrivate')->name('private-bookmark');
+
+                    });
+                });
+            });
+
         });
 
         Route::prefix('businesses')->name('businesses.')->group(function () { // todo - Should have middleware protecting it from non-admin users
 
             Route::get('/', 'UserController@businessConsoleIndex')->name('home');
+
             Route::get('/business-create', 'BusinessController@create')->name('create');
             Route::post('/business-create', 'BusinessController@store')->name('store');
 
             Route::prefix('{business}')->name('business.')->group(function () { // todo - Should have middleware
 
                 Route::get('/', 'BusinessController@showConsole')->name('business-console');
+
+                Route::prefix('update')->name('update.')->group(function () {
+
+                    Route::prefix('social-media')->name('social-media.')->group(function () {
+
+                        Route::get('/create', 'BusinessSocialMediaController@create')->name('create');
+                        Route::post('/store', 'BusinessSocialMediaController@store')->name('store');
+
+                        Route::prefix('{social_media}')->group(function () {
+
+                        });
+                    });
+                });
 
             });
         });
@@ -84,23 +135,42 @@ Route::prefix('console')->name('console.')->group(function () {
     });
     Route::prefix('admin')->name('admin.')->group(function () { // todo - Should have middleware protecting it from non-admin users
         Route::get('/all-users', 'UserController@listAllUsers')->name('list-all-users');
+        Route::get('/all-businesses', 'BusinessController@listAllBusinesses2')->name('list-all-businesses');
     });
 });
+
 
 // User Pages/Routes
 Route::prefix('user')->name('user.')->group(function () {
 
     Route::get('/{user}', 'UserController@show')->name('home');
+//    Route::prefix('{user}/action')->name('action.')->group(function () {
+//        Route::post('/store-review', 'BusinessController@storeReview')->name('store-review');
+//    });
 
 });
 
 // Business Pages/Routes
 Route::prefix('business')->name('business.')->group(function () {
 
-    Route::get('/{business}', 'BusinessController@show')->name('home');
-    Route::prefix('{business}/action')->name('action.')->group(function () {
-        Route::post('/store-review', 'BusinessController@storeReview')->name('store-review');
+    Route::prefix('{business}')->group(function () {
+        Route::get('/', 'BusinessController@show')->name('home');
+        Route::get('/check-in', 'BusinessCheckInController@store')->name('check-in');
+        Route::prefix('/bookmark')->name('bookmark.')->group(function () {
+            Route::get('/store', 'BookmarkController@store')->name('store');
+            Route::get('/destroy/{bookmark}', 'BookmarkController@destroy')->name('destroy');
+        });
+        Route::prefix('/action')->name('action.')->group(function () {
+            Route::post('/store-review', 'BusinessController@storeReview')->name('store-review');
+        });
     });
+});
+
+Route::get('/create', 'BusinessController@createFromAnywhere')->name('business-create');
+
+Route::prefix('search')->name('search.')->group(function () {
+    Route::get('/', 'BusinessController@search')->name('home');
+    Route::post('/query', 'BusinessController@query')->name('query');
 });
 
 // Theme Examples

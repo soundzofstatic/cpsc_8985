@@ -5,23 +5,12 @@
             <div class="col-lg-12">
                 <div class="hero-text">
                     <img src="{{ parse_url(asset('img/placeholder.png'), PHP_URL_PATH) }}" alt="">
-                    <h1>New York</h1>
-                    <form action="#" class="filter-search">
-                        <div class="category-search">
-                            <h5>Search Category</h5>
-                            <select class="ca-search">
-                                <option>Restaurants</option>
-                                <option>Hotels</option>
-                                <option>Food & Drinks</option>
-                                <option>Home Delievery</option>
-                                <option>Commercial Shops</option>
-                            </select>
-                        </div>
-                        <div class="location-search">
-                            <h5>Your Location</h5>
-                            <select class="lo-search">
-                                <option>New York</option>
-                            </select>
+                    <h1>Better Reviews</h1>
+                    <form action="{{ route('search.query') }}" method="POST" class="filter-search">
+                        @csrf
+                        <div class="search-query-field">
+                            <h5>Search Businesses</h5>
+                            <input type="text" name="query" value="" placeholder="Search for Businesses" />
                         </div>
                         <button type="submit">Search Now</button>
                     </form>

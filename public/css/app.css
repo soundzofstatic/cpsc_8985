@@ -16434,3 +16434,31 @@ button.demote {
   border: none;
 }
 
+a:hover {
+  color: #009CFF;
+  text-decoration: underline;
+}
+
+.review-item {
+  border-bottom: thin solid #F60;
+}
+
+.filter-search .search-query-field h5 {
+  color: #fff;
+  font-size: 18px;
+  font-weight: 900;
+  margin-bottom: 12px;
+}
+
+.filter-search .search-query-field input[type=text] {
+  width: calc(100% - 20px);
+  font-size: 16px;
+  color: #fff;
+  background: transparent;
+  height: 50px;
+  line-height: 46px;
+  border-radius: 0;
+  padding-left: 31px;
+  border: solid thin #fff;
+}
+

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Business;
 use App\BusinessCheckIn;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BusinessCheckInController extends Controller
 {
@@ -33,9 +35,26 @@ class BusinessCheckInController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Business $business, Request $request)
     {
-        //
+        if(Auth::check()) {
+
+            $checkIn = new BusinessCheckIn();
+            $checkIn->business_id = $business->id;
+            $checkIn->user_id = Auth::user()->id;
+            $checkIn->save();
+
+            return redirect()
+                ->back()
+                ->with(['message' => 'Successfully Checked-in to : ' . $business->name]);
+
+        } else {
+
+            return redirect()
+                ->route('login')
+                ->withErrors(['Must be logged in before you can Check-in to a Business.']);
+
+        }
     }
 
     /**

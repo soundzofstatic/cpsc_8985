@@ -20,21 +20,50 @@
                                 <p>Explore some of the best places in the world</p>
 {{--                                <div class="open">Opens Tomorow at 10am</div>--}}
 {{--                                <div class="closed">Closed now</div>--}}
+                                <div class="open">Visits - {{ $business->businessVisit->count() }}</div>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-4 offset-lg-1">
                         <div class="intro-share">
                             <div class="share-btn">
-{{--                                <a href="#" class="share">Share</a>--}}
-{{--                                <a href="#">Submit a Review</a>--}}
+                                <a href="{{ route('console.user.businesses.business.update.social-media.create', ['user' => \Illuminate\Support\Facades\Auth::user()->id, 'business' => $business->id]) }}" class="share">Add Social Media Link</a>
+                                {{--                                <a href="#">Submit a Review</a>--}}
+                                @if(\Illuminate\Support\Facades\Auth::user()->isAdmin())
+                                    @if($business->is_active)
+                                        <a href="{{ route('console.user.admin.update.business.disable', ['user'=> \Illuminate\Support\Facades\Auth::user()->id, 'business' => $business->id]) }}"
+                                           class="btn btn-sm btn-danger">Suspend Business</a>
+                                    @else
+                                        <a href="{{ route('console.user.admin.update.business.enable', ['user'=> \Illuminate\Support\Facades\Auth::user()->id, 'business' => $business->id]) }}"
+                                           class="btn btn-sm btn-success">Enable Business</a>
+                                    @endif
+                                @endif
                             </div>
                             <div class="share-icon">
-                                <a href="#"><i class="fa fa-map-marker"></i></a>
-                                <a href="#"><i class="fa fa-book"></i></a>
-                                <a href="#"><i class="fa fa-hand-o-right"></i></a>
-                                <a href="#"><i class="fa fa-user-o"></i></a>
-                                <a href="#"><i class="fa fa-star-o"></i></a>
+{{--                                <a href="#"><i class="fa fa-map-marker"></i></a>--}}
+{{--                                <a href="#"><i class="fa fa-book"></i></a>--}}
+{{--                                <a href="#"><i class="fa fa-hand-o-right"></i></a>--}}
+{{--                                <a href="#"><i class="fa fa-user-o"></i></a>--}}
+{{--                                <a href="#"><i class="fa fa-star-o"></i></a>--}}
+                                @foreach($business->businessSocialMedia as $socialMedia)
+                                    @if(\App\BusinessSocialMedia::SOCIAL_MEDIA_PROVIDERS[0] == $socialMedia->social_media_provider)
+                                        <a href="{{ $socialMedia->social_media_link }}" target="_blank"><i class="fa fa-twitter"></i></a>
+                                    @endif
+                                    @if(\App\BusinessSocialMedia::SOCIAL_MEDIA_PROVIDERS[1] == $socialMedia->social_media_provider)
+                                        <a href="{{ $socialMedia->social_media_link }}" target="_blank"><i class="fa fa-facebook"></i></a>
+                                    @endif
+                                    @if(\App\BusinessSocialMedia::SOCIAL_MEDIA_PROVIDERS[2] == $socialMedia->social_media_provider)
+                                        <a href="{{ $socialMedia->social_media_link }}" target="_blank"><i class="fa fa-instagram"></i></a>
+                                    @endif
+                                    @if(\App\BusinessSocialMedia::SOCIAL_MEDIA_PROVIDERS[3] == $socialMedia->social_media_provider)
+                                        <a href="{{ $socialMedia->social_media_link }}" target="_blank"><i class="fa fa-youtube"></i></a>
+                                    @endif
+                                @endforeach
+                            </div>
+                            <div class="share-icon">
+                                @for($i=0;$i<$business->dollar_rating;$i++)
+                                    <i class="fa fa-usd"></i>
+                                @endfor
                             </div>
                         </div>
                     </div>
@@ -45,7 +74,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-8">
-                        <br class="about-left">
+                        <div class="about-left">
                             <!-- About Begin -->
                             <div class="about-desc">
                                 <h4>About the Restaurant</h4>
@@ -53,11 +82,8 @@
                             </div>
                             <!-- About End -->
                             <!-- Reviews Begin -->
-
-
+                            <div class="client-reviews">
                         <h3>Reviews</h3>
-                        <b> Total number of reviews - {{count($business->reviews)}} </b>
-                        <br><br>
                         @foreach($business->reviews as $review)
                                     <div class="reviews-item">
                                     <div class="rating">
@@ -71,7 +97,7 @@
                                     <h5>Review Title</h5>
                                     <p>{{ $review->originalFeedback->text }}</p>
                                     <div class="client-text">
-                                        <h5>{{ $review->user->first_name }} {{ $review->user->last_name }}</h5>
+                                        <h5><a href="{{ route('user.home', ['user' => $review->user_id]) }}" class="author-link">{{ $review->user->first_name }} {{ $review->user->last_name }}</a></h5>
                                         <span>{{ $review->created_at->format('F j, Y, g:i a') }}</span>
                                     </div>
                                     <div class="col-md-12 mt-2">
@@ -95,8 +121,7 @@
                                                 </div>
 
                                                 <div class="client-text">
-
-                                                    <h5>{{ $relatedFeedback->user->first_name }} {{ $relatedFeedback->user->last_name }}</h5>
+                                                    <h5><a href="{{ route('user.home', ['user' => $relatedFeedback->user_id]) }}" class="author-link">{{ $relatedFeedback->user->first_name }} {{ $relatedFeedback->user->last_name }}</a></h5>
                                                     <span>{{ $relatedFeedback->created_at->format('F j, Y, g:i a') }}</span>
                                                 </div>
                                             </div>
@@ -142,6 +167,26 @@
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h2>Check-ins</h2>
+                                <p>The last 5 check-ins:</p>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="row mb-2">
+                                <ul>
+                                    @foreach($business->businessCheckIn->slice(0, 5) as $checkIn)
+                                        <li><a href="{{ route('user.home', ['user' => $checkIn->user_id]) }}" class="author-link">{{ $checkIn->user->first_name }} {{ $checkIn->user->last_name }}</a> on {{ $checkIn->created_at->format('F j, Y, g:i a') }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>

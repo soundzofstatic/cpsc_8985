@@ -102,10 +102,10 @@ class UserApiController extends Controller
 
             }
 
-            $users = User::where('username', '=', $request->input('query'))
-                ->orWhere('first_name', '=', $request->input('query'))
-                ->orWhere('last_name', '=', $request->input('query'))
-                ->orWhere('email', '=', $request->input('query'))
+            $users = User::where('username', 'LIKE', '%' . $request->input('query') . '%')
+                ->orWhere('first_name', 'LIKE', '%' . $request->input('query') . '%')
+                ->orWhere('last_name', 'LIKE', '%' . $request->input('query') . '%')
+                ->orWhere('email', 'LIKE', '%' . $request->input('query') . '%')
                 ->get();
 
             UsersResource::withoutWrapping();

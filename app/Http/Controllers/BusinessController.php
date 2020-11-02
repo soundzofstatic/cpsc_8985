@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Business;
+use App\BusinessVisit;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -31,23 +33,61 @@ class BusinessController extends Controller
     }
 
     /**
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function createFromAnywhere()
+    {
+
+        if(Auth::check()) {
+
+            return redirect()
+                ->route('console.user.businesses.create', ['user' => Auth::user()->id]);
+
+        } else {
+
+            return redirect()
+                ->route('login')
+                ->withErrors(['Must be logged in before you can create Business.']);
+
+        }
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(User $user, Request $request)
     {
-
         try {
 
-            dd($request->all()); // echo or display of data
-            dd($request->input('name')); // echo or display of data
+            // Because the $user is passed from the route, let's compare it to the Authenticated user
+            if($user->id != Auth::user()->id) {
 
-            // todo - Mythri, add logic here to save a business
-            // todo - Must save Business for Authenticated User
-            $authenticatedUser = Auth::user();
-            dd($authenticatedUser->id);
+                throw new \Exception('Authenticated user must match the user who owns business.');
+
+            }
+
+            $business = new \App\Business();
+            $business->name = $request->input('name');
+            $business->user_id = $user->id;
+
+            $business->address = $request->input('address');
+            $business->hours = $request->input('hours');
+            $business->est_date = Carbon::createFromFormat('Y-m-d', $request->input('established_on'))->format('m/d/Y');
+            $business->description = $request->input('description');
+            $business->dollar_rating = $request->input('dollar_rating');
+            $business->web_url = $request->input('web_url');
+            $business->menu_url = $request->input('menu_url');
+            $business->contact_phone = $request->input('contact_phone');
+            $business->contact_email = $request->input('contact_email');
+            $business->view_count = 0;
+            $business->is_active = true;
+            $business->save();
+
+            return redirect()
+                ->route('business.home', ['business' => $business->id]);
 
         } catch (\Exception $e) {
 
@@ -67,7 +107,16 @@ class BusinessController extends Controller
      */
     public function show(Business $business)
     {
-//        dd($business);
+
+        // Save a Visit
+        $visit = new BusinessVisit();
+        $visit->business_id = $business->id;
+        if(Auth::check()) {
+            $visit->user_id = Auth::user()->id;
+        } else {
+            $visit->user_id = null;
+        }
+        $visit->save();
 
         return view('business.single-listing')
             ->with(
@@ -78,6 +127,7 @@ class BusinessController extends Controller
                 )
             );
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -139,4 +189,187 @@ class BusinessController extends Controller
                 )
             );
     }
+    public function listAllBusinesses(Request $request) // todo - This method is not named properly, it used for querying, not listing all Businesses
+    {
+
+        try {
+
+            $businesses = Business::where('name' , 'like', '%'. $request->input('query') . '%')
+                ->orWhere('contact_email', 'like', '%'. $request->input('query') . '%')
+                ->orWhere('web_url', 'like', '%'. $request->input('query') . '%')
+                ->orWhere('contact_phone', 'like', '%'. $request->input('query') . '%')
+                ->orderBy('name', 'asc')
+                ->orderBy('contact_email', 'asc')
+                ->orderBy('contact_phone', 'asc')
+                ->orderBy('web_url', 'asc')
+                ->get();
+
+            return view('console.user.admin.search-business')
+                ->with(
+                    compact(
+                        [
+                            'businesses'
+                        ]
+                    )
+                );
+
+        } catch (\Exception $e) {
+
+            Log::error($e->getMessage());
+            return redirect()
+                ->back()
+                ->withErrors([$e->getMessage()]);
+
+        }
+
+    }
+
+    public function listAllBusinesses2(User $user) // todo - This method is not named properly, it used for querying, not listing all Businesses
+    {
+
+        try {
+
+            $businesses = Business::get();
+
+            return view('console.user.admin.list-businesses')
+                ->with(
+                    compact(
+                        [
+                            'businesses'
+                        ]
+                    )
+                );
+
+        } catch (\Exception $e) {
+
+            Log::error($e->getMessage());
+            return redirect()
+                ->back()
+                ->withErrors([$e->getMessage()]);
+
+        }
+
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
+    public function query(Request $request)
+    {
+
+        try {
+
+            $businesses = Business::where('name' , 'like', '%'. $request->input('query') . '%')
+                ->orWhere('contact_email', 'like', '%'. $request->input('query') . '%')
+                ->orWhere('web_url', 'like', '%'. $request->input('query') . '%')
+                ->orWhere('contact_phone', 'like', '%'. $request->input('query') . '%')
+                ->orderBy('name', 'asc')
+                ->orderBy('contact_email', 'asc')
+                ->orderBy('contact_phone', 'asc')
+                ->orderBy('web_url', 'asc')
+                ->get();
+
+            return view('search.results')
+                ->with(
+                    compact(
+                        [
+                            'businesses'
+                        ]
+                    )
+                );
+
+        } catch (\Exception $e) {
+
+            Log::error($e->getMessage());
+            return redirect()
+                ->back()
+                ->withErrors([$e->getMessage()]);
+
+        }
+
+    }
+
+    /**
+     * @param User $user
+     * @param Business $business
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function disableBusiness(User $user, Business $business)
+    {
+
+        try {
+
+            if($user->id != Auth::user()->id) {
+
+                throw new \Exception('Requesting user must be the authenticated user.');
+
+            }
+
+            if(!$user->isAdmin()) {
+
+                throw new \Exception('Requesting user must be administrator.');
+
+            }
+
+            $business->is_active = false;
+            $business->save();
+
+            return redirect()
+                ->route('console.user.businesses.business.business-console', ['user' => $user->id, 'business' => $business->id])
+                ->with(['message' => 'Successfully disabled business: ' . $business->name]);
+
+        } catch (\Exception $e) {
+
+            Log::error($e->getMessage());
+            return redirect()
+                ->back()
+                ->withErrors([$e->getMessage()]);
+
+        }
+
+    }
+
+    /**
+     * @param User $user
+     * @param Business $business
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function enableBusiness(User $user, Business $business)
+    {
+
+        try {
+
+            if($user->id != Auth::user()->id) {
+
+                throw new \Exception('Requesting user must be the authenticated user.');
+
+            }
+
+            if(!$user->isAdmin()) {
+
+                throw new \Exception('Requesting user must be administrator.');
+
+            }
+
+            $business->is_active = true;
+            $business->save();
+
+            return redirect()
+                ->route('console.user.businesses.business.business-console', ['user' => $user->id, 'business' => $business->id])
+                ->with(['message' => 'Successfully enabled business: ' . $business->name]);
+
+        } catch (\Exception $e) {
+
+            Log::error($e->getMessage());
+            return redirect()
+                ->back()
+                ->withErrors([$e->getMessage()]);
+
+        }
+
+    }
+
+
 }
+
