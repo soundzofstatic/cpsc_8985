@@ -44,8 +44,8 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <h2>Search and Promote</h2>
-                <p>Search for users and promote them administrative level accounts.</p>
+                <h2>Search Users</h2>
+                <p>Search for users and act on their accounts.</p>
             </div>
             <div class="col-md-12">
                 <div class="contact-form">
@@ -253,6 +253,11 @@
                                 markup += '<button class="demote action" data-action="demote" data-user="' + element.id + '">Demote</button>';
                             } else {
                                 markup += '<button class="promote action" data-action="promote" data-user="' + element.id + '">Promote</button>';
+                            }
+                            if (element.attributes.is_active) {
+                                markup += '<a href="/console/user/' + element.id + '/admin/update/disable-user" class="btn btn-sm btn-danger">Disable User</a>';
+                            } else {
+                                markup += '<a href="/console/user/' + element.id + '/admin/update/enable-user" class="btn btn-sm btn-success">Enable User</a>';
                             }
 
                             markup += '</div>';

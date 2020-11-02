@@ -23,6 +23,7 @@ class UserResource extends JsonResource
                 'email' => $this->email,
                 'username' => $this->username,
                 'is_admin' => (boolean)$this->isAdmin(),
+                'is_active' => (boolean)$this->is_active,
             ],
             //'relationships' => new RelationshipResource($this->resource), // todo - Fill out to be truly JSON:API compliant
 //            'links' => []
