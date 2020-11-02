@@ -18,17 +18,17 @@
                             <div class="intro-text">
                                 <h2>{{ $business->name }}</h2>
                                 <p>Explore some of the best places in the world</p>
-                                {{--                                <div class="open">Opens Tomorow at 10am</div>--}}
-                                {{--                                <div class="closed">Closed now</div>--}}
+{{--                                                                <div class="open">Opens Tomorow at 10am</div>--}}
+{{--                                                                <div class="closed">Closed now</div>--}}
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-4 offset-lg-1">
                         <div class="intro-share">
                             <div class="share-btn">
-                                {{--                                <a href="#" class="share">Share</a>--}}
+                                                                <a href="{{ route('business.check-in', ['business'=>$business->id]) }}" class="share">Check-in</a>
 
-                                <a href="{{route('review-create',['business'=>$business->id])}}">Submit a Review</a>
+                                <a href="{{ route('review-create',['business'=>$business->id]) }}">Submit a Review</a>
                             </div>
                             <div class="share-icon">
 {{--                                <a href="#"><i class="fa fa-map-marker"></i></a>--}}
