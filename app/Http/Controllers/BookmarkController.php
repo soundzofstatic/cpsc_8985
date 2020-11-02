@@ -37,9 +37,38 @@ class BookmarkController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Business $business, Request $request)
     {
-        //
+        try {
+
+            if(Auth::check()) {
+
+                $checkIn = new Bookmark();
+                $checkIn->business_id = $business->id;
+                $checkIn->user_id = Auth::user()->id;
+                $checkIn->is_public = true;
+                $checkIn->save();
+
+                return redirect()
+                    ->back()
+                    ->with(['message' => 'Successfully Bookmarked: ' . $business->name]);
+
+            } else {
+
+                return redirect()
+                    ->route('login')
+                    ->withErrors(['Must be logged in before you can Bookmark a Business.']);
+
+            }
+
+        } catch (\Exception $e) {
+
+            Log::error($e->getMessage());
+            return redirect()
+                ->back()
+                ->withErrors([$e->getMessage()]);
+
+        }
     }
 
     /**
@@ -82,9 +111,47 @@ class BookmarkController extends Controller
      * @param  \App\Bookmark  $bookmark
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Bookmark $bookmark)
+    public function destroy(Business $business, Bookmark $bookmark)
     {
-        //
+
+        try {
+
+            if(Auth::check()) {
+
+                if(Auth::user()->id != $bookmark->user_id) {
+
+                    throw new \Exception('Bookmark does not belong to the user making the request.');
+
+                }
+
+                if($business->id != $bookmark->business_id) {
+
+                    throw new \Exception('Bookmark does not belong to the business where request originated from.');
+
+                }
+
+                $bookmark->delete();
+
+                return redirect()
+                    ->back()
+                    ->with(['message' => 'Successfully deleted Bookmark: ' . $business->name]);
+
+            } else {
+
+                return redirect()
+                    ->route('login')
+                    ->withErrors(['Must be logged in before you can delete a Bookmark a Business.']);
+
+            }
+
+        } catch (\Exception $e) {
+
+            Log::error($e->getMessage());
+            return redirect()
+                ->back()
+                ->withErrors([$e->getMessage()]);
+
+        }
     }
 
     /**

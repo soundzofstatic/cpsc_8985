@@ -171,4 +171,17 @@ class User extends Authenticatable
         }
 
     }
+
+    /**
+     * @param Business $business
+     * @return mixed
+     */
+    public function specificBusinessBookmark(Business $business) {
+
+        $bookmark = Bookmark::where('business_id', '=', $business->id)
+            ->where('user_id', '=', $this->id)
+            ->first();
+
+        return $bookmark;
+    }
 }

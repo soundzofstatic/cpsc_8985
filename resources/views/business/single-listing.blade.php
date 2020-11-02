@@ -35,7 +35,15 @@
 {{--                                <a href="#"><i class="fa fa-book"></i></a>--}}
 {{--                                <a href="#"><i class="fa fa-hand-o-right"></i></a>--}}
 {{--                                <a href="#"><i class="fa fa-user-o"></i></a>--}}
-{{--                                <a href="#"><i class="fa fa-star-o"></i></a>--}}
+                                @if(\Illuminate\Support\Facades\Auth::check())
+                                    @if(!empty(\Illuminate\Support\Facades\Auth::user()->specificBusinessBookmark($business)))
+                                        <a href="{{ route('business.bookmark.destroy', ['business'=>$business->id, 'bookmark' => \Illuminate\Support\Facades\Auth::user()->specificBusinessBookmark($business)->id]) }}"><i class="fa fa-bookmark" style="color: orange;"></i></a>
+                                    @else
+                                        <a href="{{ route('business.bookmark.store', ['business'=>$business->id]) }}"><i class="fa fa-bookmark"></i></a>
+                                    @endif
+                                @else
+                                    <a href="{{ route('business.bookmark.store', ['business'=>$business->id]) }}"><i class="fa fa-bookmark"></i></a>
+                                @endif
                                 @foreach($business->businessSocialMedia as $socialMedia)
                                     @if(\App\BusinessSocialMedia::SOCIAL_MEDIA_PROVIDERS[0] == $socialMedia->social_media_provider)
                                         <a href="{{ $socialMedia->social_media_link }}" target="_blank"><i class="fa fa-twitter"></i></a>

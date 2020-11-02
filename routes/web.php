@@ -152,10 +152,16 @@ Route::prefix('user')->name('user.')->group(function () {
 // Business Pages/Routes
 Route::prefix('business')->name('business.')->group(function () {
 
-    Route::get('/{business}', 'BusinessController@show')->name('home');
-    Route::get('/{business}/check-in', 'BusinessCheckInController@store')->name('check-in');
-    Route::prefix('{business}/action')->name('action.')->group(function () {
-        Route::post('/store-review', 'BusinessController@storeReview')->name('store-review');
+    Route::prefix('{business}')->group(function () {
+        Route::get('/', 'BusinessController@show')->name('home');
+        Route::get('/check-in', 'BusinessCheckInController@store')->name('check-in');
+        Route::prefix('/bookmark')->name('bookmark.')->group(function () {
+            Route::get('/store', 'BookmarkController@store')->name('store');
+            Route::get('/destroy/{bookmark}', 'BookmarkController@destroy')->name('destroy');
+        });
+        Route::prefix('/action')->name('action.')->group(function () {
+            Route::post('/store-review', 'BusinessController@storeReview')->name('store-review');
+        });
     });
 });
 
