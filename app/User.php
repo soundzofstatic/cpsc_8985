@@ -83,6 +83,16 @@ class User extends Authenticatable
             ->limit(5)
             ->orderBy('created_at','desc');
     }
+    public Function lastHundredReviews()
+    {
+        return $this->hasMany(
+            Review::class,
+            'user_id',
+            'id'
+        )
+            ->limit(100)
+            ->orderBy('created_at','desc');
+    }
     public function questions() {
         return $this->hasMany(
             Question::class,
@@ -170,5 +180,18 @@ class User extends Authenticatable
 
         }
 
+    }
+
+    /**
+     * @param Business $business
+     * @return mixed
+     */
+    public function specificBusinessBookmark(Business $business) {
+
+        $bookmark = Bookmark::where('business_id', '=', $business->id)
+            ->where('user_id', '=', $this->id)
+            ->first();
+
+        return $bookmark;
     }
 }

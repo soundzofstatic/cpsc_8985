@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Admin;
+use App\Business;
+use App\Review;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -51,12 +53,21 @@ class AdminController extends Controller
         $users = User::limit(5)
             ->orderBy('created_at', 'desc')
             ->get();
-        //dd($users);
+
+        $reviews = Review::limit(5)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        $businesses = Business::limit(5)
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         return view('console.user.admin.home')
             ->with(
                 compact([
-                    'users'
+                    'users',
+                    'reviews',
+                    'businesses'
                 ])
             );
     }

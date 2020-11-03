@@ -90,7 +90,8 @@ class Business extends Model
             Review::class,
             'business_id',
             'id'
-        );
+        )
+            ->orderBy('created_at', 'DESC');
 
     }
 

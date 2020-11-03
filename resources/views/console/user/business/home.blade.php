@@ -38,6 +38,7 @@
                                 <div class="arrange-text">
                                     <h5>{{ $business->name  }}</h5>
                                     <span>{{ $business->address }}</span>
+                                    <div class="open tomorrow">Visits - {{ $business->businessVisit->count() }}</div>
                                 </div>
                                 <form method="POST" action="{{ route('console.user.businesses.business.update.destroy', ['user'=> $user->id, 'business'=> $business->id ]) }}">
                                     @csrf

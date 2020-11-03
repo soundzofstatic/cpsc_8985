@@ -409,5 +409,31 @@ class UserController extends Controller
         }
 
     }
+
+    /**
+     * @param User $user
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
+    public function lastHundredReviews(User $user)
+    {
+
+        try {
+            // todo - Get last 5 check-ins for $user from the database
+
+            return view('console.user.reviewer.last-100-reviews')
+                ->with(compact([
+                    'user'
+                ]));
+
+        } catch (\Exception $e) {
+
+            Log::error($e->getMessage());
+            return redirect()
+                ->back()
+                ->withErrors([$e->getMessage()]);
+
+        }
+
+    }
 }
 

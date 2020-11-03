@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Business;
+use App\BusinessSocialMedia;
+use App\BusinessVisit;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -106,7 +108,16 @@ class BusinessController extends Controller
      */
     public function show(Business $business)
     {
-//        dd($business);
+
+        // Save a Visit
+        $visit = new BusinessVisit();
+        $visit->business_id = $business->id;
+        if(Auth::check()) {
+            $visit->user_id = Auth::user()->id;
+        } else {
+            $visit->user_id = null;
+        }
+        $visit->save();
 
         return view('business.single-listing')
             ->with(
@@ -125,9 +136,13 @@ class BusinessController extends Controller
      * @param  \App\Business  $business
      * @return \Illuminate\Http\Response
      */
-    public function edit(Business $business)
+    public function edit(User $user, Business $business)
     {
-        //
+        return view('console.user.business.edit')
+            ->with(compact([
+                'user',
+                'business'
+            ]));
     }
 
     /**
@@ -137,9 +152,39 @@ class BusinessController extends Controller
      * @param  \App\Business  $business
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Business $business)
+    public function update(User $user, Business $business, Request $request)
     {
-        //
+        try {
+
+//            dd($request->all());
+
+            if($user->id != Auth::user()->id) {
+
+                throw new \Exception('Requesting user must be the Authenticated user.');
+
+            }
+
+            if($user->id != $business->user_id) {
+
+                throw new \Exception('Requesting user must be the business owner.');
+
+            }
+
+            $business->name = $request->input('name');
+            $business->save();
+
+            return redirect()->route('console.user.businesses.business.business-console', ['user'=> Auth::user()->id, 'business' => $business->id])
+                ->with(['message' => 'Successfully updated business details.']);
+
+
+        } catch (\Exception $e) {
+
+            Log::error($e->getMessage());
+            return redirect()
+                ->back()
+                ->withErrors([$e->getMessage()]);
+
+        }
     }
 
     /**
@@ -183,7 +228,7 @@ class BusinessController extends Controller
                 )
             );
     }
-    public function listAllBusinesses(Request $request)
+    public function listAllBusinesses(Request $request) // todo - This method is not named properly, it used for querying, not listing all Businesses
     {
 
         try {
@@ -199,6 +244,33 @@ class BusinessController extends Controller
                 ->get();
 
             return view('console.user.admin.search-business')
+                ->with(
+                    compact(
+                        [
+                            'businesses'
+                        ]
+                    )
+                );
+
+        } catch (\Exception $e) {
+
+            Log::error($e->getMessage());
+            return redirect()
+                ->back()
+                ->withErrors([$e->getMessage()]);
+
+        }
+
+    }
+
+    public function listAllBusinesses2(User $user) // todo - This method is not named properly, it used for querying, not listing all Businesses
+    {
+
+        try {
+
+            $businesses = Business::get();
+
+            return view('console.user.admin.list-businesses')
                 ->with(
                     compact(
                         [
@@ -256,5 +328,87 @@ class BusinessController extends Controller
         }
 
     }
+
+    /**
+     * @param User $user
+     * @param Business $business
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function disableBusiness(User $user, Business $business)
+    {
+
+        try {
+
+            if($user->id != Auth::user()->id) {
+
+                throw new \Exception('Requesting user must be the authenticated user.');
+
+            }
+
+            if(!$user->isAdmin()) {
+
+                throw new \Exception('Requesting user must be administrator.');
+
+            }
+
+            $business->is_active = false;
+            $business->save();
+
+            return redirect()
+                ->route('console.user.businesses.business.business-console', ['user' => $user->id, 'business' => $business->id])
+                ->with(['message' => 'Successfully disabled business: ' . $business->name]);
+
+        } catch (\Exception $e) {
+
+            Log::error($e->getMessage());
+            return redirect()
+                ->back()
+                ->withErrors([$e->getMessage()]);
+
+        }
+
+    }
+
+    /**
+     * @param User $user
+     * @param Business $business
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function enableBusiness(User $user, Business $business)
+    {
+
+        try {
+
+            if($user->id != Auth::user()->id) {
+
+                throw new \Exception('Requesting user must be the authenticated user.');
+
+            }
+
+            if(!$user->isAdmin()) {
+
+                throw new \Exception('Requesting user must be administrator.');
+
+            }
+
+            $business->is_active = true;
+            $business->save();
+
+            return redirect()
+                ->route('console.user.businesses.business.business-console', ['user' => $user->id, 'business' => $business->id])
+                ->with(['message' => 'Successfully enabled business: ' . $business->name]);
+
+        } catch (\Exception $e) {
+
+            Log::error($e->getMessage());
+            return redirect()
+                ->back()
+                ->withErrors([$e->getMessage()]);
+
+        }
+
+    }
+
+
 }
 
