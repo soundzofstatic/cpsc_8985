@@ -10,14 +10,40 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <h2>Users</h2>
+                <h2>Search Users</h2>
+                <p>Search for users and act on their accounts.</p>
+            </div>
+            <div class="col-md-12">
+                <div class="contact-form">
+                    @csrf
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <label for="query" class="sr-only">Query</label>
+                            <input id="query" type="text" placeholder="Search for User by username, name, or email"
+                                   name="query" value="{{ old('query') }}">
+                        </div>
+                        <div class="col-lg-12 text-center">
+                            <button id="search" type="button">Search</button>
+                            <button id="reset" type="button" class="reset">Reset</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="search-results" class="col-lg-12">
+                    <div class="row">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h2>All Users</h2>
             </div>
             <div class="col-md-12">
                 <div class="row mb-2">
                     @foreach($users as $user)
                         <div class="col-lg-4 col-sm-6">
                             <a class="arrange-items"
-                               href="{{--{{ route('console.user.businesses.business.business-console', ['user'=>$user->id, 'business'=>$business->id]) }}--}}">
+                               href="{{ route('user.home', ['user'=>$user->id]) }}">
                                 <div class="arrange-text p-3" style="border: thin solid red">
                                     <h5>{{ $user->first_name }} {{ $user->last_name }}</h5>
                                     <span>{{ $user->email }}</span>
@@ -38,32 +64,6 @@
                             </a>
                         </div>
                     @endforeach
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <h2>Search and Promote</h2>
-                <p>Search for users and promote them administrative level accounts.</p>
-            </div>
-            <div class="col-md-12">
-                <div class="contact-form">
-                    @csrf
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <label for="query" class="sr-only">Query</label>
-                            <input id="query" type="text" placeholder="Search for User by username, name, or email"
-                                   name="query" value="{{ old('query') }}">
-                        </div>
-                        <div class="col-lg-12 text-center">
-                            <button id="search" type="button">Search</button>
-                            <button id="reset" type="button" class="reset">Reset</button>
-                        </div>
-                    </div>
-                </div>
-                <div id="search-results" class="col-lg-12">
-                    <div class="row">
-                    </div>
                 </div>
             </div>
         </div>
@@ -148,6 +148,11 @@
                                 markup += '<button class="demote action" data-action="demote" data-user="' + element.id + '">Demote</button>';
                             } else {
                                 markup += '<button class="promote action" data-action="promote" data-user="' + element.id + '">Promote</button>';
+                            }
+                            if (element.attributes.is_active) {
+                                markup += '<a href="/console/user/' + element.id + '/admin/update/disable-user" class="btn btn-sm btn-danger">Disable User</a>';
+                            } else {
+                                markup += '<a href="/console/user/' + element.id + '/admin/update/enable-user" class="btn btn-sm btn-success">Enable User</a>';
                             }
 
                             markup += '</div>';

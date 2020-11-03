@@ -67,6 +67,7 @@ Route::prefix('console')->name('console.')->group(function () {
         Route::prefix('reviewer')->name('reviewer.')->group(function () { // todo - Should have middleware protecting it from non-admin users
 
             Route::get('/', 'UserController@reviewerConsoleIndex')->name('home');
+            Route::get('/all-user-reviews', 'UserController@lastHundredReviews')->name('last-hundred-reviews');
 
             Route::prefix('update')->name('update.')->group(function () {
 

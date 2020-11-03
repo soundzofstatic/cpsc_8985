@@ -83,6 +83,16 @@ class User extends Authenticatable
             ->limit(5)
             ->orderBy('created_at','desc');
     }
+    public Function lastHundredReviews()
+    {
+        return $this->hasMany(
+            Review::class,
+            'user_id',
+            'id'
+        )
+            ->limit(100)
+            ->orderBy('created_at','desc');
+    }
     public function questions() {
         return $this->hasMany(
             Question::class,

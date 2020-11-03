@@ -116,7 +116,22 @@
                                         <div class="row">
                                         @foreach($review->relatedFeedbacks as $relatedFeedback)
                                             <div class="col-md-11 offset-md-1 mb-5 related-feedback" style="border-left: solid thin red;">
-                                                <p>{{ $relatedFeedback->text }}</p>
+                                                <p>{{ $relatedFeedback->text }} </p>
+
+                                                <div class="Additional Feedback">
+
+                                                        <button type="button" class="btn btn-outline-secondary px-3 btn-sm">Useful</button>
+                                                        <button type="button" class="btn btn-outline-secondary px-2 btn-sm">Funny</button>
+                                                        <button type="button" class="btn btn-outline-secondary px-2 btn-sm">Cool</button>
+                                                    <button type="button" class="btn text-danger ml-5 btn-sm" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Reply</button>
+                                                    <button type="button" class="btn  text-danger btn-sm">Comment</button>
+                                                    <div class="collapse" id="collapseExample">
+                                                        <textarea class="card card-body">
+                                                        </textarea>
+                                                    </div>
+
+                                                </div>
+
                                                 <div class="client-text">
                                                     <h5><a href="{{ route('user.home', ['user' => $relatedFeedback->user_id]) }}" class="author-link">{{ $relatedFeedback->user->first_name }} {{ $relatedFeedback->user->last_name }}</a></h5>
                                                     <span>{{ $relatedFeedback->created_at->format('F j, Y, g:i a') }}</span>

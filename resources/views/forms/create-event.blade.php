@@ -5,40 +5,31 @@
     <main class="container main-pad">
         <h1>Submit an Event</h1>
         <p>Submit an event by filling the details below.</p>
-        <form action="{{ }}"
+        <form action="{{route('console.user.businesses.business.update.events.store', ['user'=> \Illuminate\Support\Facades\Auth::user()->id, 'business' => $business->id])}}"
               method="POST">
             @csrf
             <div class="form-group row">
-                <label for="event_title" class="col-md-4 col-form-label text-md-right">Event Name</label>
-                <input id="event_title" maxlength="128" name="name" type="text" value="">
-            </div>
-            <div>
-                <label for="starts_month_day_year">When</label>
-                <div class="form-group row">
-                    <input type="date">
-                    <div class="form-group row">
-                        <input type="time">
-                    </div>
+                <label for="name" class="col-md-4 col-form-label text-md-right"><b>Name</b></label>
+                <div class="col-md-6">
+                    <input type="text" placeholder="Enter Event Name" name="name" required class="form-control">
                 </div>
             </div>
             <div class="form-group row">
-                <label for="Business name" class="col-md-4 col-form-label text-md-right"><b>Business Name</b></label>
-            </div>
-            <div class="form-group row">
-                <label for="event description" class="col-md-4 col-form-label text-md-right"><b>Event
-                        Description</b></label>
+                <label for="description" class="col-md-4 col-form-label text-md-right"><b>Description</b></label>
                 <div class="col-md-6">
                     <textarea name="description" class="form-control" required></textarea>
                 </div>
             </div>
+
             <div class="form-group row">
-                <label for="web_url" class="col-md-4 col-form-label text-md-right"><b>Web URL</b></label>
+                <label for="start_date" class="col-md-4 col-form-label text-md-right"><b>Start Date</b></label>
+                <div class="col-md-6">
+                    <input type="datetime-local" placeholder="Enter Start Date" name="start_date" required
+                           class="form-control">
+                </div>
             </div>
-            <div class="form-group row">
-                <label for="Price" class="col-md-4 col-form-label text-md-right"><b>Price</b></label>
-            </div>
-            <div class="col-lg-12 text-center">
-                <button type="submit">Submit</button>
-            </div>
+                  <div class="col-lg-12 text-center">
+            <button type="submit">Submit</button>
+        </div>
         </form>
     </main>
