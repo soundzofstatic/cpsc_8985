@@ -38,6 +38,9 @@
                                            class="btn btn-sm btn-success">Enable Business</a>
                                     @endif
                                 @endif
+                                <div class="share-btn">
+                                    <a href="{{route('console.user.businesses.business.update.events.create', ['user'=> \Illuminate\Support\Facades\Auth::user()->id, 'business' => $business->id])}}" class="btn btn-danger">Create an Event</a>
+                                </div>
                             </div>
                             <div class="share-icon">
 {{--                                <a href="#"><i class="fa fa-map-marker"></i></a>--}}
@@ -81,6 +84,15 @@
                                 <p>{{ $business->description }}</p>
                             </div>
                             <!-- About End -->
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                         <div class="about-services">
+                                                <h4>Services Provided</h4>
+                                         </div>
+                                    </div>
+                                </div>
+                            </div>
                             <!-- Reviews Begin -->
                             <div class="client-reviews">
                         <h3>Reviews</h3>

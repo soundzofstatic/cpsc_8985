@@ -26,8 +26,7 @@
                     <div class="col-lg-4 offset-lg-1">
                         <div class="intro-share">
                             <div class="share-btn">
-                                                                <a href="{{ route('business.check-in', ['business'=>$business->id]) }}" class="share">Check-in</a>
-
+                                <a href="{{ route('business.check-in', ['business'=>$business->id]) }}" class="share">Check-in</a>
                                 <a href="{{ route('review-create',['business'=>$business->id]) }}">Submit a Review</a>
                             </div>
                             <div class="share-icon">
