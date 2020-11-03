@@ -150,10 +150,11 @@ class BusinessController extends Controller
      */
     public function destroy(User $user, Business $business)
     {
-        //
-        dd('Hi Mythri!');
-        dd($business);
-
+        $business-> delete();
+        return redirect()
+            //->route('console.user.businesses.create', ['user' => Auth::user()->id])
+                ->back()
+            ->with(['message' => 'Successfully deleted business']);
     }
 
     public function storeReview(Request $request, Business $business)
