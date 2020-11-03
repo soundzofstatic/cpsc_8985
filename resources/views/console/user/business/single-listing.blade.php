@@ -41,6 +41,9 @@
                                 <div class="share-btn">
                                     <a href="{{route('console.user.businesses.business.update.events.create', ['user'=> \Illuminate\Support\Facades\Auth::user()->id, 'business' => $business->id])}}" class="btn btn-danger">Create an Event</a>
                                 </div>
+                                <div class="share-btn">
+                                    <a href="{{route('console.user.businesses.business.edit', ['user'=> \Illuminate\Support\Facades\Auth::user()->id, 'business' => $business->id])}}" class="btn btn-danger">Edit Business</a>
+                                </div>
                             </div>
                             <div class="share-icon">
 {{--                                <a href="#"><i class="fa fa-map-marker"></i></a>--}}

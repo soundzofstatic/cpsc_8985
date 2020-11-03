@@ -94,6 +94,8 @@ Route::prefix('console')->name('console.')->group(function () {
             Route::prefix('{business}')->name('business.')->group(function () { // todo - Should have middleware
 
                 Route::get('/', 'BusinessController@showConsole')->name('business-console');
+                Route::get('/business-edit', 'BusinessController@edit')->name('edit');
+                Route::post('/business-edit', 'BusinessController@update')->name('business-update');
 
                 Route::prefix('update')->name('update.')->group(function () {
 
