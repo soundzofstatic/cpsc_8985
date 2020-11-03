@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Business;
+use App\BusinessSocialMedia;
 use App\BusinessVisit;
 use App\User;
 use Carbon\Carbon;
@@ -135,9 +136,13 @@ class BusinessController extends Controller
      * @param  \App\Business  $business
      * @return \Illuminate\Http\Response
      */
-    public function edit(Business $business)
+    public function edit(User $user, Business $business)
     {
-        //
+        return view('console.user.business.edit')
+            ->with(compact([
+                'user',
+                'business'
+            ]));
     }
 
     /**
@@ -147,9 +152,39 @@ class BusinessController extends Controller
      * @param  \App\Business  $business
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Business $business)
+    public function update(User $user, Business $business, Request $request)
     {
-        //
+        try {
+
+//            dd($request->all());
+
+            if($user->id != Auth::user()->id) {
+
+                throw new \Exception('Requesting user must be the Authenticated user.');
+
+            }
+
+            if($user->id != $business->user_id) {
+
+                throw new \Exception('Requesting user must be the business owner.');
+
+            }
+
+            $business->name = $request->input('name');
+            $business->save();
+
+            return redirect()->route('console.user.businesses.business.business-console', ['user'=> Auth::user()->id, 'business' => $business->id])
+                ->with(['message' => 'Successfully updated business details.']);
+
+
+        } catch (\Exception $e) {
+
+            Log::error($e->getMessage());
+            return redirect()
+                ->back()
+                ->withErrors([$e->getMessage()]);
+
+        }
     }
 
     /**
@@ -158,9 +193,13 @@ class BusinessController extends Controller
      * @param  \App\Business  $business
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Business $business)
+    public function destroy(User $user, Business $business)
     {
-        //
+        $business-> delete();
+        return redirect()
+            //->route('console.user.businesses.create', ['user' => Auth::user()->id])
+                ->back()
+            ->with(['message' => 'Successfully deleted business']);
     }
 
     public function storeReview(Request $request, Business $business)

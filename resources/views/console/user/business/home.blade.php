@@ -7,7 +7,6 @@
             <div class="col">
                 <h1>Business Console</h1>
             </div>
-
         </div>
         <div class="row">
             <div class="col-md-12">
@@ -41,11 +40,16 @@
                                     <span>{{ $business->address }}</span>
                                     <div class="open tomorrow">Visits - {{ $business->businessVisit->count() }}</div>
                                 </div>
+                                <form method="POST" action="{{ route('console.user.businesses.business.update.destroy', ['user'=> $user->id, 'business'=> $business->id ]) }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <button type="submit" class="btn btn-danger btn-icon">Delete a business
+                                        <i data-feather="delete"></i>
+                                    </button>
+                                </form>
                             </a>
                         </div>
-
-
-
                     @endforeach
                     <div class="col-lg-12 text-right">
                         <div class="pagination-num">
@@ -53,7 +57,6 @@
                             <a href="#">02</a>
                             <a href="#">03</a>
                         </div>
-
                     </div>
                 </div>
 
@@ -80,25 +83,6 @@
                 {{--  todo - Render list of all businesses owned by Authenticated user --}}
                 {{--                @endforeach--}}
             </div>
-
-
-
-
-        {{--        <div class="row mb-5">--}}
-        {{--            <div class="col-lg-12 text-center">--}}
-        {{--                <a href="{{ route('console.user.settings', ['user' => \Illuminate\Support\Facades\Auth::user()->id]) }}" class="primary-btn">User Settings</a>--}}
-        {{--            </div>--}}
-        {{--        </div>--}}
-        <!-- Logout Begin -->
-
-
-
-
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-                <button class="btn btn-danger">Logout</button>
-            </form><!-- Logout End -->
-
         </div>
         <div class="row">
             <div class="col-md-12">
@@ -114,7 +98,6 @@
             <button class="btn btn-danger">Logout</button>
         </form>
         <!-- Logout End -->
-
     </main>
 @endsection
 @section('scripts')
