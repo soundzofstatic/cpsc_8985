@@ -23,6 +23,7 @@ class CreateFeedbackTable extends Migration
             $table->integer('sequence_number')->unsigned();
             $table->longText('text');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

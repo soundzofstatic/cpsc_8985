@@ -29,6 +29,7 @@ class CreateBusinessesTable extends Migration
             $table->string('contact_email', 64);
             $table->integer('view_count');
             $table->timestamps();
+            $table->softDeletes();
 
         });
     }

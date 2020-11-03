@@ -13,13 +13,13 @@ class CreateBusinessServicesTable extends Migration
      */
     public function up()
     {
-
-            Schema::create('business_services', function (Blueprint $table) {
-                $table->bigIncrements('id');
-                $table->integer('business_id')->unsigned();
-                $table->integer('service_id')->unsigned();
-                $table->timestamps();
-            });
+        Schema::create('business_services', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->integer('business_id')->unsigned();
+            $table->integer('service_id')->unsigned();
+            $table->timestamps();
+            $table->softDeletes();
+        });
     }
 
     /**

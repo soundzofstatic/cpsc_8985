@@ -20,6 +20,7 @@ class CreateReviewsTable extends Migration
             $table->integer('feedback_id')->nullable()->unsigned();
             $table->boolean('is_active');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

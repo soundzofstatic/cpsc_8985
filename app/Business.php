@@ -3,9 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Business extends Model
 {
+    use SoftDeletes;
     public function user()
     {
         return $this->belongsTo(
@@ -20,7 +22,7 @@ class Business extends Model
         return $this->hasMany(
             BusinessVisit::class,
             'business_id',
-            'id'
+            'business_id'
         );
 
     }
@@ -38,7 +40,7 @@ class Business extends Model
         return $this->hasMany(
             BusinessCheckIn::class,
             'business_id',
-            'id'
+            'business_id'
         )
             ->orderBy('created_at', 'DESC');
 
@@ -64,23 +66,23 @@ class Business extends Model
     {
         return $this->hasOne(
             promotedBusiness::class,
-            'user_id',
+            'business_id',
             'id'
         );
     }
-    public function Bookmark()
+    public function bookmarks()
     {
-        return $this->hasOne(
-            Business::class,
-            'user_id',
+        return $this->hasMany(
+            Bookmark::class,
+            'business_id',
             'id'
         );
     }
-    public function question()
+    public function questions()
     {
-        return $this->hasOne(
+        return $this->hasMany(
             Question::class,
-            'user_id',
+            'business_id',
             'id'
         );
     }

@@ -19,6 +19,7 @@ class CreateBusinessSocialMediaTable extends Migration
             $table->String('social_media_provider',36);
             $table->String('social_media_link',120);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

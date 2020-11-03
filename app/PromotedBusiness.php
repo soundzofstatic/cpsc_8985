@@ -3,9 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class PromotedBusiness extends Model
 {
+    use SoftDeletes;
     const LOCATIONS = [
         'location_1',
         'location_3',

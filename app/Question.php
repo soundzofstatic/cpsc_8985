@@ -3,9 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Question extends Model
 {
+    use SoftDeletes;
     //Relationships
     public function user()
     {
@@ -36,8 +38,8 @@ class Question extends Model
     public function feedbacks() {
         return $this->hasMany(
             Feedback::class,
-            'id',
-            'feedback_id'
+            'question_id',
+            'id'
         );
     }
 

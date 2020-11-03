@@ -17,6 +17,7 @@ class CreateBusinessVisitsTable extends Migration
             $table->integer('business_id');
             $table->integer('user_id');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

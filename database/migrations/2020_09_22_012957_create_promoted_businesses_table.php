@@ -22,6 +22,7 @@ class CreatePromotedBusinessesTable extends Migration
             //$table->timestamp('end_date');
             $table->string('promo_location',15);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

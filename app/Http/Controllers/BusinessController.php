@@ -195,7 +195,50 @@ class BusinessController extends Controller
      */
     public function destroy(User $user, Business $business)
     {
-        $business-> delete();
+        // Delete all Bookmarks
+        foreach($business->bookmarks as $bookmark) {
+            $bookmark->delete();
+        }
+        // Delete all Check-ins
+        foreach($business->businessCheckIn as $checkIn) {
+            $checkIn->delete();
+        }
+        // Delete all Events
+        foreach($business->businessEvent as $event) {
+            $event->delete();
+        }
+        // Delete all Services
+        foreach($business->businessService as $service) {
+            $service->delete();
+        }
+        // Delete all Social Media
+        foreach($business->businessSocialMedia as $socialMedia) {
+            $socialMedia->delete();
+        }
+        // Delete all Visits
+        foreach($business->businessVisit as $visit) {
+            $visit->delete();
+        }
+        // Delete all Promoted Business
+        if(!empty($business->promotedBusiness)) {
+            $business->promotedBusiness->delete();
+        }
+        // Delete all Questions
+        foreach($business->questions as $question) {
+            // Delete all Feedback
+            foreach($question->feedbacks as $feedback) {
+                $feedback->delete();
+            }
+            $question->delete();
+        }
+        // Delete all Reviews
+        foreach($business->reviews as $review) {
+            foreach($question->feedbacks as $feedback) {
+                $feedback->delete();
+            }
+            $review->delete();
+        }
+        $business->delete();
         return redirect()
             //->route('console.user.businesses.create', ['user' => Auth::user()->id])
                 ->back()

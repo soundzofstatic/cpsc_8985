@@ -19,6 +19,7 @@ class CreateBookmarksTable extends Migration
             $table->Integer('business_id')->unsigned();
             $table->boolean('is_public');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

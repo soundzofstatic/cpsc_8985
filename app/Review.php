@@ -3,9 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Review extends Model
 {
+    use SoftDeletes;
     //Relationships
     public function user()
     {
@@ -35,8 +37,8 @@ class Review extends Model
     public function feedbacks() {
         return $this->hasMany(
             Feedback::class,
-            'id',
-            'feedback_id'
+            'review_id',
+            'id'
         );
     }
 

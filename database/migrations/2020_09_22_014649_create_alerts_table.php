@@ -21,6 +21,7 @@ class CreateAlertsTable extends Migration
             $table->text('text');
             $table->string('alert_type', 15);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
