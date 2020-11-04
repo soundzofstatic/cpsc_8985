@@ -107,183 +107,183 @@ Route::prefix('console')->name('console.')->group(function () {
                         Route::prefix('{social_media}')->group(function () {
 
                         });
-                        Route::prefix('service')->name('service.')->group(function () {
+                    });
+                    Route::prefix('service')->name('service.')->group(function () {
 
-                            Route::get('/create', 'BusinessServiceController@create')->name('create');
-                            Route::post('/store', 'BusinessServiceController@store')->name('store');
+                        Route::get('/create', 'BusinessServiceController@create')->name('create');
+                        Route::post('/store', 'BusinessServiceController@store')->name('store');
 
-                            Route::prefix('{service}')->group(function () {
+                        Route::prefix('{service}')->group(function () {
 
-                            });
-                        });
-                        Route::prefix('events')->name('events.')->group(function () {
-
-                            Route::get('/create', 'BusinessEventController@create')->name('create');
-                            Route::post('/store', 'BusinessEventController@store')->name('store');
-
-                            Route::prefix('{events}')->group(function () {
-
-                            });
                         });
                     });
+                    Route::prefix('events')->name('events.')->group(function () {
 
-                    Route::prefix('update')->name('update.')->group(function () {
+                        Route::get('/create', 'BusinessEventController@create')->name('create');
+                        Route::post('/store', 'BusinessEventController@store')->name('store');
 
-                        Route::delete('/destroy', 'BusinessController@destroy')->name('destroy');
+                        Route::prefix('{events}')->group(function () {
 
+                        });
                     });
+                });
+
+                Route::prefix('update')->name('update.')->group(function () {
+
+                    Route::delete('/destroy', 'BusinessController@destroy')->name('destroy');
 
                 });
-            });
-        });
-        Route::prefix('update')->name('update.')->group(function () {
-
-            Route::prefix('user/{user}')->name('user.')->group(function () {
-
-                // GET - index/show
-                Route::get('/username', function () {
-                    return view('forms.update-user');
-                })->name('username-form');
-                Route::get('/promote-to-admin', 'UserController@promoteToAdmin')->name('promote-user');
-                Route::get('/demote-from-admin', 'UserController@demoteFromAdmin')->name('demote-user');
-
-                // POST - Store
-                Route::post('/username', 'UserController@username')->name('username');
-
-                // PUT - Update
-                Route::put('/details', 'UserController@update')->name('details-update');
-                Route::put('/password', 'UserController@updatePassword')->name('password-update');
-
-                // DELETE - Destroy
-                Route::delete('/username', 'UserController@destroy')->name('username');
 
             });
-
-        });
-        Route::prefix('admin')->name('admin.')->group(function () { // todo - Should have middleware protecting it from non-admin users
-            Route::get('/all-users', 'UserController@listAllUsers')->name('list-all-users');
-            Route::get('/all-businesses', 'BusinessController@listAllBusinesses2')->name('list-all-businesses');
         });
     });
+    Route::prefix('update')->name('update.')->group(function () {
+
+        Route::prefix('user/{user}')->name('user.')->group(function () {
+
+            // GET - index/show
+            Route::get('/username', function () {
+                return view('forms.update-user');
+            })->name('username-form');
+            Route::get('/promote-to-admin', 'UserController@promoteToAdmin')->name('promote-user');
+            Route::get('/demote-from-admin', 'UserController@demoteFromAdmin')->name('demote-user');
+
+            // POST - Store
+            Route::post('/username', 'UserController@username')->name('username');
+
+            // PUT - Update
+            Route::put('/details', 'UserController@update')->name('details-update');
+            Route::put('/password', 'UserController@updatePassword')->name('password-update');
+
+            // DELETE - Destroy
+            Route::delete('/username', 'UserController@destroy')->name('username');
+
+        });
+
+    });
+    Route::prefix('admin')->name('admin.')->group(function () { // todo - Should have middleware protecting it from non-admin users
+        Route::get('/all-users', 'UserController@listAllUsers')->name('list-all-users');
+        Route::get('/all-businesses', 'BusinessController@listAllBusinesses2')->name('list-all-businesses');
+    });
+});
 
 
 // User Pages/Routes
-    Route::prefix('user')->name('user.')->group(function () {
+Route::prefix('user')->name('user.')->group(function () {
 
-        Route::get('/{user}', 'UserController@show')->name('home');
+    Route::get('/{user}', 'UserController@show')->name('home');
 //    Route::prefix('{user}/action')->name('action.')->group(function () {
 //        Route::post('/store-review', 'BusinessController@storeReview')->name('store-review');
 //    });
 
-    });
+});
 
 // Business Pages/Routes
-    Route::prefix('business')->name('business.')->group(function () {
+Route::prefix('business')->name('business.')->group(function () {
 
-        Route::prefix('{business}')->group(function () {
-            Route::get('/', 'BusinessController@show')->name('home');
-            Route::get('/check-in', 'BusinessCheckInController@store')->name('check-in');
-            Route::prefix('/bookmark')->name('bookmark.')->group(function () {
-                Route::get('/store', 'BookmarkController@store')->name('store');
-                Route::get('/destroy/{bookmark}', 'BookmarkController@destroy')->name('destroy');
-            });
-            Route::prefix('/action')->name('action.')->group(function () {
-                Route::post('/store-review', 'BusinessController@storeReview')->name('store-review');
-            });
+    Route::prefix('{business}')->group(function () {
+        Route::get('/', 'BusinessController@show')->name('home');
+        Route::get('/check-in', 'BusinessCheckInController@store')->name('check-in');
+        Route::prefix('/bookmark')->name('bookmark.')->group(function () {
+            Route::get('/store', 'BookmarkController@store')->name('store');
+            Route::get('/destroy/{bookmark}', 'BookmarkController@destroy')->name('destroy');
+        });
+        Route::prefix('/action')->name('action.')->group(function () {
+            Route::post('/store-review', 'BusinessController@storeReview')->name('store-review');
         });
     });
+});
 
-    Route::get('/create', 'BusinessController@createFromAnywhere')->name('business-create');
+Route::get('/create', 'BusinessController@createFromAnywhere')->name('business-create');
 
-    Route::prefix('search')->name('search.')->group(function () {
-        Route::get('/', 'BusinessController@search')->name('home');
-        Route::post('/query', 'BusinessController@query')->name('query');
-    });
+Route::prefix('search')->name('search.')->group(function () {
+    Route::get('/', 'BusinessController@search')->name('home');
+    Route::post('/query', 'BusinessController@query')->name('query');
+});
 
 // Theme Examples
-    Route::prefix('theme')->name('theme.')->group(function () {
-        Route::get('/', function () {
-            return view('themes.localsdirectory.examples.home');
-        })->name('home');
-        Route::get('/listings', function () {
-            return view('themes.localsdirectory.examples.listings');
-        })->name('listings');
-        Route::get('/single-listing', function () {
-            return view('themes.localsdirectory.examples.single-listing');
-        })->name('single-listing');
-        Route::get('/how-it-works', function () { // /theme/how-it-works
-            return view('themes.localsdirectory.examples.how-it-works');
-        })->name('how-it-works');
-        Route::get('/contact', function () {
-            return view('themes.localsdirectory.examples.contact');
-        })->name('contact');
-        Route::get('/blog', function () {
-            return view('themes.localsdirectory.examples.blog');
-        })->name('blog');
-    });
+Route::prefix('theme')->name('theme.')->group(function () {
+    Route::get('/', function () {
+        return view('themes.localsdirectory.examples.home');
+    })->name('home');
+    Route::get('/listings', function () {
+        return view('themes.localsdirectory.examples.listings');
+    })->name('listings');
+    Route::get('/single-listing', function () {
+        return view('themes.localsdirectory.examples.single-listing');
+    })->name('single-listing');
+    Route::get('/how-it-works', function () { // /theme/how-it-works
+        return view('themes.localsdirectory.examples.how-it-works');
+    })->name('how-it-works');
+    Route::get('/contact', function () {
+        return view('themes.localsdirectory.examples.contact');
+    })->name('contact');
+    Route::get('/blog', function () {
+        return view('themes.localsdirectory.examples.blog');
+    })->name('blog');
+});
 //Review form
-    Route::get('/review/{business}', 'ReviewController@create')->name('review-create');
+Route::get('/review/{business}', 'ReviewController@create')->name('review-create');
 
-    Route::post('/review-store', 'ReviewController@store')->name('review-store');
+Route::post('/review-store' ,'ReviewController@store')->name('review-store');
 
 // Proof of Concepts
-    Route::get('/poc/check-ins-count', function () {
+Route::get('/poc/check-ins-count', function(){
 
-        // Test count of total check-ins
-        $checkIns = \App\BusinessCheckIn::get();
-        $countCheckIns = $checkIns->count();
+    // Test count of total check-ins
+    $checkIns = \App\BusinessCheckIn::get();
+    $countCheckIns =  $checkIns->count();
 
-        dd('Total Check-ins ' . $countCheckIns);
+    dd('Total Check-ins ' . $countCheckIns);
 
-    });
+});
 
-    Route::get('/poc/last-5-check-ins', function () {
+Route::get('/poc/last-5-check-ins', function(){
 
-        // Test count of total check-ins
-        $checkIns = \App\BusinessCheckIn::orderBy('created_at', 'desc')
-            ->limit(5)
-            ->get();
+    // Test count of total check-ins
+    $checkIns = \App\BusinessCheckIn::orderBy('created_at', 'desc')
+        ->limit(5)
+        ->get();
 
-        dd($checkIns);
+    dd($checkIns);
 
-    });
+});
 
-    Route::get('/poc/search-business-send-to-blade', function () { // todo - should be post route when processing from HTML form
+Route::get('/poc/search-business-send-to-blade', function(){ // todo - should be post route when processing from HTML form
 
-        //
-        // Example logic for controller to search after request has been submitted from form.
-        //
+    //
+    // Example logic for controller to search after request has been submitted from form.
+    //
 
 
-        // Normally, the query would be submitted to the controller method using $request->input('NAME_OF_HTML_INPUT_NAME_ATTRIBUTE'), eg. $request->input('search_query')
+    // Normally, the query would be submitted to the controller method using $request->input('NAME_OF_HTML_INPUT_NAME_ATTRIBUTE'), eg. $request->input('search_query')
 
-        $query = 'Apt';
+    $query = 'Apt';
 
-        $businessess = \App\Business::where('name', 'like', '%' . strtolower($query) . '%')
-            ->orWhere('address', 'like', '%' . strtolower($query) . '%')
-            ->get();
+    $businessess = \App\Business::where('name', 'like', '%' . strtolower($query) . '%')
+        ->orWhere('address', 'like', '%' . strtolower($query) . '%')
+        ->get();
 
 //    dd($businessess);
 
-        return view('business.search')
-            ->with(
-                compact(
-                    [
-                        'businessess'
-                    ]
-                )
-            );
+    return view('business.search')
+        ->with(
+            compact(
+                [
+                    'businessess'
+                ]
+            )
+        );
 
-    });
+});
 
-    Route::get('/poc/relatedFeedback', function () {
+Route::get('/poc/relatedFeedback', function(){
 
-        // Test count of total check-ins
-        $review = \App\Review::where('id', '=', 286)
-            ->first();
+    // Test count of total check-ins
+    $review = \App\Review::where('id', '=', 286)
+        ->first();
 
-        dd($review->relatedFeedbacks);
-        dd($review);
+    dd($review->relatedFeedbacks);
+    dd($review);
 
-    });
 });
