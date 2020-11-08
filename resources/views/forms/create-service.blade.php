@@ -14,8 +14,8 @@
                 <div class="col-md-6">
                     <select class="custom-select mb-3" name="service_provider">
                         <option selected>Select</option>
-                        @foreach(\App\BusinessService::Business_Service_Providers as $BusinessserviceProvider)
-                            <option value="{{ $BusinessserviceProvider}}">{{ $BusinessserviceProvider}}</option>
+                        @foreach($services as $service)
+                            <option value="{{ $service->id}}">{{ $service->name}}</option>
                         @endforeach
                     </select>
                 </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Business;
 use App\BusinessService;
+use App\Service;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -43,10 +44,14 @@ class BusinessServiceController extends Controller
 
             }
 
+            $services = Service::orderBy('name', 'ASC')
+                ->get();
+
             return view('forms.create-service')
                 ->with(compact([
                     'user',
-                    'business'
+                    'business',
+                    'services'
                 ]));
 
 
@@ -83,7 +88,7 @@ class BusinessServiceController extends Controller
 
             }
 
-            if (empty($request->input('service_provider') or empty($request->input('Business Service')))) {
+            if (empty($request->input('service_provider'))) {
 
                 throw new \Exception('Business Service or Link is missing. Ensure all values are provided.');
 
@@ -91,9 +96,9 @@ class BusinessServiceController extends Controller
 
             $BusinessService = new BusinessService();
             $BusinessService->business_id = $business->id;
-            $BusinessService->business_service_provider = $request->input('business_service_provider');
-            $BusinessService->Business_service = $request->input('Business_service');
+            $BusinessService->service_id = $request->input('service_provider');
             $BusinessService->save();
+
             return redirect()->route('console.user.businesses.business.business-console', ['user'=> Auth::user()->id, 'business' => $business->id])
                 ->with(
                     compact(

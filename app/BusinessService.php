@@ -8,12 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class BusinessService extends Model
 {
     use SoftDeletes;
-    const Business_Service_Providers = [
-        'drive-thru',
-        'carry-out',
-        'outdoor dining',
-        'pet friendly',
-    ];
+
     public function Business()
     {
         return $this->hasOne(
