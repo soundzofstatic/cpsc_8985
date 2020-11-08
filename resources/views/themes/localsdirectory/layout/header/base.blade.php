@@ -5,8 +5,8 @@
         </div>
         <nav class="main-menu mobile-menu">
             <ul>
-                <li class="active"><a href="/">Home</a></li>
-                <li><a href="{{ route('theme.how-it-works') }}">Explore</a></li>
+                <li class="{{ Route::currentRouteName() == 'front-page' ? 'active' : '' }}"><a href="/">Home</a></li>
+                <li class="{{ Route::currentRouteName() == 'events.home' ? 'active' : '' }}"><a href="{{ route('events.home') }}">Events</a></li>
                 <li><a href="{{ route('theme.listings') }}">More Cities</a></li>
                 <li><a href="{{ route('theme.blog') }}">News</a></li>
                 <li><a href="{{ route('theme.contact') }}">Contact</a></li>
