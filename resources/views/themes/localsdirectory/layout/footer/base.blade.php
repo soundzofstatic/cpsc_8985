@@ -15,7 +15,7 @@
                     <ul>
                         <li>About us</li>
                         <li>Testimonials</li>
-                        <li>How it works</li>
+                        <li>Events</li>
                         <li>Create an account</li>
                         <li>Our Services</li>
                     </ul>
@@ -35,11 +35,11 @@
             </div>
             <div class="col-lg-3 col-sm-6">
                 <div class="footer-widget">
-                    <h4>Usefull Links</h4>
+                    <h4>Useful Links</h4>
                     <ul>
                         <li>About us</li>
                         <li>Testimonials</li>
-                        <li>How it works</li>
+                        <li>Events</li>
                         <li>Create an account</li>
                         <li>Our Services</li>
                     </ul>
@@ -80,7 +80,7 @@
             <div class="col-lg-7 text-center text-lg-right order-1 order-lg-2">
                 <div class="footer-menu">
                     <a href="/">Home</a>
-                    <a href="{{ route('theme.how-it-works') }}">Explore</a>
+                    <a href="{{ route('theme.events') }}">Explore</a>
                     <a href="{{ route('theme.listings') }}">More Cities</a>
                     <a href="{{ route('theme.blog') }}">News</a>
                     <a href="{{ route('theme.contact') }}">Contact</a>

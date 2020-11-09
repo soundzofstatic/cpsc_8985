@@ -5,7 +5,7 @@
     <main class="container main-pad">
         {{--                todo - Replace front-page with actual route that stores/processes the data submitted in the form --}}
         <h1>Add Social Media Link</h1>
-        <p>Add a social Media Link for {{ $business->name }} by comnpleting the form below.</p>
+        <p>Add a social Media Link for {{ $business->name }} by completing the form below.</p>
         <form action="{{ route('console.user.businesses.business.update.social-media.store', ['user' => \Illuminate\Support\Facades\Auth::user()->id, 'business' => $business->id]) }}"
               method="POST">
             @csrf

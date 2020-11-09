@@ -119,7 +119,15 @@ class BusinessEventController extends Controller
      */
     public function show(BusinessEvent $businessevent)
     {
-
+//        $countOfEvents = $businessevent->businessevent->count();
+//        return view('theme.events')
+//            ->with(
+//                compact(
+//                    [
+//                        'businessevent'
+//                    ]
+//                )
+//            );
     }
 
     /**

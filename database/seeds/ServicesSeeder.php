@@ -24,7 +24,6 @@ class ServicesSeeder extends Seeder
                 ->first();
 
             if(empty($existingService)) {
-                // Add the service to the DB, it doesn't exist
                 $newService = new \App\Service();
                 $newService->name = strtolower($service);
                 $newService->save();

@@ -6,7 +6,8 @@
         <nav class="main-menu mobile-menu">
             <ul>
                 <li class="active"><a href="/">Home</a></li>
-                <li><a href="{{ route('theme.how-it-works') }}">Explore</a></li>
+{{--                <li><a href="{{ route('theme.create-event') }}">Events</a></li>--}}
+                <li><a href="{{ route('theme.events') }}">Events</a></li>
                 <li><a href="{{ route('theme.listings') }}">More Cities</a></li>
                 <li><a href="{{ route('theme.blog') }}">News</a></li>
                 <li><a href="{{ route('theme.contact') }}">Contact</a></li>

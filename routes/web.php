@@ -203,9 +203,9 @@ Route::prefix('theme')->name('theme.')->group(function () {
     Route::get('/single-listing', function () {
         return view('themes.localsdirectory.examples.single-listing');
     })->name('single-listing');
-    Route::get('/how-it-works', function () { // /theme/how-it-works
-        return view('themes.localsdirectory.examples.how-it-works');
-    })->name('how-it-works');
+    Route::get('/events', function () { // /theme/events
+        return view('themes.localsdirectory.examples.events');
+    })->name('events');
     Route::get('/contact', function () {
         return view('themes.localsdirectory.examples.contact');
     })->name('contact');

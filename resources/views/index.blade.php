@@ -6,6 +6,6 @@
     @include ('themes.localsdirectory.layout.section.trending')
     @include ('themes.localsdirectory.layout.section.categories')
     @include ('themes.localsdirectory.layout.section.testimonials')
-    @include ('themes.localsdirectory.layout.section.how-it-works')
+{{--    @include ('themes.localsdirectory.layout.section.events')--}}
     @include ('themes.localsdirectory.layout.section.download-app')
 @endsection
