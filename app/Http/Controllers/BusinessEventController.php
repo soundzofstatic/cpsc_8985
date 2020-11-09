@@ -20,27 +20,7 @@ class BusinessEventController extends Controller
      */
     public function index()
     {
-
-        try {
-
-            // Grab all of the events from the Database
-            $events = BusinessEvent::orderBy('created_at', 'DESC')
-                ->get();
-
-            return view('events.events')
-                ->with(compact([
-                    'events' // send it to the Blade
-                ]));
-
-        } catch (\Exception $e) {
-
-            Log::error($e->getMessage());
-            return redirect()
-                ->back()
-                ->withErrors([$e->getMessage()]);
-
-        }
-
+        //
     }
 
     /**

@@ -185,22 +185,6 @@ Route::prefix('business')->name('business.')->group(function () {
     });
 });
 
-// Public Events Pages
-Route::prefix('events')->name('events.')->group(function () {
-
-    Route::get('/', 'BusinessEventController@index')->name('home'); // All of the events
-
-    Route::prefix('{event}')->name('event.')->group(function () {
-
-        Route::get('/', 'BusinessEventController@show')->name('home'); // A specific Event
-
-        Route::prefix('/action')->name('action.')->group(function () {
-            Route::post('/store-review', 'BusinessController@storeReview')->name('store-review');
-        });
-
-    });
-});
-
 Route::get('/create', 'BusinessController@createFromAnywhere')->name('business-create');
 
 Route::prefix('search')->name('search.')->group(function () {
