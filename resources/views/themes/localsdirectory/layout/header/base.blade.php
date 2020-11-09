@@ -8,6 +8,8 @@
                 <li class="active"><a href="/">Home</a></li>
 {{--                <li><a href="{{ route('theme.create-event') }}">Events</a></li>--}}
                 <li><a href="{{ route('theme.events') }}">Events</a></li>
+                <li class="{{ Route::currentRouteName() == 'front-page' ? 'active' : '' }}"><a href="/">Home</a></li>
+                <li class="{{ Route::currentRouteName() == 'events.home' ? 'active' : '' }}"><a href="{{ route('events.home') }}">Events</a></li>
                 <li><a href="{{ route('theme.listings') }}">More Cities</a></li>
                 <li><a href="{{ route('theme.blog') }}">News</a></li>
                 <li><a href="{{ route('theme.contact') }}">Contact</a></li>
