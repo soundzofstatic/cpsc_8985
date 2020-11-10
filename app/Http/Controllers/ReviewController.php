@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Business;
+use App\Feedback;
 use App\Review;
 use App\User;
 use Illuminate\Http\Request;
@@ -79,22 +80,41 @@ class ReviewController extends Controller
 
     public function reply(Request $request)
     {
-        //dd($request->all());
-        if (Auth::check()) {
-            $user = Auth::user();
+//        dd($request->all());
+        try {
 
-            // Now Set the feedback associated with the review
-            $feedback = new \App\Feedback();
-            $feedback->user_id = $user->id;
-            $feedback->question_id = null;
-            $feedback->reply_on_type = 'feedback';
-            $feedback->reply_on_feedback_id = $request->input('feedback_id');
-            $feedback->sequence_number = 0;
-            $feedback->text = $request->input('reply');
-            $feedback->save();
+            if (Auth::check()) {
 
-            // Update the $review with the feedback_id
-            return redirect()->back();
+                $lastFeedback = Feedback::where('review_id', '=', $request->input('review_id'))
+                    ->orderBy('sequence_number', 'DESC')
+                    ->first();
+                // Assume requestor is the auth user
+                $user = Auth::user();
+
+                // Now Set the feedback associated with the review
+                $feedback = new \App\Feedback();
+                $feedback->user_id = $user->id;
+                $feedback->question_id = null;
+                $feedback->review_id = $request->input('review_id');
+                $feedback->reply_on_type = 'App\\Feedback';
+                $feedback->reply_on_feedback_id = $request->input('feedback_id');
+                $feedback->sequence_number = $lastFeedback->sequence_number + 1;
+                $feedback->text = $request->input('reply');
+                $feedback->save();
+
+                // Update the $review with the feedback_id
+                return redirect()
+                    ->back()
+                    ->with(['message' => 'Successfully added Feedback']);
+            }
+
+        } catch (\Exception $e) {
+
+            Log::error($e->getMessage());
+            return redirect()
+                ->back()
+                ->withErrors([$e->getMessage()]);
+
         }
     }
 
@@ -108,7 +128,7 @@ class ReviewController extends Controller
             $feedback = new \App\Feedback();
             $feedback->user_id = $user->id;
             $feedback->question_id = null;
-            $feedback->reply_on_type = 'feedback';
+            $feedback->reply_on_type = 'App\\Feedback';
             $feedback->reply_on_feedback_id = $request->input('feedback_id');
             $feedback->sequence_number = 0;
             $feedback->text = $request->input('reply');

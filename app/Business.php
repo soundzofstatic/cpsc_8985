@@ -97,6 +97,18 @@ class Business extends Model
 
     }
 
+    public function lastHundredReviews()
+    {
+        return $this->hasMany(
+            Review::class,
+            'business_id',
+            'id'
+        )
+            ->limit(100)
+            ->orderBy('created_at', 'DESC');
+
+    }
+
     public function alert()
     {
         return $this->hasOne(

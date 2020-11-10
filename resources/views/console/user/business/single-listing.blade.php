@@ -1,6 +1,20 @@
 @extends('themes.localsdirectory.layout.base')
 @section ('page_name')Single Listing
 @endsection
+@section('styles')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+    .fa {
+    font-size: 20px;
+    cursor: pointer;
+    user-select: none;
+    }
+
+    .fa:hover {
+    color: darkblue;
+    }
+</style>
+@endsection
 @section ('content')
     <style>
         .send-btn {
@@ -114,7 +128,7 @@
                             <!-- Reviews Begin -->
                             <div class="client-reviews">
                                 <h3>Reviews</h3>
-                                @foreach($business->reviews as $review)
+                                @foreach($business->lastHundredReviews as $review)
                                     <div class="reviews-item">
                                         <div class="rating">
                                             @for($i=0;$i<$review->rating;$i++)
@@ -135,48 +149,20 @@
                                         <div class="col-md-12 mt-2">
                                             <div class="row">
 
-                                                @foreach($review->relatedHundredFeedbacks as $relatedFeedback)
+                                                @foreach($review->relatedFeedbacks as $relatedFeedback)
                                                     <div class="col-md-11 offset-md-1 mb-5 related-feedback"
                                                          style="border-left: solid thin red;">
                                                         <p>{{ $relatedFeedback->text }} </p>
-                                                        <p>Replies:</p>
-                                                        {{--                                                        @foreach($relatedFeedback->showReplies as $reply)--}}
-                                                        {{--                                                            <div>--}}
-                                                        {{--                                                                <p>{{$reply->text}}</p>--}}
-                                                        {{--                                                            </div>--}}
-                                                        {{--                                                        @endforeach--}}
                                                         <div class="Additional Feedback">
-
                                                             {{--                                  like & dislike            --}}
-
-                                                            <html>
-                                                            <head>
-                                                                <link rel="stylesheet"
-                                                                      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-                                                                <style>
-                                                                    .fa {
-                                                                        font-size: 20px;
-                                                                        cursor: pointer;
-                                                                        user-select: none;
-                                                                    }
-
-                                                                    .fa:hover {
-                                                                        color: darkblue;
-                                                                    }
-                                                                </style>
-                                                            </head>
-                                                            <body>
-
                                                             <i onclick="myFunction(this,'like')"
                                                                class="fa fa-thumbs-o-up mr-2"></i>
-
                                                             <i onclick="myFunction(this,'dislike')"
                                                                class="fa fa-thumbs-o-down"></i>
-
                                                             <script>
-                                                                function myFunction(x, str) {
-                                                                    if (str == 'like') {
-                                                                        debugger;
+                                                                function myFunction(x, like_dislike) {
+                                                                    if (like_dislike == 'like') {
+
                                                                         x.classList.toggle("fa-thumbs-up");
                                                                         let checkClass = x.classList.toString();
                                                                         if (checkClass.search("fa-thumbs-up") != -1) {
@@ -184,7 +170,9 @@
                                                                         } else {
                                                                             x.innerHTML = '';
                                                                         }
+
                                                                     } else {
+
                                                                         x.classList.toggle("fa-thumbs-down");
                                                                         let checkClass = x.classList.toString();
                                                                         if (checkClass.search("fa-thumbs-down") != -1) {
@@ -195,35 +183,6 @@
                                                                     }
                                                                 }
                                                             </script>
-
-                                                            </body>
-                                                            </html>
-                                                            {{--Reply on feedback--}}
-                                                            <button type="button" i class="btn text-danger ml-5 btn-sm"
-                                                                    data-toggle="collapse"
-                                                                    data-target="#reply-{{$relatedFeedback->id}}"
-                                                                    aria-expanded="false"
-                                                                    aria-controls="collapseExample">Reply
-                                                            </button>
-                                                            <div class="collapse" id="reply-{{$relatedFeedback->id}}">
-                                                                <form action="{{route('review-reply')}}" method="post"
-                                                                      class="row">
-                                                                    @csrf
-                                                                    <textarea class="col-6 card card-body"
-                                                                              id="reply-{{$relatedFeedback->id}}"
-                                                                              name="reply">
-                                                                </textarea>
-                                                                    <input type="hidden" name="business_id"
-                                                                           value="{{$business->id}}"/>
-                                                                    <input type="hidden" name="feedback_id"
-                                                                           value="{{$relatedFeedback->id}}"/>
-                                                                    <button type="submit" name="submit"
-                                                                            class="col-1 fa fa-paper-plane send-btn"
-                                                                            id="{{$relatedFeedback->id}}"/>
-                                                                    {{--                                                                <label class="fa fa-paper-plane" style="margin-top: 65px" id="{{$relatedFeedback->id}}"></label>--}}
-                                                                </form>
-
-                                                            </div>
                                                         </div>
 
                                                         <div class="client-text">
@@ -235,6 +194,31 @@
                                                         </div>
                                                     </div>
                                                 @endforeach
+                                                {{--Reply on feedback--}}
+                                                <button type="button" class="btn text-danger ml-5 btn-sm"
+                                                        data-toggle="collapse"
+                                                        data-target="#reply-{{ $review->originalFeedback->id }}"
+                                                        aria-expanded="false"
+                                                        aria-controls="collapseExample">Reply
+                                                </button>
+                                                <div class="collapse" id="reply-{{ $review->originalFeedback->id }}">
+                                                    <form action="{{route('review-reply')}}" method="post"
+                                                          class="row">
+                                                        @csrf
+
+                                                        <div class="form-group">
+                                                            <label for="reply-{{ $review->originalFeedback->id }}">Reply</label>
+                                                            <textarea class="form-control" id="reply-{{ $review->originalFeedback->id }}" name="reply">
+                                                            </textarea>
+                                                        </div>
+                                                        <input type="hidden" name="business_id" value="{{$business->id}}"/>
+                                                        <input type="hidden" name="feedback_id"  value="{{$review->originalFeedback->id}}"/>
+                                                        <input type="hidden" name="review_id"  value="{{$review->id}}"/>
+                                                        <button type="submit" name="submit"
+                                                                class="col-1 fa fa-paper-plane send-btn"
+                                                                id="{{$relatedFeedback->id}}"/>
+                                                    </form>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
