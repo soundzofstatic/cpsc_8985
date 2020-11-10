@@ -167,7 +167,7 @@ class BusinessController extends Controller
                 throw new \Exception('Requesting user must be the business owner.');
 
             }
-            $business = new \App\Business();
+
             $business->name = $request->input('name');
             $business->user_id = $user->id;
             $business->address = $request->input('address');

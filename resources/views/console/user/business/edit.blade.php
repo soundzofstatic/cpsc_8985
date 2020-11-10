@@ -70,31 +70,31 @@
                 <label for="dollar_rating" class="col-md-4 col-form-label text-md-right"><b>Dollar Rating</b></label>
                 <div class="col-md-6">
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="dollar_rating" id="dollar_rating1" value="1">
+                        <input class="form-check-input" type="radio" name="dollar_rating" id="dollar_rating1" value="1" @if (old('dollar_rating', $business->dollar_rating) == '1') checked @endif>
                         <label class="form-check-label" for="dollar_rating1">
                             1
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="dollar_rating" id="dollar_rating2" value="2">
+                        <input class="form-check-input" type="radio" name="dollar_rating" id="dollar_rating2" value="2"  @if (old('dollar_rating', $business->dollar_rating) == '2') checked @endif>
                         <label class="form-check-label" for="dollar_rating2">
                             2
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="dollar_rating" id="dollar_rating3" value="3">
+                        <input class="form-check-input" type="radio" name="dollar_rating" id="dollar_rating3" value="3"  @if (old('dollar_rating', $business->dollar_rating) == '3') checked @endif>
                         <label class="form-check-label" for="dollar_rating3">
                             3
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="dollar_rating" id="dollar_rating4" value="4">
+                        <input class="form-check-input" type="radio" name="dollar_rating" id="dollar_rating4" value="4"  @if (old('dollar_rating', $business->dollar_rating) == '4') checked @endif>
                         <label class="form-check-label" for="dollar_rating4">
                             4
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="dollar_rating" id="dollar_rating5" value="5">
+                        <input class="form-check-input" type="radio" name="dollar_rating" id="dollar_rating5" value="5"  @if (old('dollar_rating', $business->dollar_rating) == '5') checked @endif>
                         <label class="form-check-label" for="dollar_rating5">
                             5
                         </label>
