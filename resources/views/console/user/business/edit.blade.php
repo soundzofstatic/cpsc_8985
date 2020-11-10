@@ -4,8 +4,8 @@
 @section ('content')
     <main class="container main-pad">
         {{--                todo - Replace front-page with actual route that stores/processes the data submitted in the form --}}
-        <h1>Register a new Business</h1>
-        <p>Register your business by submitting the details in the form below.</p>
+        <h1>Update a Business</h1>
+        <p>Update your business by submitting the details in the form below.</p>
         <form action="{{ route('console.user.businesses.business.business-update', ['user'=>\Illuminate\Support\Facades\Auth::user()->id, 'business'=> $business->id]) }}"
               method="POST">
             @csrf
@@ -18,26 +18,26 @@
             <div class="form-group row">
                 <label for="description" class="col-md-4 col-form-label text-md-right"><b>Description</b></label>
                 <div class="col-md-6">
-                    <textarea name="description" class="form-control" ></textarea>
+                    <textarea name="description" class="form-control">{{ old('description', $business->description) }}</textarea>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="hours" class="col-md-4 col-form-label text-md-right"><b>Business Hours</b></label>
                 <div class="col-md-6">
-                    <input type="text" placeholder="Enter Hours" name="hours"  class="form-control">
+                    <input type="text" placeholder="Enter Hours" name="hours"  class="form-control" value="{{ old('hours', $business->hours) }}">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="address" class="col-md-4 col-form-label text-md-right"><b>Address</b></label>
                 <div class="col-md-6">
-                    <input type="text" placeholder="Enter Address" name="address"  class="form-control">
+                    <input type="text" placeholder="Enter Address" name="address"  class="form-control" value="{{ old('address', $business->address) }}">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="contact_email" class="col-md-4 col-form-label text-md-right"><b>Contact Email</b></label>
                 <div class="col-md-6">
                     <input type="text" placeholder="Enter Contact Email" name="contact_email"
-                           class="form-control">
+                           class="form-control" value="{{ old('contact_email', $business->contact_email) }}">
                 </div>
             </div>
             <div class="form-group row">
@@ -45,57 +45,56 @@
                         Number</b></label>
                 <div class="col-md-6">
                     <input type="text" placeholder="Enter Contact Phone Number" name="contact_phone"
-                           class="form-control">
+                           class="form-control" value="{{ old('contact_phone', $business->contact_phone) }}">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="menu_url" class="col-md-4 col-form-label text-md-right"><b>Menu URL</b></label>
                 <div class="col-md-6">
-                    <input type="text" placeholder="Enter Menu URL" name="menu_url"  class="form-control">
+                    <input type="text" placeholder="Enter Menu URL" name="menu_url"  class="form-control" value="{{ old('menu_url', $business->menu_url) }}">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="web_url" class="col-md-4 col-form-label text-md-right"><b>Web URL</b></label>
                 <div class="col-md-6">
-                    <input type="text" placeholder="Enter Website URL" name="web_url"  class="form-control">
+                    <input type="text" placeholder="Enter Website URL" name="web_url"  class="form-control" value="{{ old('web_url', $business->web_url) }}">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="established_on" class="col-md-4 col-form-label text-md-right"><b>Established On</b></label>
                 <div class="col-md-6">
-                    <input type="date" placeholder="Enter Established Dates" name="established_on"
-                           class="form-control">
+                    <input type="date" placeholder="Enter Established Dates" name="established_on" class="form-control"  value="{{ old('established_on', \Carbon\Carbon::createFromFormat('m/d/Y H:i:s', $business->est_date . ' 00:00:00')->format('Y-m-d') ) }}">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="dollar_rating" class="col-md-4 col-form-label text-md-right"><b>Dollar Rating</b></label>
                 <div class="col-md-6">
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="dollar_rating" id="dollar_rating1" value="1">
+                        <input class="form-check-input" type="radio" name="dollar_rating" id="dollar_rating1" value="1" @if (old('dollar_rating', $business->dollar_rating) == '1') checked @endif>
                         <label class="form-check-label" for="dollar_rating1">
                             1
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="dollar_rating" id="dollar_rating2" value="2">
+                        <input class="form-check-input" type="radio" name="dollar_rating" id="dollar_rating2" value="2"  @if (old('dollar_rating', $business->dollar_rating) == '2') checked @endif>
                         <label class="form-check-label" for="dollar_rating2">
                             2
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="dollar_rating" id="dollar_rating3" value="3">
+                        <input class="form-check-input" type="radio" name="dollar_rating" id="dollar_rating3" value="3"  @if (old('dollar_rating', $business->dollar_rating) == '3') checked @endif>
                         <label class="form-check-label" for="dollar_rating3">
                             3
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="dollar_rating" id="dollar_rating4" value="4">
+                        <input class="form-check-input" type="radio" name="dollar_rating" id="dollar_rating4" value="4"  @if (old('dollar_rating', $business->dollar_rating) == '4') checked @endif>
                         <label class="form-check-label" for="dollar_rating4">
                             4
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="dollar_rating" id="dollar_rating5" value="5">
+                        <input class="form-check-input" type="radio" name="dollar_rating" id="dollar_rating5" value="5"  @if (old('dollar_rating', $business->dollar_rating) == '5') checked @endif>
                         <label class="form-check-label" for="dollar_rating5">
                             5
                         </label>

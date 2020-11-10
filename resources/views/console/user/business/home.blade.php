@@ -59,8 +59,6 @@
                         </div>
                     </div>
                 </div>
-
-
                 {{--                @foreach($user->businesses as $business)--}}
                 {{--                    <div class="row mb-2" style="border: thin solid red">--}}
                 {{--                        <div class="col-md-12 p-3 shadow ">--}}
