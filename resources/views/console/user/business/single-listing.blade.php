@@ -39,12 +39,15 @@
                                     @endif
                                 @endif
                                 <div class="share-btn">
+                                    <a href="{{route('console.user.businesses.business.edit', ['user'=> \Illuminate\Support\Facades\Auth::user()->id, 'business' => $business->id])}}" class="btn btn-danger">Edit Business</a>
+                                </div>
+                                <div class="share-btn">
                                     <a href="{{route('console.user.businesses.business.update.events.create', ['user'=> \Illuminate\Support\Facades\Auth::user()->id, 'business' => $business->id])}}"
                                        class="btn btn-danger">Create an Event</a>
                                 </div>
                                 <div class="share-btn">
-                                    <a href="{{route('console.user.businesses.business.edit', ['user'=> \Illuminate\Support\Facades\Auth::user()->id, 'business' => $business->id])}}"
-                                       class="btn btn-danger">Edit Business</a>
+                                    <a href="{{route('console.user.businesses.business.update.service.create', ['user'=> \Illuminate\Support\Facades\Auth::user()->id, 'business' => $business->id])}}"
+                                       class="btn btn-danger">Create a Service</a>
                                 </div>
                             </div>
                             <div class="share-icon">
@@ -72,6 +75,11 @@
                                 @for($i=0;$i<$business->dollar_rating;$i++)
                                     <i class="fa fa-usd"></i>
                                 @endfor
+                            </div>
+                            <div class="share-icon">
+                                @foreach($business->businessService as $businessService)
+                                        <a href="{{ route('console.user.businesses.business.update.service.destroy', ['user'=> \Illuminate\Support\Facades\Auth::user()->id, 'business' => $business->id,'service'=>$businessService->id]) }}">{{ $businessService->service->name }}</a>
+                                @endforeach
                             </div>
                         </div>
                     </div>

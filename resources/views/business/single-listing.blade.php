@@ -63,6 +63,11 @@
                                     <i class="fa fa-usd"></i>
                                 @endfor
                             </div>
+                            <div class="share-icon">
+                                @foreach($business->businessService as $businessService)
+                                    {{ $businessService->service->name }}
+                                @endforeach
+                            </div>
                         </div>
                     </div>
                 </div>

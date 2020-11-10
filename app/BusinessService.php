@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class BusinessService extends Model
 {
     use SoftDeletes;
-    //
+
     public function Business()
     {
         return $this->hasOne(
@@ -17,12 +17,12 @@ class BusinessService extends Model
             'id'
         );
     }
-    public function Services()
+    public function service()
     {
         return $this->hasOne(
             Service::class,
-            'Name',
-            'id'
+            'id',
+            'service_id'
         );
     }
     public function user() {

@@ -108,6 +108,16 @@ Route::prefix('console')->name('console.')->group(function () {
 
                         });
                     });
+                    Route::prefix('service')->name('service.')->group(function () {
+
+                        Route::get('/create', 'BusinessServiceController@create')->name('create');
+                        Route::post('/store', 'BusinessServiceController@store')->name('store');
+
+                        Route::prefix('{service}')->group(function () {
+                            Route::get('/destroy', 'BusinessServiceController@destroy')->name('destroy');
+
+                        });
+                    });
                     Route::prefix('events')->name('events.')->group(function () {
 
                         Route::get('/create', 'BusinessEventController@create')->name('create');
