@@ -37,7 +37,7 @@
                 <label for="contact_email" class="col-md-4 col-form-label text-md-right"><b>Contact Email</b></label>
                 <div class="col-md-6">
                     <input type="text" placeholder="Enter Contact Email" name="contact_email"
-                           class="form-control">
+                           class="form-control" value="{{ old('contact_email', $business->contact_email) }}">
                 </div>
             </div>
             <div class="form-group row">
@@ -45,19 +45,19 @@
                         Number</b></label>
                 <div class="col-md-6">
                     <input type="text" placeholder="Enter Contact Phone Number" name="contact_phone"
-                           class="form-control">
+                           class="form-control" value="{{ old('contact_phone', $business->contact_phone) }}">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="menu_url" class="col-md-4 col-form-label text-md-right"><b>Menu URL</b></label>
                 <div class="col-md-6">
-                    <input type="text" placeholder="Enter Menu URL" name="menu_url"  class="form-control">
+                    <input type="text" placeholder="Enter Menu URL" name="menu_url"  class="form-control" value="{{ old('menu_url', $business->menu_url) }}">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="web_url" class="col-md-4 col-form-label text-md-right"><b>Web URL</b></label>
                 <div class="col-md-6">
-                    <input type="text" placeholder="Enter Website URL" name="web_url"  class="form-control">
+                    <input type="text" placeholder="Enter Website URL" name="web_url"  class="form-control" value="{{ old('web_url', $business->web_url) }}">
                 </div>
             </div>
             <div class="form-group row">
