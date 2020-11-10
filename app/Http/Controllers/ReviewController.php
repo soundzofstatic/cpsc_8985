@@ -75,8 +75,51 @@ class ReviewController extends Controller
             return redirect()->route('business.home' , ['business'=>$request->input('business_id')]);
         }
     }
+    //    Storing Replies
 
-    /**
+    public function reply(Request $request)
+    {
+        //dd($request->all());
+        if (Auth::check()) {
+            $user = Auth::user();
+
+            // Now Set the feedback associated with the review
+            $feedback = new \App\Feedback();
+            $feedback->user_id = $user->id;
+            $feedback->question_id = null;
+            $feedback->reply_on_type = 'feedback';
+            $feedback->reply_on_feedback_id = $request->input('feedback_id');
+            $feedback->sequence_number = 0;
+            $feedback->text = $request->input('reply');
+            $feedback->save();
+
+            // Update the $review with the feedback_id
+            return redirect()->back();
+        }
+    }
+
+    public function question(Request $request)
+    {
+        //dd($request->all());
+        if (Auth::check()) {
+            $user = Auth::user();
+
+            // Now Set the feedback associated with the review
+            $feedback = new \App\Feedback();
+            $feedback->user_id = $user->id;
+            $feedback->question_id = null;
+            $feedback->reply_on_type = 'feedback';
+            $feedback->reply_on_feedback_id = $request->input('feedback_id');
+            $feedback->sequence_number = 0;
+            $feedback->text = $request->input('reply');
+            $feedback->save();
+
+            // Update the $review with the feedback_id
+            return redirect()->back();
+        }
+    }
+
+            /**
      * Display the specified resource.
      *
      * @param  \App\Review  $review

@@ -234,6 +234,10 @@ Route::get('/review/{business}', 'ReviewController@create')->name('review-create
 
 Route::post('/review-store' ,'ReviewController@store')->name('review-store');
 
+Route::post('/review-reply' ,'ReviewController@reply')->name('review-reply');
+//Ask a question
+Route::post('/question','QuestionController@store')->name('question');
+
 // Proof of Concepts
 Route::get('/poc/check-ins-count', function(){
 
