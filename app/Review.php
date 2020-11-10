@@ -52,4 +52,28 @@ class Review extends Model
             ->where('review_id', '=', $this->id)
             ->orderBy('sequence_number', 'ASC');
     }
+
+    public function relatedHundredFeedbacks() {
+        return $this->hasMany(
+            Feedback::class,
+            'review_id',
+            'id'
+        )
+            ->where('sequence_number', '!=', 0)
+            ->where('review_id', '=', $this->id)
+            ->orderBy('sequence_number', 'ASC');
+    }
+
+    public function showReplies() {
+        return $this->hasMany(
+            Feedback::class,
+            'review_id',
+            'id'
+        )
+            ->where('reply_on_feedback_id', '!=', null)
+            ->where('id', '=', $this->id)
+            ->orderBy('sequence_number', 'ASC');
+    }
+
+
 }
