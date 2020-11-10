@@ -18,19 +18,19 @@
             <div class="form-group row">
                 <label for="description" class="col-md-4 col-form-label text-md-right"><b>Description</b></label>
                 <div class="col-md-6">
-                    <textarea name="description" class="form-control" ></textarea>
+                    <textarea name="description" class="form-control">{{ old('description', $business->description) }}</textarea>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="hours" class="col-md-4 col-form-label text-md-right"><b>Business Hours</b></label>
                 <div class="col-md-6">
-                    <input type="text" placeholder="Enter Hours" name="hours"  class="form-control">
+                    <input type="text" placeholder="Enter Hours" name="hours"  class="form-control" value="{{ old('hours', $business->hours) }}">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="address" class="col-md-4 col-form-label text-md-right"><b>Address</b></label>
                 <div class="col-md-6">
-                    <input type="text" placeholder="Enter Address" name="address"  class="form-control">
+                    <input type="text" placeholder="Enter Address" name="address"  class="form-control" value="{{ old('address', $business->address) }}">
                 </div>
             </div>
             <div class="form-group row">
@@ -63,8 +63,7 @@
             <div class="form-group row">
                 <label for="established_on" class="col-md-4 col-form-label text-md-right"><b>Established On</b></label>
                 <div class="col-md-6">
-                    <input type="date" placeholder="Enter Established Dates" name="established_on"
-                           class="form-control">
+                    <input type="date" placeholder="Enter Established Dates" name="established_on" class="form-control"  value="{{ old('established_on', \Carbon\Carbon::createFromFormat('m/d/Y H:i:s', $business->est_date . ' 00:00:00')->format('Y-m-d') ) }}">
                 </div>
             </div>
             <div class="form-group row">
