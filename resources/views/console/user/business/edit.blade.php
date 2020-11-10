@@ -4,8 +4,8 @@
 @section ('content')
     <main class="container main-pad">
         {{--                todo - Replace front-page with actual route that stores/processes the data submitted in the form --}}
-        <h1>Register a new Business</h1>
-        <p>Register your business by submitting the details in the form below.</p>
+        <h1>Update a Business</h1>
+        <p>Update your business by submitting the details in the form below.</p>
         <form action="{{ route('console.user.businesses.business.business-update', ['user'=>\Illuminate\Support\Facades\Auth::user()->id, 'business'=> $business->id]) }}"
               method="POST">
             @csrf
