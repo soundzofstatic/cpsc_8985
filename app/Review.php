@@ -52,6 +52,18 @@ class Review extends Model
             ->where('review_id', '=', $this->id)
             ->orderBy('sequence_number', 'ASC');
     }
+    public function questions() {
+        return $this->hasMany(
+            Feedback::class,
+            'question_id',
+            'id'
+        )
+            ->where('sequence_number', '=', 0)
+            ->where('question_id', '=', $this->id)
+            ->limit(100)
+            ->orderBy('sequence_number', 'DESC');
+
+    }
 
     public function relatedHundredFeedbacks() {
         return $this->hasMany(
