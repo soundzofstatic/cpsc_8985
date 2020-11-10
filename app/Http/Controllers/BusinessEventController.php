@@ -114,7 +114,7 @@ class BusinessEventController extends Controller
             $BusinessEvent->business_id = $business->id;
             $BusinessEvent->name = $request->input('name');
             $BusinessEvent->description = $request->input('description');
-            $BusinessEvent-> = $start_date;
+            $BusinessEvent->start_date = $start_date;
             $BusinessEvent->save();
 
             return redirect()
