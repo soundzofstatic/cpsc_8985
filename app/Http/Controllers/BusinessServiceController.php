@@ -158,8 +158,47 @@ class BusinessServiceController extends Controller
      * @param  \App\BusinessService  $businessService
      * @return \Illuminate\Http\Response
      */
-    public function destroy(BusinessService $businessService)
+
+        public function destroy(User $user, Business $business,BusinessService $service)
     {
-        //
+
+        try {
+
+            if (Auth::check()) {
+
+                if (Auth::user()->id != $business->user_id) {
+
+                    throw new \Exception('Business  does not belong to the user making the request.');
+
+                }
+
+                if ($business->id != $service->business_id) {
+
+                    throw new \Exception('Business service does not belong to the business where request originated from.');
+
+                }
+
+                $service->delete();
+
+                return redirect()
+                    ->back()
+                    ->with(['message' => 'Successfully deleted Business service for business: ' . $business->name]);
+
+            } else {
+
+                return redirect()
+                    ->back()
+                    ->withErrors(['Must be logged in before you can delete a service from a Business.']);
+
+            }
+
+        } catch (\Exception $e) {
+
+            Log::error($e->getMessage());
+            return redirect()
+                ->back()
+                ->withErrors([$e->getMessage()]);
+
+        }
     }
 }

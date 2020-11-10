@@ -114,6 +114,7 @@ Route::prefix('console')->name('console.')->group(function () {
                         Route::post('/store', 'BusinessServiceController@store')->name('store');
 
                         Route::prefix('{service}')->group(function () {
+                            Route::get('/destroy', 'BusinessServiceController@destroy')->name('destroy');
 
                         });
                     });

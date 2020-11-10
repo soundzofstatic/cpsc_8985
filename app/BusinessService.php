@@ -17,12 +17,12 @@ class BusinessService extends Model
             'id'
         );
     }
-    public function Services()
+    public function service()
     {
         return $this->hasOne(
             Service::class,
-            'Name',
-            'id'
+            'id',
+            'service_id'
         );
     }
     public function user() {

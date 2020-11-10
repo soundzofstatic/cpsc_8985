@@ -75,6 +75,11 @@
                                     <i class="fa fa-usd"></i>
                                 @endfor
                             </div>
+                            <div class="share-icon">
+                                @foreach($business->businessService as $businessService)
+                                        <a href="{{ route('console.user.businesses.business.update.service.destroy', ['user'=> \Illuminate\Support\Facades\Auth::user()->id, 'business' => $business->id,'service'=>$businessService->id]) }}">{{ $businessService->service->name }}</a>
+                                @endforeach
+                            </div>
                         </div>
                     </div>
                 </div>

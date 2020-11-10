@@ -5,7 +5,7 @@
     <main class="container main-pad">
         {{--                todo - Replace front-page with actual route that stores/processes the data submitted in the form --}}
         <h1>Add applicable services</h1>
-        <p>Add applicable services for {{ $business->name }} by comnpleting the form below.</p>
+        <p>Add applicable services for {{ $business->name }} by completing the form below.</p>
         <form action="{{ route('console.user.businesses.business.update.service.store', ['user' => \Illuminate\Support\Facades\Auth::user()->id, 'business' => $business->id]) }}"
               method="POST">
             @csrf
