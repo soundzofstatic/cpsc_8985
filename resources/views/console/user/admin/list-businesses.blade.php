@@ -33,6 +33,8 @@
                                     <a href="{{ route('console.user.admin.update.business.enable', ['user'=> \Illuminate\Support\Facades\Auth::user()->id, 'business' => $business->id]) }}"
                                        class="btn btn-sm btn-success">Enable Business</a>
                                 @endif
+                                <a href="{{ route('console.user.businesses.business.update.promoted_business.create', ['user'=> \Illuminate\Support\Facades\Auth::user()->id, 'business' => $business->id]) }}"
+                                   class="btn btn-sm btn-warning">Create Promotion</a>
                             </a>
                         </div>
                     @endforeach

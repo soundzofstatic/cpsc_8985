@@ -14,6 +14,11 @@ class PromotedBusiness extends Model
         'location_2'
     ];
 
+    protected $dates = [
+            'start_date',
+            'end_date'
+        ];
+
     public function business()
     {
         return $this->belongsTo(
