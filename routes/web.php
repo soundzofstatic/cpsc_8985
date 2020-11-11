@@ -17,7 +17,7 @@ Auth::routes();
 Route::post('/google/sign-in', 'GoogleTokenController@exchangeAuthCode')->name('google-integrate-auth-token');
 
 // Console, aka. Logged in area
-Route::prefix('console')->name('console.')->group(function () {
+Route::prefix('console')->name('console.')->middleware('auth')->group(function () {
 
     Route::get('/home', 'HomeController@index')->name('home');
 
@@ -27,7 +27,7 @@ Route::prefix('console')->name('console.')->group(function () {
             return view('console.user.settings');
         })->name('settings');
 
-        Route::prefix('admin')->name('admin.')->group(function () { // todo - Should have middleware protecting it from non-admin users
+        Route::prefix('admin')->name('admin.')->middleware('auth_admin')->group(function () { // todo - Should have middleware protecting it from non-admin users
 
             Route::get('/', 'AdminController@show')->name('home');
 
