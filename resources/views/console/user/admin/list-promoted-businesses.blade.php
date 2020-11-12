@@ -19,7 +19,7 @@
                             <a class="arrange-items"
                                href="{{ route('business.home', ['business'=>$promotedBusiness->business->id]) }}">
                                 <div class="arrange-text p-3" style="border: thin solid red">
-                                    <h5>{{ $promotedBusiness->business->name }}</h5>
+                                    <h5>{{ $promotedBusiness->business->name }} </h5>
                                     {{--                                    <span>{{ $user->email }}</span>--}}
                                     {{--                                    <br/>--}}
                                     <h6>Promotion period</h6>

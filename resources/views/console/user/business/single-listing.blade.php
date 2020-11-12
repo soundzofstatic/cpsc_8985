@@ -2,18 +2,18 @@
 @section ('page_name')Single Listing
 @endsection
 @section('styles')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
-    .fa {
-    font-size: 20px;
-    cursor: pointer;
-    user-select: none;
-    }
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        .fa {
+            font-size: 20px;
+            cursor: pointer;
+            user-select: none;
+        }
 
-    .fa:hover {
-    color: darkblue;
-    }
-</style>
+        .fa:hover {
+            color: #00008b;
+        }
+    </style>
 @endsection
 @section ('content')
     <style>
@@ -62,7 +62,8 @@
                                     @endif
                                 @endif
                                 <div class="share-btn">
-                                    <a href="{{route('console.user.businesses.business.edit', ['user'=> \Illuminate\Support\Facades\Auth::user()->id, 'business' => $business->id])}}" class="btn btn-danger">Edit Business</a>
+                                    <a href="{{route('console.user.businesses.business.edit', ['user'=> \Illuminate\Support\Facades\Auth::user()->id, 'business' => $business->id])}}"
+                                       class="btn btn-danger">Edit Business</a>
                                 </div>
                                 <div class="share-btn">
                                     <a href="{{route('console.user.businesses.business.update.events.create', ['user'=> \Illuminate\Support\Facades\Auth::user()->id, 'business' => $business->id])}}"
@@ -105,7 +106,7 @@
                             </div>
                             <div class="share-icon">
                                 @foreach($business->businessService as $businessService)
-                                        <a href="{{ route('console.user.businesses.business.update.service.destroy', ['user'=> \Illuminate\Support\Facades\Auth::user()->id, 'business' => $business->id,'service'=>$businessService->id]) }}">{{ $businessService->service->name }}</a>
+                                    <a href="{{ route('console.user.businesses.business.update.service.destroy', ['user'=> \Illuminate\Support\Facades\Auth::user()->id, 'business' => $business->id,'service'=>$businessService->id]) }}">{{ $businessService->service->name }}</a>
                                 @endforeach
                             </div>
                         </div>
@@ -216,12 +217,16 @@
 
                                                         <div class="form-group">
                                                             <label for="reply-{{ $review->originalFeedback->id }}">Reply</label>
-                                                            <textarea class="form-control" id="reply-{{ $review->originalFeedback->id }}" name="reply">
+                                                            <textarea class="form-control"
+                                                                      id="reply-{{ $review->originalFeedback->id }}"
+                                                                      name="reply">
                                                             </textarea>
                                                         </div>
-                                                        <input type="hidden" name="business_id" value="{{$business->id}}"/>
-                                                        <input type="hidden" name="feedback_id"  value="{{$review->originalFeedback->id}}"/>
-                                                        <input type="hidden" name="review_id"  value="{{$review->id}}"/>
+                                                        <input type="hidden" name="business_id"
+                                                               value="{{$business->id}}"/>
+                                                        <input type="hidden" name="feedback_id"
+                                                               value="{{$review->originalFeedback->id}}"/>
+                                                        <input type="hidden" name="review_id" value="{{$review->id}}"/>
                                                         <button type="submit" name="submit"
                                                                 class="col-1 fa fa-paper-plane send-btn"
                                                                 id="{{$relatedFeedback->id}}"/>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Business;
 use App\PromotedBusiness;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -26,7 +27,7 @@ class PromotedBusinessController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(User $user, Business $business)
+    public function create(User $user, Business $business, request $request)
     {
         try {
 
@@ -43,9 +44,9 @@ class PromotedBusinessController extends Controller
             }
 
             // todo - Show the user the create a promoted business form
-            dd('Hi, Mythri - Render a view that is a create form for a PromotedBusiness. Collect the start_date, end_date, and promo_location in your form.');
 
-            return view('')
+            //dd('Hi, Mythri - Render a view that is a create form for a PromotedBusiness. Collect the start_date, end_date, and promo_location in your form.');
+            return view('console.user.business.promote')
                 ->with(compact([
                     'user',
                     'business'
@@ -85,7 +86,12 @@ class PromotedBusinessController extends Controller
             }
 
             // todo - Store the data to a new PromotedBusiness()
-            dd('Hi Mythri - Store the data that you collected in your form.');
+            //$input= $request-> all();
+
+            $business->start_date = Carbon::createFromFormat('Y-m-d', $request->input('start_date'))->format('m/d/Y')."00";
+            $business->end_date = Carbon::createFromFormat('Y-m-d', $request->input('end_date'))->format('m/d/Y').":00";
+            $business->promo_location = $request->input('promo_location');
+
 
             return redirect()
                 ->back
