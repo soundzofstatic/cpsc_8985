@@ -85,20 +85,26 @@ class PromotedBusinessController extends Controller
 
             }
 
-            // todo - Store the data to a new PromotedBusiness()
-            //$input= $request-> all();
+            // Store the data to a new PromotedBusiness()
+            $promotedBusiness = new PromotedBusiness();
+            $promotedBusiness->user_id = $user->id;
+            $promotedBusiness->business_id = $business->id;
+            $promotedBusiness->is_active = true;
+            $promotedBusiness->start_date = Carbon::createFromFormat('Y-m-d', $request->input('start_date'));
+            $promotedBusiness->end_date = Carbon::createFromFormat('Y-m-d', $request->input('end_date'));
+            $promotedBusiness->promo_location = $request->input('promo_location');
+            $promotedBusiness->save();
 
-            $business->start_date = Carbon::createFromFormat('Y-m-d', $request->input('start_date'))->format('m/d/Y')."00";
-            $business->end_date = Carbon::createFromFormat('Y-m-d', $request->input('end_date'))->format('m/d/Y').":00";
-            $business->promo_location = $request->input('promo_location');
-
-
-            return redirect()
-                ->back
+            return redirect()->route('console.user.businesses.business.business-console', ['user'=> Auth::user()->id, 'business' => $business->id])
                 ->with(
                     [
                         'message' => 'Successfully promoted business: ' . $business->name
-                    ]
+                    ],
+                    compact(
+                        [
+                            'business'
+                        ]
+                    )
                 );
 
 

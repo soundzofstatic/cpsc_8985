@@ -6,20 +6,20 @@
         {{--                todo - Replace front-page with actual route that stores/processes the data submitted in the form --}}
         <h1>Promote the Business</h1>
         <p>Promote your business by submitting the details in the form below.</p>
-        <form action="{{ route('console.user.businesses.store', ['user'=>\Illuminate\Support\Facades\Auth::user()->id]) }}"
+        <form action="{{ route('console.user.businesses.business.update.promoted_business.store', ['user'=>\Illuminate\Support\Facades\Auth::user()->id, 'business' => $business->id]) }}"
               method="POST">
             @csrf
             <div class="form-group row">
                 <label for="start_date" class="col-md-4 col-form-label text-md-right"><b>Start Date</b></label>
                 <div class="col-md-6">
-                    <input type="date" placeholder="Enter Start Dates" name="Start_date" required
+                    <input type="date" placeholder="Enter Start Dates" name="start_date" required
                            class="form-control">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="end_date" class="col-md-4 col-form-label text-md-right"><b>End Date</b></label>
                 <div class="col-md-6">
-                    <input type="date" placeholder="Enter End Dates" name="End_date" required
+                    <input type="date" placeholder="Enter End Dates" name="end_date" required
                            class="form-control">
                 </div>
             </div>
@@ -28,19 +28,19 @@
                 <label for="promo_location" class="col-md-4 col-form-label text-md-right"><b>Promo Location</b></label>
                 <div class="col-md-6">
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="promo_location" id="location1" value="1">
+                        <input class="form-check-input" type="radio" name="promo_location" id="location1" value="location_1">
                         <label class="form-check-label" for="location1">
                             Location1
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="promo_location" id="location2" value="2">
+                        <input class="form-check-input" type="radio" name="promo_location" id="location2" value="location_2">
                         <label class="form-check-label" for="location2">
                             Location2
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="promo_location" id="location3" value="3">
+                        <input class="form-check-input" type="radio" name="promo_location" id="location3" value="location_3">
                         <label class="form-check-label" for="location3">
                             Location3
                         </label>
