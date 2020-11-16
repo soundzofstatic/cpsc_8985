@@ -82,6 +82,9 @@ Route::prefix('console')->name('console.')->middleware('auth')->group(function (
 
             Route::prefix('update')->name('update.')->group(function () {
 
+                Route::post('/set-avatar', 'UserController@storeAvatar')->name('store-avatar-upload');
+                Route::get('/delete-avatar', 'UserController@destroyAvatar')->name('destroy-avatar');
+
                 Route::prefix('bookmark')->name('bookmark.')->group(function () {
 
                     Route::prefix('{bookmark}')->group(function () {
