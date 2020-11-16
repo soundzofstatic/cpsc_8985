@@ -120,3 +120,27 @@ a {
     height: auto;
   }
 }
+ .alert {
+   float: right;
+   color: white;
+   span {
+     &.fa {
+       font-size: 1.5em;
+       position: relative;
+     }
+     &.count-wrap {
+       position: absolute;
+       font-family: "Lato", sans-serif;
+       //background-color: red;
+       top: -.75em;
+       right: -.75em;
+       height: .75em;
+       width: .75em;
+       border-radius: 1.5em;
+       text-align: center;
+       .count {
+         font-size: .5em;
+       }
+     }
+   }
+ }

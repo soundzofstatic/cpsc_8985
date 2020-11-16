@@ -30,7 +30,15 @@
                                     alt="{!! Auth::user()->avatar->alt_text !!}"/>
                             </div>
                         @endif
-
+                    </div>
+                    <div class="alert">
+                        <a href="{{ route('console.home') . '#notifications' }}">
+                            <span class="fa fa-envelope-open icon" aria-hidden="true">
+                                <span class="count-wrap">
+                                    <span class="count">{{ \App\Helpers\Alert::unread()->count() }}</span>
+                                </span>
+                            </span>
+                        </a>
                     </div>
                 @endif
             </div>
