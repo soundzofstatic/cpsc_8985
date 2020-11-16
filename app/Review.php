@@ -54,14 +54,13 @@ class Review extends Model
     }
     public function questions() {
         return $this->hasMany(
-            Feedback::class,
-            'question_id',
+            Question::class,
+            'business_id',
             'id'
         )
-            ->where('sequence_number', '=', 0)
-            ->where('question_id', '=', $this->id)
-            ->limit(100)
-            ->orderBy('sequence_number', 'DESC');
+            //->where('sequence_number', '=', 0)
+            ->where('business_id', '=', $this->id)
+            ->limit(100);
 
     }
 

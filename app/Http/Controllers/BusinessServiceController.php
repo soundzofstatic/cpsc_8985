@@ -201,4 +201,10 @@ class BusinessServiceController extends Controller
 
         }
     }
+
+    public function searchFilter(Request $request)
+    {
+        $getBusiness=Business::all()->where('ratings','=', $request->rating);
+        return view('themes.localsdirectory.layout.section.search.results')->with('businesses', $getBusiness);
+    }
 }

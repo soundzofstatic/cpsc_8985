@@ -14,6 +14,11 @@
 {{--                            </select>--}}
 {{--                        </form>--}}
 {{--                    </div>--}}
+                    <div>Filtered Page:
+                        @foreach($getBusiness as $getbusi)
+                            <p>{{$getbusi}}</p>
+                        @endforeach
+                    </div>
                     @foreach($businesses as $business)
                         <div class="col-lg-4 col-sm-6">
                             <a class="arrange-items" href="{{ route('business.home', ['business'=>$business->id]) }}">

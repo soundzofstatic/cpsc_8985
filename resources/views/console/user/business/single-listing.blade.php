@@ -146,6 +146,12 @@
                                     </div>
                                 </div>
                                 {{--end of filter--}}
+                                <div>
+                                    Questions:
+                                    @foreach($business->questions as $question)
+                                        <p{{$question}}</p>
+                                    @endforeach
+                                </div>
                                 @foreach($business->lastHundredReviews as $review)
                                     <div class="reviews-item">
                                         <div class="rating">
@@ -166,11 +172,11 @@
                                         </div>
                                         <div class="col-md-12 mt-2">
                                             <div class="row">
-                                                @foreach($review->questions as $question)
-                                                    <div>Question:
-                                                        <p>{{$question}}</p>
-                                                    </div>
-                                                @endforeach
+{{--                                                @foreach($review->questions as $question)--}}
+{{--                                                    <div>Question:--}}
+{{--                                                        <p>{{$question}}</p>--}}
+{{--                                                    </div>--}}
+{{--                                                @endforeach--}}
                                                 @foreach($review->relatedFeedbacks as $relatedFeedback)
                                                     <div class="col-md-11 offset-md-1 mb-5 related-feedback"
                                                          style="border-left: solid thin red;">
