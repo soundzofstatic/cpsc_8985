@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\BusinessCheckIn;
+use App\Feedback;
 use Illuminate\Http\Request;
 
 class FrontPageController extends Controller
@@ -18,11 +19,17 @@ class FrontPageController extends Controller
             ->orderBy('created_at', 'DESC')
             ->get();
 
+        $feedBacks = Feedback::where('user_id', '=', 1)
+            ->limit(5)
+            ->orderBy('created_at', 'DESC')
+            ->get();
+
         return view('index')
             ->with(
                 compact(
                     [
-                        'checkIns'
+                        'checkIns',
+                        'feedBacks'
                     ]
                 )
             );
