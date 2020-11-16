@@ -265,10 +265,27 @@
                                             <div class="row">
                                                 <form action="{{route('question')}}" method="post" class="row">
                                                     @csrf
+                                                    <div class="share-btn">
+                                                        <a href="{{route('question','QuestionController@store')->name('question')}}"
+                                                           class="btn btn-danger">Ask a question</a>
+                                                    </div>
                                                     <textarea class="col-10 card card-body" name="question">
                                                     </textarea>
                                                     <input type="hidden" name="business_id" value="{{$business->id}}"/>
                                                     <button type="submit" name="submit"
+                                                            class="col-1 fa fa-paper-plane send-btn"/>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        {{--                                        disable a question --}}
+                                        <li><a data-toggle="collapse" href="#queries" role="button"
+                                               aria-expanded="false" aria-controls="queries">
+                                                disable a question
+                                            </a></li>
+                                        <div class="collapse" id="queries">
+                                            <div class="row">
+                                                <form action="{{route('disable question')}}" method="post" class="row">
+                                                    @csrf
                                                             class="col-1 fa fa-paper-plane send-btn"/>
                                                 </form>
                                             </div>

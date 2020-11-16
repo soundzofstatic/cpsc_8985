@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Feedback;
 use App\Question;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class QuestionController extends Controller
 {
@@ -23,9 +25,15 @@ class QuestionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
 
+        public function create(Business $business)
+    {
+        //dd($business);
+
+        return view('forms.question')
+            ->with(compact([
+                'business'
+            ]));
     }
 
     /**
@@ -63,7 +71,9 @@ class QuestionController extends Controller
             $question->save();
 
             return redirect()->back();
-        }}
+        }
+    }
+
 
     /**
      * Display the specified resource.
@@ -108,5 +118,44 @@ class QuestionController extends Controller
     public function destroy(Question $question)
     {
         //
+    }
+    /**
+     * @param User $user
+     * @param Review $question
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function disableQuestion(User $user, Review $question)
+    {
+
+        try {
+
+            if($user->id != Auth::user()->id) {
+
+                throw new \Exception('Requesting user must be the authenticated user.');
+
+            }
+
+            if(!$user->isAdmin()) {
+
+                throw new \Exception('Requesting user must be administrator.');
+
+            }
+
+            $question->is_active = false;
+            $question->save();
+
+            return redirect()
+                ->back()
+                ->with(['message' => 'Successfully disabled question: ' . $question->id]);
+
+        } catch (\Exception $e) {
+
+            Log::error($e->getMessage());
+            return redirect()
+                ->back()
+                ->withErrors([$e->getMessage()]);
+
+        }
+
     }
 }

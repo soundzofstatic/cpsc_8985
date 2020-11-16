@@ -246,7 +246,12 @@ Route::post('/review-store' ,'ReviewController@store')->name('review-store');
 
 Route::post('/review-reply' ,'ReviewController@reply')->name('review-reply');
 //Ask a question
-Route::post('/question','QuestionController@store')->name('question');
+Route::get('/question/{business}', 'QuestionController@create')->name('question-create');
+
+Route::post('/question-store' ,'QuestionController@store')->name('question-store');
+
+Route::post('/question-disable' ,'QustionController@reply')->name('question-disable');
+
 
 // Proof of Concepts
 Route::get('/poc/check-ins-count', function(){
