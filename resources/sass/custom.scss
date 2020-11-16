@@ -144,3 +144,21 @@ a {
      }
    }
  }
+
+ .promo-section {
+   position: relative;
+   &.promo-2, &.promo-3 {
+     h2, p {
+       color: white;
+     }
+   }
+   .promo-label {
+     position: absolute;
+     top: 0;
+     right: 0;
+     background-color: $primary;
+     padding: 1em;
+     color: white;
+     font-weight: bold;
+   }
+ }
