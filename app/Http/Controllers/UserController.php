@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Admin;
 use App\Business;
 use App\FileUpload;
+use App\Helpers\Alert;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -480,12 +481,24 @@ class UserController extends Controller
             $upload->alt_text = $request->input('alt-text');
             $upload->save();
 
+            // Save a Notification Alert
+            Alert::createAlert(
+                'user.avatar.created',
+                'Successfully uploaded a new avatar image.',
+                $user,
+                null
+            );
+
             return redirect()
                 ->back()
                 ->with(['message' => 'Successfully Set Avatar for user.']);
 
         } catch (\Exception $e) {
 
+            Log::error($e->getMessage());
+            return redirect()
+                ->back()
+                ->withErrors([$e->getMessage()]);
 
         }
 
@@ -512,6 +525,13 @@ class UserController extends Controller
 
                 $user->avatar->delete();
 
+                Alert::createAlert(
+                    'user.avatar.destroy',
+                    'Successfully removed avatar image.',
+                    $user,
+                    null
+                );
+
             }
 
             return redirect()
@@ -520,6 +540,10 @@ class UserController extends Controller
 
         } catch (\Exception $e) {
 
+            Log::error($e->getMessage());
+            return redirect()
+                ->back()
+                ->withErrors([$e->getMessage()]);
 
         }
 
