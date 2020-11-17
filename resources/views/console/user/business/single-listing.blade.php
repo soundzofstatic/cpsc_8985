@@ -2,28 +2,27 @@
 @section ('page_name')Single Listing
 @endsection
 @section('styles')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
-    .fa {
-    font-size: 20px;
-    cursor: pointer;
-    user-select: none;
-    }
-
-    .fa:hover {
-    color: darkblue;
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        .fa {
+            font-size: 20px;
+            cursor: pointer;
+            user-select: none;
+        }
+        .fa:hover {
+            color: darkblue;
+        }
+    .send-btn {
+        margin-top: 50px !important;
+        border: none;
+        background: none;
+        margin-left: -10px;
     }
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
 @endsection
 @section ('content')
-    <style>
-        .send-btn {
-            margin-top: 65px !important;
-            border: none;
-            background: none;
-            margin-left: -10px;
-        }
-    </style>
+
     <!-- Hero Section Begin -->
     <div class="hero-listing set-bg" data-setbg="{{ asset('img/hero_listing.jpg') }}">
     </div>
@@ -62,7 +61,8 @@
                                     @endif
                                 @endif
                                 <div class="share-btn">
-                                    <a href="{{route('console.user.businesses.business.edit', ['user'=> \Illuminate\Support\Facades\Auth::user()->id, 'business' => $business->id])}}" class="btn btn-danger">Edit Business</a>
+                                    <a href="{{route('console.user.businesses.business.edit', ['user'=> \Illuminate\Support\Facades\Auth::user()->id, 'business' => $business->id])}}"
+                                       class="btn btn-danger">Edit Business</a>
                                 </div>
                                 <div class="share-btn">
                                     <a href="{{route('console.user.businesses.business.update.events.create', ['user'=> \Illuminate\Support\Facades\Auth::user()->id, 'business' => $business->id])}}"
@@ -105,7 +105,7 @@
                             </div>
                             <div class="share-icon">
                                 @foreach($business->businessService as $businessService)
-                                        <a href="{{ route('console.user.businesses.business.update.service.destroy', ['user'=> \Illuminate\Support\Facades\Auth::user()->id, 'business' => $business->id,'service'=>$businessService->id]) }}">{{ $businessService->service->name }}</a>
+                                    <a href="{{ route('console.user.businesses.business.update.service.destroy', ['user'=> \Illuminate\Support\Facades\Auth::user()->id, 'business' => $business->id,'service'=>$businessService->id]) }}">{{ $businessService->service->name }}</a>
                                 @endforeach
                             </div>
                         </div>
@@ -134,8 +134,24 @@
                                 </div>
                             </div>
                             <!-- Reviews Begin -->
-                            <div class="client-reviews">
-                                <h3>Reviews</h3>
+                            <div class="client-reviews row">
+                                <h3 class="col-2">Reviews</h3>
+                                {{-- FILTER--}}
+                                <div class="col-1 dropdown">
+                                    <i class="btn  dropdown-toggle fa fa-filter" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    </i>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="#">FEEDBACK</a>
+                                        <a class="dropdown-item" href="#">QUESTION</a>
+                                    </div>
+                                </div>
+                                {{--end of filter--}}
+                                <div>
+                                    Questions:
+                                    @foreach($business->questions as $question)
+                                        <p{{$question}}</p>
+                                    @endforeach
+                                </div>
                                 @foreach($business->lastHundredReviews as $review)
                                     <div class="reviews-item">
                                         <div class="rating">
@@ -156,7 +172,11 @@
                                         </div>
                                         <div class="col-md-12 mt-2">
                                             <div class="row">
-
+{{--                                                @foreach($review->questions as $question)--}}
+{{--                                                    <div>Question:--}}
+{{--                                                        <p>{{$question}}</p>--}}
+{{--                                                    </div>--}}
+{{--                                                @endforeach--}}
                                                 @foreach($review->relatedFeedbacks as $relatedFeedback)
                                                     <div class="col-md-11 offset-md-1 mb-5 related-feedback"
                                                          style="border-left: solid thin red;">
@@ -207,21 +227,24 @@
                                                         data-toggle="collapse"
                                                         data-target="#reply-{{ $review->originalFeedback->id }}"
                                                         aria-expanded="false"
-                                                        aria-controls="collapseExample">Reply
+                                                        aria-controls="collapseExample" style="height: 7px; box-shadow: none;">Reply
                                                 </button>
                                                 <div class="collapse" id="reply-{{ $review->originalFeedback->id }}">
                                                     <form action="{{route('review-reply')}}" method="post"
                                                           class="row">
                                                         @csrf
-
                                                         <div class="form-group">
                                                             <label for="reply-{{ $review->originalFeedback->id }}">Reply</label>
-                                                            <textarea class="form-control" id="reply-{{ $review->originalFeedback->id }}" name="reply">
+                                                            <textarea class="form-control"
+                                                                      id="reply-{{ $review->originalFeedback->id }}"
+                                                                      name="reply">
                                                             </textarea>
                                                         </div>
-                                                        <input type="hidden" name="business_id" value="{{$business->id}}"/>
-                                                        <input type="hidden" name="feedback_id"  value="{{$review->originalFeedback->id}}"/>
-                                                        <input type="hidden" name="review_id"  value="{{$review->id}}"/>
+                                                        <input type="hidden" name="business_id"
+                                                               value="{{$business->id}}"/>
+                                                        <input type="hidden" name="feedback_id"
+                                                               value="{{$review->originalFeedback->id}}"/>
+                                                        <input type="hidden" name="review_id" value="{{$review->id}}"/>
                                                         <button type="submit" name="submit"
                                                                 class="col-1 fa fa-paper-plane send-btn"
                                                                 id="{{$relatedFeedback->id}}"/>
@@ -244,7 +267,7 @@
                                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d26440.72384129847!2d-118.24906619231132!3d34.06719475913053!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2c659f50c318d%3A0xe2ffb80a9d3820ae!2sChinatown%2C%20Los%20Angeles%2C%20CA%2C%20USA!5e0!3m2!1sen!2sbd!4v1570213740685!5m2!1sen!2sbd"
                                             height="385" style="border:0;" allowfullscreen="">
                                     </iframe>
-                                    {{--                                    <img src="{{ asset('img/pin.png' ) }}" alt="">--}}
+                                    {{-- <img src="{{ asset('img/pin.png' ) }}" alt="">--}}
                                 </div>
                                 <div class="contact-text">
                                     <h4>Contact Info</h4>
@@ -256,7 +279,7 @@
                                         <li><a href="{{ $business->web_url }}">Website</a></li>
                                         <li><a href="{{ $business->menu_url }}">Menu</a></li>
 
-                                        {{--                                        Ask a question --}}
+                                        {{-- Ask a question --}}
                                         <li><a data-toggle="collapse" href="#queries" role="button"
                                                aria-expanded="false" aria-controls="queries">
                                                 Ask a question

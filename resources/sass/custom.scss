@@ -83,21 +83,82 @@ a {
   }
 
 }
+.avatar {
+  &.image {
+    margin-left: 1em;
+    background-color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    float: right;
+    max-width: 50px;
+    max-height: 50px;
+    min-width: 25px;
+    min-height: 25px;
+    overflow: hidden;
+    .monogram {
+      text-align: center;
+      font-size: 2em;
+    }
+    .image {
+      text-align: center;
+      width: 100px;
+      height: auto;
+    }
+  }
+}
+ .avatar-preview {
+    text-align: center;
+    width: 300px;
+    max-width: 300px;
+    height: 300px;
+    max-height: 300px;
+    overflow: hidden;
+    border-radius: 300px;
+  .image {
+    width: 200%;
+    height: auto;
+  }
+}
+ .alert {
+   float: right;
+   color: white;
+   span {
+     &.fa {
+       font-size: 1.5em;
+       position: relative;
+     }
+     &.count-wrap {
+       position: absolute;
+       font-family: "Lato", sans-serif;
+       //background-color: red;
+       top: -.75em;
+       right: -.75em;
+       height: .75em;
+       width: .75em;
+       border-radius: 1.5em;
+       text-align: center;
+       .count {
+         font-size: .5em;
+       }
+     }
+   }
+ }
 
-//.filter-search .category-search .nice-select:after {
-//  display: none;
-//}
-//
-//.filter-search .category-search .nice-select .option {
-//  padding-left: 30px;
-//  padding-right: 29px;
-//  padding-top: 8px;
-//  padding-bottom: 8px;
-//}
-//
-//.filter-search .category-search .nice-select .list {
-//  background-color: #1D1D1D;
-//  border-radius: 0;
-//  margin-top: 1px;
-//  width: 100%;
-//}
+ .promo-section {
+   position: relative;
+   &.promo-2, &.promo-3 {
+     h2, p {
+       color: white;
+     }
+   }
+   .promo-label {
+     position: absolute;
+     top: 0;
+     right: 0;
+     background-color: $primary;
+     padding: 1em;
+     color: white;
+     font-weight: bold;
+   }
+ }

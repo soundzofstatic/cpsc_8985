@@ -41,7 +41,7 @@ class PromotedBusinessSeeder extends Seeder
                     $promotedBusinesses->business_id = $business->id;
                     $promotedBusinesses->is_active = (boolean)$setActive;
                     $promotedBusinesses->start_date = $start;
-//                    $promotedBusinesses->end_date = \Carbon\Carbon::now();
+                    $promotedBusinesses->end_date = $end;
                     $promotedBusinesses->promo_location = $promoLocation;
                     $promotedBusinesses->save();
 
