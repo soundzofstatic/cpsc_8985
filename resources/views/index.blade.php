@@ -32,8 +32,8 @@
                         @foreach($feedBacks as $feedback)
                             <div class="single-testimonial-item">
                                 @if(!empty($feedback->user->avatar))
-                                    <img src="/storage/{{ str_replace("public/", "", Auth::user()->avatar->file_path) }}"
-                                         alt="{!! Auth::user()->avatar->alt_text !!}"/>
+                                    <img src="/storage/{{ str_replace("public/", "", $feedback->user->avatar->file_path) }}"
+                                         alt="{!! $feedback->user->avatar->alt_text !!}"/>
                                 @endif
                                 <p>{{ $feedback->text }}</p>
                                 <h4>{{ $feedback->user->first_name }} {{ $feedback->user->last_name }}</h4>

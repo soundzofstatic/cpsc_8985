@@ -49,7 +49,7 @@ class Question extends Model
             'id'
         )
             ->where('sequence_number', '!=', 0)
-            ->where('questions_id', '=', $this->id)
+            ->where('question_id', '=', $this->id)
             ->orderBy('sequence_number', 'ASC');
     }
 
