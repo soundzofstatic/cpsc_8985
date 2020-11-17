@@ -271,7 +271,9 @@ Route::post('/review-store' ,'ReviewController@store')->name('review-store');
 
 Route::post('/review-reply' ,'ReviewController@reply')->name('review-reply');
 //Ask a question
-Route::post('/question','QuestionController@store')->name('question');
+Route::post('/question','ReviewController@question')->name('question');
+//
+Route::post('/filter-search','BusinessServiceController@searchFilter')->name('filter');
 
 // Proof of Concepts
 Route::get('/poc/check-ins-count', function(){
@@ -310,7 +312,7 @@ Route::get('/poc/search-business-send-to-blade', function(){ // todo - should be
         ->orWhere('address', 'like', '%' . strtolower($query) . '%')
         ->get();
 
-//    dd($businessess);
+    //dd($businessess);
 
     return view('business.search')
         ->with(

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Business;
 use App\Feedback;
 use App\Review;
+use App\Question;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -88,7 +89,6 @@ class ReviewController extends Controller
                 $lastFeedback = Feedback::where('review_id', '=', $request->input('review_id'))
                     ->orderBy('sequence_number', 'DESC')
                     ->first();
-                // Assume requestor is the auth user
                 $user = Auth::user();
 
                 // Now Set the feedback associated with the review
@@ -123,19 +123,29 @@ class ReviewController extends Controller
         //dd($request->all());
         if (Auth::check()) {
             $user = Auth::user();
+            $question = new \App\Question();
+            $question->user_id = $user->id;
+            $question->business_id = $request->input('business_id');
+            $question->feedback_id = null;
+            $question->is_active = true;
+            $question->save();
 
             // Now Set the feedback associated with the review
             $feedback = new \App\Feedback();
             $feedback->user_id = $user->id;
-            $feedback->question_id = null;
-            $feedback->reply_on_type = 'App\\Feedback';
+            $feedback->question_id = $question->id;
+            $feedback->reply_on_type = 'App\\Question';
             $feedback->reply_on_feedback_id = $request->input('feedback_id');
             $feedback->sequence_number = 0;
-            $feedback->text = $request->input('reply');
+            $feedback->text = $request->input('question');
             $feedback->save();
 
-            // Update the $review with the feedback_id
-            return redirect()->back();
+            // Update the $quesiton with the feedback_id
+            $question->feedback_id = $feedback->id;
+            $question->save();
+            return redirect()
+                ->back()
+                ->with(['message' => 'Successfully added question']);
         }
     }
 
