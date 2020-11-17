@@ -91,6 +91,8 @@
                                         <a href="{{ route('console.user.admin.update.business.enable', ['user'=> \Illuminate\Support\Facades\Auth::user()->id, 'business' => $business->id]) }}"
                                            class="btn btn-sm btn-success">Enable Business</a>
                                     @endif
+                                    <a href="{{ route('console.user.businesses.business.update.promoted_business.create', ['user'=> \Illuminate\Support\Facades\Auth::user()->id, 'business' => $business->id]) }}"
+                                       class="btn btn-sm btn-warning">Create Promotion</a>
                                 </div>
                             </a>
                         </div>
@@ -119,6 +121,38 @@
                             </div>
                         </div>
                     </form>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Promoted Businesses</h2>
+                <p>See the last 5 promoted businesses. See <a href="{{ route('console.admin.list-all-promoted-businesses') }}" class="btn btn-sm btn-primary">all promoted businesses</a></p>
+            </div>
+            <div class="col-md-12">
+                <div class="row mb-2">
+                    @foreach($promotedBusinesses as $promotedBusiness)
+                        <div class="col-lg-4 col-sm-6">
+                            <a class="arrange-items"
+                               href="{{ route('business.home', ['business'=>$promotedBusiness->business->id]) }}">
+                                <div class="arrange-text p-3" style="border: thin solid red">
+                                    <h5>{{ $promotedBusiness->business->name }}</h5>
+                                    {{--                                    <span>{{ $user->email }}</span>--}}
+                                    {{--                                    <br/>--}}
+                                    <h6>Promotion period</h6>
+                                    <span>{{ $promotedBusiness->start_date->format('m/d/Y g:i:s a') }} - {{ $promotedBusiness->end_date->format('m/d/Y g:i:s a') }}</span>
+                                    <br/>
+                                    @if($promotedBusiness->is_active)
+                                        <a href="{{ route('console.user.admin.update.promoted_business.disable', ['user'=> \Illuminate\Support\Facades\Auth::user()->id, 'promoted_business' => $promotedBusiness->id]) }}"
+                                           class="btn btn-sm btn-danger">Suspend Promotion</a>
+                                    @else
+                                        <a href="{{ route('console.user.admin.update.promoted_business.enable', ['user'=> \Illuminate\Support\Facades\Auth::user()->id, 'promoted_business' => $promotedBusiness->id]) }}"
+                                           class="btn btn-sm btn-success">Activate Promotion</a>
+                                    @endif
+                                </div>
+                            </a>
+                        </div>
+                    @endforeach
                 </div>
             </div>
         </div>

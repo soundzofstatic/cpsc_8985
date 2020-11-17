@@ -109,11 +109,11 @@ class Business extends Model
 
     }
 
-    public function alert()
+    public function alerts()
     {
-        return $this->hasOne(
+        return $this->hasMany(
             Alert::class,
-            'user_id',
+            'business_id',
             'id'
         );
     }

@@ -38,6 +38,14 @@ class User extends Authenticatable
     ];
 
     // Relationships
+    public function avatar() {
+        return $this->hasOne(
+            'App\\FileUpload',
+            'user_id',
+            'id'
+        )
+            ->where('upload_type', '=', 'user.avatar');
+    }
     public function admin() {
         return $this->hasOne(
             Admin::class,

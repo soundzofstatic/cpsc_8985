@@ -1,13 +1,38 @@
 @extends('themes.localsdirectory.layout.base')
 @section ('page_name')Home
 @endsection
+@section ('styles')
+    <style>
+        .about-intro {
+
+        }
+        .intro-pic, .intro-text {
+            display: block;
+            float: left;
+        }
+        .intro-pic {
+            position: relative;
+        }
+        .intro-pic img {
+            height: 185px;
+            width: 185px;
+            border-radius: 50%;
+        }
+    </style>
+@endsection
 @section ('content')
     <main class="container main-pad">
         <div class="intro-item">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-7">
+                    <div class="col-lg-12">
                         <div class="about-intro">
+                            @if(!empty($user->avatar))
+                                <div class="intro-pic user">
+                                    <img src="/storage/{{ str_replace("public/", "", $user->avatar->file_path) }}"
+                                         alt="{!! $user->avatar->alt_text !!}"/>
+                                </div>
+                            @endif
                             <div class="intro-text">
                                 <h1>{{ $user->first_name }} {{ $user->last_name }}</h1>
                                 <p>{{ $user->username }}#{{ $user->id }}</p>
