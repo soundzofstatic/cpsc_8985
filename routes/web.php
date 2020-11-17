@@ -122,8 +122,8 @@ Route::prefix('console')->name('console.')->group(function () {
 
                         Route::get('/create', 'BusinessEventController@create')->name('create');
                         Route::post('/store', 'BusinessEventController@store')->name('store');
-
-                        Route::prefix('{events}')->group(function () {
+                        Route::prefix('{event}')->group(function () {
+                            Route::get('/', 'BusinessEventController@show')->name('show');
 
                         });
                     });

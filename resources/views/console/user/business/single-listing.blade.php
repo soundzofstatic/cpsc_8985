@@ -29,7 +29,7 @@
     </div>
     <!-- Hero Section End -->
 
-    <!-- About Secton Begin -->
+    <!-- About Section Begin -->
     <section class="about-section">
         <div class="intro-item">
             <div class="container">
