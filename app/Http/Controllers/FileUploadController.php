@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\BusinessCheckIn;
-use App\Feedback;
+use App\FileUpload;
 use Illuminate\Http\Request;
 
-class FrontPageController extends Controller
+class FileUploadController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,24 +14,7 @@ class FrontPageController extends Controller
      */
     public function index()
     {
-        $checkIns = BusinessCheckIn::limit(4)
-            ->orderBy('created_at', 'DESC')
-            ->get();
-
-        $feedBacks = Feedback::where('user_id', '=', 1)
-            ->limit(5)
-            ->orderBy('created_at', 'DESC')
-            ->get();
-
-        return view('index')
-            ->with(
-                compact(
-                    [
-                        'checkIns',
-                        'feedBacks'
-                    ]
-                )
-            );
+        //
     }
 
     /**
@@ -59,10 +41,10 @@ class FrontPageController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\FileUpload  $fileUpload
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(FileUpload $fileUpload)
     {
         //
     }
@@ -70,10 +52,10 @@ class FrontPageController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\FileUpload  $fileUpload
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(FileUpload $fileUpload)
     {
         //
     }
@@ -82,10 +64,10 @@ class FrontPageController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\FileUpload  $fileUpload
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, FileUpload $fileUpload)
     {
         //
     }
@@ -93,10 +75,10 @@ class FrontPageController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\FileUpload  $fileUpload
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(FileUpload $fileUpload)
     {
         //
     }

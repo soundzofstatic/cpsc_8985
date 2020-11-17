@@ -75,6 +75,30 @@
             </div>
 
     @endif
+    <div class="row mb-5">
+        <!-- User Console Begin -->
+        <div class="col-lg-12" id="notifications">
+            <h4>Notifications</h4>
+            <p>Review all alerts.</p>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Message</th>
+                    <th scope="col">Date</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach(\App\Helpers\Alert::unread() as $alert)
+                    <tr>
+                        <td>{{ $alert->text }}{{ \App\Helpers\Alert::markRead($alert) }}</td>
+                        <td>{{ $alert->created_at->format('m/d/Y g:ia') }}</td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </div>
+        <!-- User Console End -->
+    </div>
     <!-- Logout Begin -->
         <form method="POST" action="{{ route('logout') }}">
             @csrf
