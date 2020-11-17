@@ -20,6 +20,7 @@
     }
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="{{ parse_url(asset('js/jquery-3.3.1.min.js'), PHP_URL_PATH) }}"></script>
 @endsection
 @section ('content')
 
@@ -188,14 +189,18 @@
                                                                class="fa fa-thumbs-o-up mr-2"></i>
                                                             <i onclick="myFunction(this,'dislike')"
                                                                class="fa fa-thumbs-o-down"></i>
+                                                            <input type="hidden" name="feedback_id_like" value="{{$relatedFeedback->id}}">
                                                             <script>
                                                                 function myFunction(x, like_dislike) {
+                                                                    let like = false;
+                                                                    let disLike = false;
                                                                     if (like_dislike == 'like') {
 
                                                                         x.classList.toggle("fa-thumbs-up");
                                                                         let checkClass = x.classList.toString();
                                                                         if (checkClass.search("fa-thumbs-up") != -1) {
                                                                             x.innerHTML = 1;
+                                                                            like = true;
                                                                         } else {
                                                                             x.innerHTML = '';
                                                                         }
@@ -206,10 +211,30 @@
                                                                         let checkClass = x.classList.toString();
                                                                         if (checkClass.search("fa-thumbs-down") != -1) {
                                                                             x.innerHTML = 1;
+                                                                            disLike = true;
                                                                         } else {
                                                                             x.innerHTML = '';
                                                                         }
-                                                                    }
+                                                                    }$.ajax({
+                                                                        type:'POST',
+                                                                        url:'{{url("/likeDislike")}}',
+                                                                        data:
+                                                                            {
+                                                                                '_token':$('input[name=_token]').val(),
+                                                                                'feedback_id': $('input[name=feedback_id_like]').val(),
+                                                                                'isLike':like,
+                                                                                'isDislike': disLike
+                                                                            },
+                                                                        headers:
+                                                                            {
+                                                                                'X-CSRF-Token': '{{ csrf_token() }}',
+                                                                            },
+                                                                        success:function(data)
+                                                                        {
+                                                                            console.log(data);
+                                                                        }
+                                                                    });
+
                                                                 }
                                                             </script>
                                                         </div>

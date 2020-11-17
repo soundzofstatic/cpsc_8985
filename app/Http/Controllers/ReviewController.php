@@ -149,6 +149,17 @@ class ReviewController extends Controller
         }
     }
 
+//    likedislike
+    public function likeDislike(Request $request)
+    {
+        $getfeedbackId = $request->feedback_id;
+        $feedback = Feedback::Where('id', $getfeedbackId)->get();
+        $feedback->like = $request->isLike;
+        $feedback->dislike = $request->isDislike;
+        $feedback->save();
+    }
+
+
             /**
      * Display the specified resource.
      *

@@ -134,6 +134,10 @@ class Business extends Model
     {
         return round($this->reviews->avg('rating'), 1);
     }
+    public function dollarRating()
+    {
+        return $this->dollar_rating;
+    }
 
     public function servicesAsStringId()
     {
