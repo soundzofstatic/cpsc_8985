@@ -19,8 +19,7 @@ class FrontPageController extends Controller
             ->orderBy('created_at', 'DESC')
             ->get();
 
-        $feedBacks = Feedback::where('user_id', '=', 1)
-            ->limit(5)
+        $feedBacks = Feedback::limit(5)
             ->orderBy('created_at', 'DESC')
             ->get();
 

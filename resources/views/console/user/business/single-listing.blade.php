@@ -103,11 +103,6 @@
                                     <i class="fa fa-usd"></i>
                                 @endfor
                             </div>
-                            <div class="share-icon">
-                                @foreach($business->businessService as $businessService)
-                                    <a href="{{ route('console.user.businesses.business.update.service.destroy', ['user'=> \Illuminate\Support\Facades\Auth::user()->id, 'business' => $business->id,'service'=>$businessService->id]) }}">{{ $businessService->service->name }}</a>
-                                @endforeach
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -129,29 +124,35 @@
                                     <div class="col-sm-4">
                                         <div class="about-services">
                                             <h4>Services Provided</h4>
+                                            <ul>
+                                            @foreach($business->businessService as $businessService)
+                                               <li><a href="{{ route('console.user.businesses.business.update.service.destroy', ['user'=> \Illuminate\Support\Facades\Auth::user()->id, 'business' => $business->id,'service'=>$businessService->id]) }}">{{ $businessService->service->name }}</a></li>
+                                            @endforeach
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
                             <!-- Reviews Begin -->
-                            <div class="client-reviews row">
+                            <div class="client-reviews reviews row">
                                 <h3 class="col-2">Reviews</h3>
-                                {{-- FILTER--}}
-                                <div class="col-1 dropdown">
-                                    <i class="btn  dropdown-toggle fa fa-filter" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    </i>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="#">FEEDBACK</a>
-                                        <a class="dropdown-item" href="#">QUESTION</a>
-                                    </div>
-                                </div>
-                                {{--end of filter--}}
-                                <div>
-                                    Questions:
-                                    @foreach($business->questions as $question)
-                                        <p{{$question}}</p>
-                                    @endforeach
-                                </div>
+{{--                                --}}{{-- FILTER--}}
+{{--                                <div class="col-1 dropdown">--}}
+{{--                                    <i class="btn  dropdown-toggle fa fa-filter" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--}}
+{{--                                    </i>--}}
+{{--                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">--}}
+{{--                                        <a class="dropdown-item" href="#">FEEDBACK</a>--}}
+{{--                                        <a class="dropdown-item" href="#">QUESTION</a>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                                --}}{{--end of filter--}}
+{{--                                <div>--}}
+{{--                                    Questions:--}}
+{{--                                    @foreach($business->questions as $question)--}}
+{{--                                        <p{{$question}}</p>--}}
+{{--                                    @endforeach--}}
+{{--                                </div>--}}
                                 @foreach($business->lastHundredReviews as $review)
                                     <div class="reviews-item">
                                         <div class="rating">
@@ -256,6 +257,119 @@
                                 @endforeach
                             </div>
                             <!-- Reviews End -->
+
+                            <!-- Questions Begin -->
+                            <div class="client-reviews questions row">
+                                <h3 class="col-2">Questions</h3>
+                                @foreach($business->lastHundredQuestions as $question)
+                                    <div class="reviews-item">
+                                        <h5>Question Title {{$question->id}}</h5>
+                                        <p>{{ $question->originalFeedback['text'] }}</p>
+                                        <div class="client-text">
+                                            <h5><a href="{{ route('user.home', ['user' => $question->user_id]) }}"
+                                                   class="author-link">{{ $question->user->first_name }} {{ $question->user->last_name }}</a>
+                                            </h5>
+                                            <span>{{ $question->created_at->format('F j, Y, g:i a') }}</span>
+                                        </div>
+                                        <div class="col-md-12 mt-2">
+                                            <div class="row">
+{{--                                                @dd($question->relatedFeedbacks)--}}
+                                                @foreach($question->relatedFeedbacks as $relatedFeedback)
+                                                    <div class="col-md-11 offset-md-1 mb-5 related-feedback"
+                                                         style="border-left: solid thin red;">
+                                                        <p>{{ $relatedFeedback->text }} </p>
+                                                        <div class="Additional Feedback">
+                                                            {{--                                  like & dislike            --}}
+{{--                                                            <i onclick="myFunction(this,'like')"--}}
+{{--                                                               class="fa fa-thumbs-o-up mr-2"></i>--}}
+{{--                                                            <i onclick="myFunction(this,'dislike')"--}}
+{{--                                                               class="fa fa-thumbs-o-down"></i>--}}
+{{--                                                            <script>--}}
+{{--                                                                function myFunction(x, like_dislike) {--}}
+{{--                                                                    if (like_dislike == 'like') {--}}
+
+{{--                                                                        x.classList.toggle("fa-thumbs-up");--}}
+{{--                                                                        let checkClass = x.classList.toString();--}}
+{{--                                                                        if (checkClass.search("fa-thumbs-up") != -1) {--}}
+{{--                                                                            x.innerHTML = 1;--}}
+{{--                                                                        } else {--}}
+{{--                                                                            x.innerHTML = '';--}}
+{{--                                                                        }--}}
+{{--                                                                    } else {--}}
+{{--                                                                        x.classList.toggle("fa-thumbs-down");--}}
+{{--                                                                        let checkClass = x.classList.toString();--}}
+{{--                                                                        if (checkClass.search("fa-thumbs-down") != -1) {--}}
+{{--                                                                            x.innerHTML = 1;--}}
+{{--                                                                        } else {--}}
+{{--                                                                            x.innerHTML = '';--}}
+{{--                                                                        }--}}
+{{--                                                                    }--}}
+{{--                                                                }--}}
+{{--                                                            </script>--}}
+                                                        </div>
+
+                                                        <div class="client-text">
+                                                            <h5>
+                                                                <a href="{{ route('user.home', ['user' => $relatedFeedback->user_id]) }}"
+                                                                   class="author-link">{{ $relatedFeedback->user->first_name }} {{ $relatedFeedback->user->last_name }}</a>
+                                                            </h5>
+                                                            <span>{{ $relatedFeedback->created_at->format('F j, Y, g:i a') }}</span>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                                {{--Reply on feedback--}}
+                                                <button type="button" class="btn text-danger ml-5 btn-sm"
+                                                        data-toggle="collapse"
+                                                        data-target="#reply-{{ $review->originalFeedback->id }}"
+                                                        aria-expanded="false"
+                                                        aria-controls="collapseExample" style="height: 7px; box-shadow: none;">Answer
+                                                </button>
+                                                <div class="collapse" id="reply-{{ $review->originalFeedback->id }}">
+                                                    <form action="{{route('question-reply')}}" method="post"
+                                                          class="row">
+                                                        @csrf
+                                                        <div class="form-group">
+                                                            <label for="reply-{{ $review->originalFeedback->id }}">Answer</label>
+                                                            <textarea class="form-control"
+                                                                      id="reply-{{ $review->originalFeedback->id }}"
+                                                                      name="reply">
+                                                            </textarea>
+                                                        </div>
+                                                        <input type="hidden" name="business_id"
+                                                               value="{{$business->id}}"/>
+                                                        <input type="hidden" name="feedback_id"
+                                                               value="{{$question->originalFeedback->id}}"/>
+                                                        <input type="hidden" name="question_id" value="{{$question->id}}"/>
+                                                        <button type="submit" name="submit"
+                                                                class="col-1 fa fa-paper-plane send-btn"
+                                                                id="{{$relatedFeedback->id}}"/>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                            <!-- Questions End -->
+                            <script>
+                                $(document).ready(function(){
+
+                                    $('ASRITH_SELECTS_TO_SEE_REVIEWS').click(function(){
+
+                                        $('.client-reviews.reviews').show();
+                                        $('.client-reviews.questions').hide();
+
+                                    });
+
+                                    $('ASRITH_SELECTS_TO_SEE_QUESTIONS').click(function(){
+
+                                        $('.client-reviews.reviews').hide();
+                                        $('.client-reviews.questions').show();
+
+                                    });
+
+                                });
+                            </script>
                         </div>
                     </div>
                     <div class="col-lg-4">

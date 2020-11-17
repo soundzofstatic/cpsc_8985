@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Feedback;
 use App\Question;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class QuestionController extends Controller
 {
@@ -108,5 +110,43 @@ class QuestionController extends Controller
     public function destroy(Question $question)
     {
         //
+    }
+
+    public function reply(Request $request)
+    {
+        try {
+
+            if (Auth::check()) {
+
+                $lastFeedback = Feedback::where('review_id', '=', $request->input('review_id'))
+                    ->orderBy('sequence_number', 'DESC')
+                    ->first();
+                $user = Auth::user();
+
+                // Now Set the feedback associated with the review
+                $feedback = new \App\Feedback();
+                $feedback->user_id = $user->id;
+                $feedback->question_id = $request->input('question_id');
+                $feedback->review_id = null;
+                $feedback->reply_on_type = 'App\\Question';
+                $feedback->reply_on_feedback_id = $request->input('feedback_id');
+                $feedback->sequence_number = $lastFeedback->sequence_number + 1;
+                $feedback->text = $request->input('reply');
+                $feedback->save();
+
+                // Update the $review with the feedback_id
+                return redirect()
+                    ->back()
+                    ->with(['message' => 'Successfully added Feedback']);
+            }
+
+        } catch (\Exception $e) {
+
+            Log::error($e->getMessage());
+            return redirect()
+                ->back()
+                ->withErrors([$e->getMessage()]);
+
+        }
     }
 }

@@ -43,4 +43,15 @@ class Question extends Model
         );
     }
 
+    public function relatedFeedbacks() {
+        return $this->hasMany(
+            Feedback::class,
+            'question_id',
+            'id'
+        )
+            ->where('sequence_number', '!=', 0)
+            ->where('question_id', '=', $this->id)
+            ->orderBy('sequence_number', 'ASC');
+    }
+
 }

@@ -109,6 +109,18 @@ class Business extends Model
 
     }
 
+    public function lastHundredQuestions()
+    {
+        return $this->hasMany(
+            Question::class,
+            'business_id',
+            'id'
+        )
+            ->limit(100)
+            ->orderBy('created_at', 'DESC');
+
+    }
+
     public function alerts()
     {
         return $this->hasMany(

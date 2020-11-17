@@ -26,15 +26,6 @@ class Feedback extends Model
             'question_id'
         );
     }
-    public function question()
-    {
-        return $this->hasOne(
-            Question::class,
-            'id',
-            'user_id'
-        );
-    }
-
     public function user()
     {
         return $this->hasOne(
