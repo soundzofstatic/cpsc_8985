@@ -14,13 +14,8 @@
 {{--                            </select>--}}
 {{--                        </form>--}}
 {{--                    </div>--}}
-                    <div>Filtered Page:
-                        @foreach($getBusiness as $getbusi)
-                            <p>{{$getbusi}}</p>
-                        @endforeach
-                    </div>
                     @foreach($businesses as $business)
-                        <div class="col-lg-4 col-sm-6">
+                        <div class="col-lg-4 col-sm-6 business listing" data-rating="{{ $business->rating() }}" data-services="{{ $business->servicesAsStringId() }}">
                             <a class="arrange-items" href="{{ route('business.home', ['business'=>$business->id]) }}">
                                 <div class="arrange-pic">
                                     <img src="{{ parse_url(asset('img/arrange/arrange-1.jpg'), PHP_URL_PATH) }}" alt="">

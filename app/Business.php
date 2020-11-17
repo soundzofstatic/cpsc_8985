@@ -122,4 +122,17 @@ class Business extends Model
     {
         return round($this->reviews->avg('rating'), 1);
     }
+
+    public function servicesAsStringId()
+    {
+        $stringOfIds = '';
+
+        foreach($this->businessService as $businessService) {
+
+            $stringOfIds .= $businessService->service_id . ',';
+
+        }
+
+        return trim($stringOfIds, ',');
+    }
 }
