@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Admin;
 use App\Business;
+use App\FileUpload;
+use App\Helpers\Alert;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -435,5 +437,117 @@ class UserController extends Controller
         }
 
     }
+
+    /**
+     * Method used to store a Avatar image for user
+     *
+     * @param User $user
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function storeAvatar(User $user, Request $request)
+    {
+
+        try {
+
+            if($user->id != Auth::user()->id) {
+
+                throw new \Exception('Authenticated user must be the requesting user.');
+
+            }
+
+            if(!empty($user->avatar)) {
+
+                $user->avatar->delete();
+
+            }
+
+            $upload = new FileUpload();
+            $upload->user_id = $user->id;
+            $upload->business_id = null;
+            $upload->is_active = true;
+            $upload->upload_type = 'user.avatar';
+            // Save to file
+            $fileUpload = $request->file('file_path');
+            $path = $fileUpload->store('public/assets/reviewer/avatar');
+            $upload->file_type = 'image';
+            $upload->file_path = $path;
+            $upload->file_name = basename($path);
+            $upload->path_directory = $path;
+            preg_match('/\.[0-9A-Za-z]+$/', $path, $output_array);
+            $upload->file_extension = $output_array[0]; // file extension, includes leading .
+            $upload->file_size = $fileUpload->getSize();
+            $upload->mime_type = $fileUpload->getMimeType();
+            $upload->alt_text = $request->input('alt-text');
+            $upload->save();
+
+            // Save a Notification Alert
+            Alert::createAlert(
+                'user.avatar.created',
+                'Successfully uploaded a new avatar image.',
+                $user,
+                null
+            );
+
+            return redirect()
+                ->back()
+                ->with(['message' => 'Successfully Set Avatar for user.']);
+
+        } catch (\Exception $e) {
+
+            Log::error($e->getMessage());
+            return redirect()
+                ->back()
+                ->withErrors([$e->getMessage()]);
+
+        }
+
+    }
+
+    /**
+     * Method used to delete an existing avatar image
+     *
+     * @param User $user
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function destroyAvatar(User $user)
+    {
+
+        try {
+
+            if($user->id != Auth::user()->id) {
+
+                throw new \Exception('Authenticated user must be the requesting user.');
+
+            }
+
+            if(!empty($user->avatar)) {
+
+                $user->avatar->delete();
+
+                Alert::createAlert(
+                    'user.avatar.destroy',
+                    'Successfully removed avatar image.',
+                    $user,
+                    null
+                );
+
+            }
+
+            return redirect()
+                ->back()
+                ->with(['message' => 'Successfully Deleted Avatar for user.']);
+
+        } catch (\Exception $e) {
+
+            Log::error($e->getMessage());
+            return redirect()
+                ->back()
+                ->withErrors([$e->getMessage()]);
+
+        }
+
+    }
+
 }
 

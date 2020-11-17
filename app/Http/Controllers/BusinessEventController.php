@@ -24,7 +24,7 @@ class BusinessEventController extends Controller
         try {
 
             // Grab all of the events from the Database
-            $events = BusinessEvent::orderBy('created_at', 'DESC')
+            $events = BusinessEvent::orderBy('start_date', 'ASC')
                 ->get();
 
             return view('events.events')
@@ -137,17 +137,23 @@ class BusinessEventController extends Controller
      * @param  \App\BusinessEvent  $businessevent
      * @return \Illuminate\Http\Response
      */
-    public function show(BusinessEvent $businessevent)
+    public function show(BusinessEvent $event)
     {
-//        $countOfEvents = $businessevent->businessevent->count();
-//        return view('theme.events')
-//            ->with(
-//                compact(
-//                    [
-//                        'businessevent'
-//                    ]
-//                )
-//            );
+    //dd($event);
+
+
+        return view('events.home')
+            ->with(
+                compact(
+                    [
+                        'event'
+                    ]
+                )
+            );
+
+//        $businessevent->event->id;
+//        $businessevent->event_id();
+//        $businessevent->business_id();
     }
 
     /**

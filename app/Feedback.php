@@ -15,10 +15,17 @@ class Feedback extends Model
         return $this->hasOne(
             Review::class,
             'id',
-            'user_id'
+            'review_id'
         );
     }
-
+    public function question()
+    {
+        return $this->hasOne(
+            Question::class,
+            'id',
+            'question_id'
+        );
+    }
     public function user()
     {
         return $this->hasOne(

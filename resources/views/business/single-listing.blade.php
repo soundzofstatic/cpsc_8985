@@ -6,7 +6,7 @@
     <div class="hero-listing set-bg" data-setbg="{{ asset('img/hero_listing.jpg') }}">
     </div>
     <!-- Hero Section End -->
-
+    @include ('themes.localsdirectory.layout.section.search.search')
     <!-- About Secton Begin -->
     <section class="about-section">
         <div class="intro-item">

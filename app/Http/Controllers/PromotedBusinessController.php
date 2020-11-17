@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Business;
 use App\PromotedBusiness;
+use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class PromotedBusinessController extends Controller
 {
@@ -22,9 +27,40 @@ class PromotedBusinessController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(User $user, Business $business, request $request)
     {
-        //
+        try {
+
+            if($user->id != Auth::user()->id) {
+
+                throw new \Exception('Requesting user must be the Authenticated user.');
+
+            }
+
+            if(!$user->isAdmin()) {
+
+                throw new \Exception('Requesting user must be administrator.');
+
+            }
+
+            // todo - Show the user the create a promoted business form
+
+            //dd('Hi, Mythri - Render a view that is a create form for a PromotedBusiness. Collect the start_date, end_date, and promo_location in your form.');
+            return view('console.user.business.promote')
+                ->with(compact([
+                    'user',
+                    'business'
+                ]));
+
+
+        } catch (\Exception $e) {
+
+            Log::error($e->getMessage());
+            return redirect()
+                ->back()
+                ->withErrors([$e->getMessage()]);
+
+        }
     }
 
     /**
@@ -33,9 +69,53 @@ class PromotedBusinessController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(User $user, Business $business, Request $request)
     {
-        //
+        try {
+
+            if ($user->id != Auth::user()->id) {
+
+                throw new \Exception('Requesting user must be the Authenticated user.');
+
+            }
+
+            if(!$user->isAdmin()) {
+
+                throw new \Exception('Requesting user must be administrator.');
+
+            }
+
+            // Store the data to a new PromotedBusiness()
+            $promotedBusiness = new PromotedBusiness();
+            $promotedBusiness->user_id = $user->id;
+            $promotedBusiness->business_id = $business->id;
+            $promotedBusiness->is_active = true;
+            $promotedBusiness->start_date = Carbon::createFromFormat('Y-m-d', $request->input('start_date'));
+            $promotedBusiness->end_date = Carbon::createFromFormat('Y-m-d', $request->input('end_date'));
+            $promotedBusiness->promo_location = $request->input('promo_location');
+            $promotedBusiness->save();
+
+            return redirect()->route('console.user.businesses.business.business-console', ['user'=> Auth::user()->id, 'business' => $business->id])
+                ->with(
+                    [
+                        'message' => 'Successfully promoted business: ' . $business->name
+                    ],
+                    compact(
+                        [
+                            'business'
+                        ]
+                    )
+                );
+
+
+        } catch (\Exception $e) {
+
+            Log::error($e->getMessage());
+            return redirect()
+                ->back()
+                ->withErrors([$e->getMessage()]);
+
+        }
     }
 
     /**
@@ -81,5 +161,102 @@ class PromotedBusinessController extends Controller
     public function destroy(PromotedBusiness $promotedBusiness)
     {
         //
+    }
+
+    public function disablePromotion(User $user, PromotedBusiness $promotedBusiness)
+    {
+
+        try {
+
+            if($user->id != Auth::user()->id) {
+
+                throw new \Exception('Requesting user must be the authenticated user.');
+
+            }
+
+            if(!$user->isAdmin()) {
+
+                throw new \Exception('Requesting user must be administrator.');
+
+            }
+
+            $promotedBusiness->is_active = false;
+            $promotedBusiness->save();
+
+            return redirect()
+                ->back()
+                ->with(['message' => 'Successfully disabled promotion: ' . $promotedBusiness->business->name]);
+
+        } catch (\Exception $e) {
+
+            Log::error($e->getMessage());
+            return redirect()
+                ->back()
+                ->withErrors([$e->getMessage()]);
+
+        }
+
+    }
+
+    public function enablePromotion(User $user, PromotedBusiness $promotedBusiness)
+    {
+
+        try {
+
+            if($user->id != Auth::user()->id) {
+
+                throw new \Exception('Requesting user must be the authenticated user.');
+
+            }
+
+            if(!$user->isAdmin()) {
+
+                throw new \Exception('Requesting user must be administrator.');
+
+            }
+
+            $promotedBusiness->is_active = true;
+            $promotedBusiness->save();
+
+            return redirect()
+                ->back()
+                ->with(['message' => 'Successfully enabled business: ' . $promotedBusiness->business->name]);
+
+        } catch (\Exception $e) {
+
+            Log::error($e->getMessage());
+            return redirect()
+                ->back()
+                ->withErrors([$e->getMessage()]);
+
+        }
+
+    }
+
+    public function listAllPromotions(User $user) // todo - This method is not named properly, it used for querying, not listing all Businesses
+    {
+
+        try {
+
+            $promotedBusinesses = PromotedBusiness::get();
+
+            return view('console.user.admin.list-promoted-businesses')
+                ->with(
+                    compact(
+                        [
+                            'promotedBusinesses'
+                        ]
+                    )
+                );
+
+        } catch (\Exception $e) {
+
+            Log::error($e->getMessage());
+            return redirect()
+                ->back()
+                ->withErrors([$e->getMessage()]);
+
+        }
+
     }
 }

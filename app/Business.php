@@ -109,11 +109,23 @@ class Business extends Model
 
     }
 
-    public function alert()
+    public function lastHundredQuestions()
     {
-        return $this->hasOne(
+        return $this->hasMany(
+            Question::class,
+            'business_id',
+            'id'
+        )
+            ->limit(100)
+            ->orderBy('created_at', 'DESC');
+
+    }
+
+    public function alerts()
+    {
+        return $this->hasMany(
             Alert::class,
-            'user_id',
+            'business_id',
             'id'
         );
     }
@@ -121,5 +133,18 @@ class Business extends Model
     public function rating()
     {
         return round($this->reviews->avg('rating'), 1);
+    }
+
+    public function servicesAsStringId()
+    {
+        $stringOfIds = '';
+
+        foreach($this->businessService as $businessService) {
+
+            $stringOfIds .= $businessService->service_id . ',';
+
+        }
+
+        return trim($stringOfIds, ',');
     }
 }
