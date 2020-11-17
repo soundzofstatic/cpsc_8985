@@ -11,13 +11,13 @@
                             <div class="about-left">
                                 <!-- About Begin -->
                                 <div class="about-desc">
-                                    <h2>Events Details</h2>
+                                    <h2>Event Details</h2>
                                     <p></p>
                                     <div class="row mb-2" style="border: thin solid red">
                                         <div class="col-md-12 p-3 shadow ">
                                             <p>Name: {{ $event->name }}</p>
                                             <p>Description: {{ $event->description }}</p>
-                                            <p>ID: {{ $event->business_id }}</p>
+                                            <p>Business Name: {{ $event->business->name }}</p>
                                             <p>Date & Time: {{ $event->start_date }}</p>
                                             <div class="d-flex align-items-center justify-content-between my-3">
                                             </div>

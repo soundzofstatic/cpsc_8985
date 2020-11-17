@@ -24,7 +24,7 @@ class BusinessEventController extends Controller
         try {
 
             // Grab all of the events from the Database
-            $events = BusinessEvent::orderBy('created_at', 'DESC')
+            $events = BusinessEvent::orderBy('start_date', 'ASC')
                 ->get();
 
             return view('events.events')
