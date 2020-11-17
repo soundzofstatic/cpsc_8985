@@ -250,7 +250,7 @@ Route::get('/question/{business}', 'QuestionController@create')->name('question-
 
 Route::post('/question-store' ,'QuestionController@store')->name('question-store');
 
-Route::post('/question-disable' ,'QustionController@reply')->name('question-disable');
+Route::post('/question-disable' ,'QustionController@disableQuestion')->name('question-disable');
 
 
 // Proof of Concepts
