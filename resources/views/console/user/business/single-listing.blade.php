@@ -72,6 +72,10 @@
                                     <a href="{{route('console.user.businesses.business.update.service.create', ['user'=> \Illuminate\Support\Facades\Auth::user()->id, 'business' => $business->id])}}"
                                        class="btn btn-danger">Create a Service</a>
                                 </div>
+                                <div class="share-btn">
+                                    <a href="{{ route('console.user.businesses.business.update.photo.store-photo-upload', ['user' => \Illuminate\Support\Facades\Auth::user()->id, 'business' => $business->id]) }}"
+                                           class="primary-btn">Upload Business image</a>
+                                    </div>
                             </div>
                             <div class="share-icon">
                                 {{--                                <a href="#"><i class="fa fa-map-marker"></i></a>--}}

@@ -132,6 +132,10 @@ Route::prefix('console')->name('console.')->middleware('auth')->group(function (
 
                         });
                     });
+                    Route::prefix('photo')->name('photo.')->group(function () {
+                        Route::post('/set-photo', 'BusinessController@storephoto')->name('store-photo-upload');
+                        Route::get('/delete-photo', 'UserController@destroyphoto')->name('destroy-photo');
+                    });
                     Route::prefix('events')->name('events.')->group(function () {
 
                         Route::get('/create', 'BusinessEventController@create')->name('create');
@@ -151,6 +155,7 @@ Route::prefix('console')->name('console.')->middleware('auth')->group(function (
                         });
 
                     });
+
                 });
 
                 Route::prefix('update')->name('update.')->group(function () {

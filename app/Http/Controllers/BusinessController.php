@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Business;
 use App\BusinessSocialMedia;
 use App\BusinessVisit;
+use App\FileUpload;
+use App\Helpers\Alert;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -39,7 +41,7 @@ class BusinessController extends Controller
     public function createFromAnywhere()
     {
 
-        if(Auth::check()) {
+        if (Auth::check()) {
 
             return redirect()
                 ->route('console.user.businesses.create', ['user' => Auth::user()->id]);
@@ -56,7 +58,7 @@ class BusinessController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(User $user, Request $request)
@@ -64,7 +66,7 @@ class BusinessController extends Controller
         try {
 
             // Because the $user is passed from the route, let's compare it to the Authenticated user
-            if($user->id != Auth::user()->id) {
+            if ($user->id != Auth::user()->id) {
 
                 throw new \Exception('Authenticated user must match the user who owns business.');
 
@@ -102,7 +104,7 @@ class BusinessController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Business  $business
+     * @param \App\Business $business
      * @return \Illuminate\Http\Response
      */
     public function show(Business $business)
@@ -111,7 +113,7 @@ class BusinessController extends Controller
         // Save a Visit
         $visit = new BusinessVisit();
         $visit->business_id = $business->id;
-        if(Auth::check()) {
+        if (Auth::check()) {
             $visit->user_id = Auth::user()->id;
         } else {
             $visit->user_id = null;
@@ -132,7 +134,7 @@ class BusinessController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Business  $business
+     * @param \App\Business $business
      * @return \Illuminate\Http\Response
      */
     public function edit(User $user, Business $business)
@@ -148,21 +150,21 @@ class BusinessController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Business  $business
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Business $business
      * @return \Illuminate\Http\Response
      */
     public function update(User $user, Business $business, Request $request)
     {
         try {
             //dd($request->all());
-            if($user->id != Auth::user()->id) {
+            if ($user->id != Auth::user()->id) {
 
                 throw new \Exception('Requesting user must be the Authenticated user.');
 
             }
 
-            if($user->id != $business->user_id) {
+            if ($user->id != $business->user_id) {
 
                 throw new \Exception('Requesting user must be the business owner.');
 
@@ -184,12 +186,12 @@ class BusinessController extends Controller
             $business->save();
 
             //return redirect()
-                //->route('business.home', ['business' => $business->id]);
+            //->route('business.home', ['business' => $business->id]);
 
             //$business->name = $request->input('name');
             //$business->save();
 
-            return redirect()->route('console.user.businesses.business.business-console', ['user'=> Auth::user()->id, 'business' => $business->id])
+            return redirect()->route('console.user.businesses.business.business-console', ['user' => Auth::user()->id, 'business' => $business->id])
                 ->with(['message' => 'Successfully updated business details.']);
 
 
@@ -206,50 +208,50 @@ class BusinessController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Business  $business
+     * @param \App\Business $business
      * @return \Illuminate\Http\Response
      */
     public function destroy(User $user, Business $business)
     {
         // Delete all Bookmarks
-        foreach($business->bookmarks as $bookmark) {
+        foreach ($business->bookmarks as $bookmark) {
             $bookmark->delete();
         }
         // Delete all Check-ins
-        foreach($business->businessCheckIn as $checkIn) {
+        foreach ($business->businessCheckIn as $checkIn) {
             $checkIn->delete();
         }
         // Delete all Events
-        foreach($business->businessEvent as $event) {
+        foreach ($business->businessEvent as $event) {
             $event->delete();
         }
         // Delete all Services
-        foreach($business->businessService as $service) {
+        foreach ($business->businessService as $service) {
             $service->delete();
         }
         // Delete all Social Media
-        foreach($business->businessSocialMedia as $socialMedia) {
+        foreach ($business->businessSocialMedia as $socialMedia) {
             $socialMedia->delete();
         }
         // Delete all Visits
-        foreach($business->businessVisit as $visit) {
+        foreach ($business->businessVisit as $visit) {
             $visit->delete();
         }
         // Delete all Promoted Business
-        if(!empty($business->promotedBusiness)) {
+        if (!empty($business->promotedBusiness)) {
             $business->promotedBusiness->delete();
         }
         // Delete all Questions
-        foreach($business->questions as $question) {
+        foreach ($business->questions as $question) {
             // Delete all Feedback
-            foreach($question->feedbacks as $feedback) {
+            foreach ($question->feedbacks as $feedback) {
                 $feedback->delete();
             }
             $question->delete();
         }
         // Delete all Reviews
-        foreach($business->reviews as $review) {
-            foreach($question->feedbacks as $feedback) {
+        foreach ($business->reviews as $review) {
+            foreach ($question->feedbacks as $feedback) {
                 $feedback->delete();
             }
             $review->delete();
@@ -257,7 +259,7 @@ class BusinessController extends Controller
         $business->delete();
         return redirect()
             //->route('console.user.businesses.create', ['user' => Auth::user()->id])
-                ->back()
+            ->back()
             ->with(['message' => 'Successfully deleted business']);
     }
 
@@ -287,15 +289,16 @@ class BusinessController extends Controller
                 )
             );
     }
+
     public function listAllBusinesses(Request $request) // todo - This method is not named properly, it used for querying, not listing all Businesses
     {
 
         try {
 
-            $businesses = Business::where('name' , 'like', '%'. $request->input('query') . '%')
-                ->orWhere('contact_email', 'like', '%'. $request->input('query') . '%')
-                ->orWhere('web_url', 'like', '%'. $request->input('query') . '%')
-                ->orWhere('contact_phone', 'like', '%'. $request->input('query') . '%')
+            $businesses = Business::where('name', 'like', '%' . $request->input('query') . '%')
+                ->orWhere('contact_email', 'like', '%' . $request->input('query') . '%')
+                ->orWhere('web_url', 'like', '%' . $request->input('query') . '%')
+                ->orWhere('contact_phone', 'like', '%' . $request->input('query') . '%')
                 ->orderBy('name', 'asc')
                 ->orderBy('contact_email', 'asc')
                 ->orderBy('contact_phone', 'asc')
@@ -358,10 +361,10 @@ class BusinessController extends Controller
 
         try {
 
-            $businesses = Business::where('name' , 'like', '%'. $request->input('query') . '%')
-                ->orWhere('contact_email', 'like', '%'. $request->input('query') . '%')
-                ->orWhere('web_url', 'like', '%'. $request->input('query') . '%')
-                ->orWhere('contact_phone', 'like', '%'. $request->input('query') . '%')
+            $businesses = Business::where('name', 'like', '%' . $request->input('query') . '%')
+                ->orWhere('contact_email', 'like', '%' . $request->input('query') . '%')
+                ->orWhere('web_url', 'like', '%' . $request->input('query') . '%')
+                ->orWhere('contact_phone', 'like', '%' . $request->input('query') . '%')
                 ->orderBy('name', 'asc')
                 ->orderBy('contact_email', 'asc')
                 ->orderBy('contact_phone', 'asc')
@@ -398,13 +401,13 @@ class BusinessController extends Controller
 
         try {
 
-            if($user->id != Auth::user()->id) {
+            if ($user->id != Auth::user()->id) {
 
                 throw new \Exception('Requesting user must be the authenticated user.');
 
             }
 
-            if(!$user->isAdmin()) {
+            if (!$user->isAdmin()) {
 
                 throw new \Exception('Requesting user must be administrator.');
 
@@ -438,13 +441,13 @@ class BusinessController extends Controller
 
         try {
 
-            if($user->id != Auth::user()->id) {
+            if ($user->id != Auth::user()->id) {
 
                 throw new \Exception('Requesting user must be the authenticated user.');
 
             }
 
-            if(!$user->isAdmin()) {
+            if (!$user->isAdmin()) {
 
                 throw new \Exception('Requesting user must be administrator.');
 
@@ -468,6 +471,92 @@ class BusinessController extends Controller
 
     }
 
+    public function storephoto(User $user, business $business, request $request)
+    {
+
+        try {
+
+            if ($user->id != Auth::user()->id) {
+
+                throw new \Exception('Authenticated user must be the requesting user.');
+
+            }
+
+            if (!empty($user->photo)) {
+
+                $user->photo->delete();
+
+            }
+
+            $upload = new FileUpload();
+            $upload->user_id = $user->id;
+            $upload->business_id = null;
+            $upload->is_active = true;
+            $upload->upload_type = 'business.photo';
+            // Save to file
+            $fileUpload = $request->file('file_path');
+            $path = $fileUpload->store('public/assets/reviewer/photo');
+            $upload->file_type = 'image';
+            $upload->file_path = $path;
+            $upload->file_name = basename($path);
+            $upload->path_directory = $path;
+            preg_match('/\.[0-9A-Za-z]+$/', $path, $output_array);
+            $upload->file_extension = $output_array[0]; // file extension, includes leading .
+            $upload->file_size = $fileUpload->getSize();
+            $upload->mime_type = $fileUpload->getMimeType();
+            $upload->alt_text = $request->input('alt-text');
+            $upload->save();
+            return redirect()
+                ->back()
+                ->with(['message' => 'Successfully Set photo for business.']);
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return redirect()
+                ->back()
+                ->withErrors([$e->getMessage()]);
+
+        }
+
+    }
+
+    public function destroyphoto(User $user, business $business)
+    {
+
+        try {
+
+            if ($user->id != Auth::user()->id) {
+
+                throw new \Exception('Authenticated user must be the requesting user.');
+
+            }
+
+            if (!empty($user->photo)) {
+
+                $user->photo->delete();
+
+                Alert::createAlert(
+                    'user.photo.destroy',
+                    'Successfully removed image.',
+                    $user,
+                    null
+                );
+
+            }
+
+            return redirect()
+                ->back()
+                ->with(['message' => 'Successfully Deleted image for user.']);
+
+        } catch (\Exception $e) {
+
+            Log::error($e->getMessage());
+            return redirect()
+                ->back()
+                ->withErrors([$e->getMessage()]);
+
+        }
+
+    }
 
 }
 
