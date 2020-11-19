@@ -100,6 +100,8 @@ class ReviewController extends Controller
                     ->orderBy('sequence_number', 'DESC')
                     ->first();
                 $user = Auth::user();
+                $business = Business::where('id', '=', $request->input('business_id'))
+                    ->first();
 
                 // Now Set the feedback associated with the review
                 $feedback = new \App\Feedback();
@@ -111,6 +113,12 @@ class ReviewController extends Controller
                 $feedback->sequence_number = $lastFeedback->sequence_number + 1;
                 $feedback->text = $request->input('reply');
                 $feedback->save();
+                Alert::createAlert(
+                    'user.review.store',
+                    'Successfully made a review',
+                    $user,
+                    $business
+                );
 
                 // Update the $review with the feedback_id
                 return redirect()
