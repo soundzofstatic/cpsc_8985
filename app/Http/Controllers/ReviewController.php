@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Business;
 use App\Feedback;
+use App\Helpers\Alert;
 use App\Review;
 use App\Question;
 use App\User;
@@ -90,7 +91,6 @@ class ReviewController extends Controller
                     ->orderBy('sequence_number', 'DESC')
                     ->first();
                 $user = Auth::user();
-
                 // Now Set the feedback associated with the review
                 $feedback = new \App\Feedback();
                 $feedback->user_id = $user->id;
