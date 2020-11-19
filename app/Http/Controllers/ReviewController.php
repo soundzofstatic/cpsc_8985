@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Business;
 use App\Feedback;
+use App\Http\Resources\ErrorResource;
+use App\Http\Resources\FeedbackResource;
 use App\Review;
 use App\Question;
 use App\User;
@@ -30,7 +32,7 @@ class ReviewController extends Controller
      */
     public function create(Business $business)
     {
-       //dd($business);
+        //dd($business);
 
         return view('forms.review')
             ->with(compact([
@@ -149,18 +151,94 @@ class ReviewController extends Controller
         }
     }
 
-//    likedislike
-    public function likeDislike(Request $request)
+    /**
+     * Method used to inc or dec a like on feedback
+     *
+     * @param Request $request
+     * @return ErrorResource|FeedbackResource
+     */
+    public function like(Request $request)
     {
-        $getfeedbackId = $request->feedback_id;
-        $feedback = Feedback::Where('id', $getfeedbackId)->get();
-        $feedback->like = $request->isLike;
-        $feedback->dislike = $request->isDislike;
-        $feedback->save();
+
+        try{
+
+            $feedback = Feedback::Where('id', $request->feedback_id)
+                ->first();
+
+            if($request->isLike == 'true') {
+
+                $feedback->like = $feedback->like + 1;
+
+            } else {
+
+                if($feedback->like > 0) { // Don't allow negative numbers
+
+                    $feedback->like = $feedback->like - 1;
+
+                }
+
+            }
+
+            $feedback->save();
+
+            FeedbackResource::withoutWrapping();
+            return new FeedbackResource($feedback);
+
+        } catch (\Exception $e) {
+
+            Log::error($e->getMessage());
+
+            ErrorResource::withoutWrapping();
+            return new ErrorResource($e);
+
+        }
+    }
+
+    /**
+     * Method used to inc or dec a dislike on feedback
+     *
+     * @param Request $request
+     * @return ErrorResource|FeedbackResource
+     */
+    public function dislike(Request $request)
+    {
+
+        try{
+
+            $feedback = Feedback::Where('id', $request->feedback_id)
+                ->first();
+
+            if($request->isDislike == 'true') {
+
+                $feedback->dislike = $feedback->dislike + 1;
+
+            } else {
+
+                if($feedback->dislike > 0) { // Don't allow negative numbers
+
+                    $feedback->dislike = $feedback->dislike - 1;
+
+                }
+
+            }
+
+            $feedback->save();
+
+            FeedbackResource::withoutWrapping();
+            return new FeedbackResource($feedback);
+
+        } catch (\Exception $e) {
+
+            Log::error($e->getMessage());
+
+            ErrorResource::withoutWrapping();
+            return new ErrorResource($e);
+
+        }
     }
 
 
-            /**
+    /**
      * Display the specified resource.
      *
      * @param  \App\Review  $review

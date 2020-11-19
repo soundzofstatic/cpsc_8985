@@ -14,8 +14,8 @@ class AddLikeDislikeToFeedbacks extends Migration
     public function up()
     {
         Schema::table('feedback', function (Blueprint $table) {
-            $table->boolean('like')->default(0)->after('text');
-            $table->boolean('dislike')->default(0)->after('like');
+            $table->integer('like')->default(0)->after('text');
+            $table->integer('dislike')->default(0)->after('like');
         });
     }
 

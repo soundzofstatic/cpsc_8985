@@ -283,8 +283,6 @@ Route::post('/question','ReviewController@question')->name('question');
 Route::post('/question-reply' ,'QuestionController@reply')->name('question-reply');
 //
 Route::post('/filter-search','BusinessServiceController@searchFilter')->name('filter');
-//LikeDislike
-Route::post('/likeDislike','ReviewController@likeDislike')->name('likeDislike');
 
 
 // Proof of Concepts
