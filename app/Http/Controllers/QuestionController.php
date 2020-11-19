@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Business;
 use App\Feedback;
 use App\Helpers\Alert;
 use App\Question;
@@ -50,19 +51,22 @@ class QuestionController extends Controller
         if (Auth::check()) {
 
             $user = Auth::user();
+            $business = Business::where('id', '=', $request->input('business_id'))
+                ->first();
 
             $question = new \App\Question();
             $question->user_id = $user->id;
-            $question->business_id = $request->input('business_id');
+            $question->business_id = $business->id;
             $question->feedback_id = null;
             $question->is_active = true;
             $question->save();
+
             // Save a Notification Alert
             Alert::createAlert(
-                'user.question.asked',
+                'user.question.store',
                 'Successfully asked a question',
-                $user
-                
+                $user,
+                $business
             );
 
             // Now Set the feedback associated with the review
@@ -74,7 +78,6 @@ class QuestionController extends Controller
             $feedback->sequence_number = 0;
             $feedback->text = $request->input('question');
             $feedback->save();
-
 
             // Update the $review with the feedback_id
             $question->feedback_id = $feedback->id;

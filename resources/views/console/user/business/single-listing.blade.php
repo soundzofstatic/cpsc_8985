@@ -414,23 +414,11 @@
                                                     </textarea>
                                                     <input type="hidden" name="business_id" value="{{$business->id}}"/>
                                                     <button type="submit" name="submit"
-                                                            class="col-1 fa fa-paper-plane send-btn"/>
+                                                            class="col-1 fa fa-paper-plane send-btn"></button>
                                                 </form>
                                             </div>
                                         </div>
                                         {{--                                        disable a question --}}
-                                        <li><a data-toggle="collapse" href="#queries" role="button"
-                                               aria-expanded="false" aria-controls="queries">
-                                                disable a question
-                                            </a></li>
-                                        <div class="collapse" id="queries">
-                                            <div class="row">
-                                                <form action="{{route('question-disable')}}" method="post" class="row">
-                                                    @csrf
-                                                            class="col-1 fa fa-paper-plane send-btn"/>
-                                                </form>
-                                            </div>
-                                        </div>
                                     </ul>
                                 </div>
                             </div>
@@ -467,7 +455,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
