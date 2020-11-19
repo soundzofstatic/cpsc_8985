@@ -477,7 +477,14 @@ class BusinessController extends Controller
         try {
 
             //dd('HI Mythri, show a form where a user can upload an image. Then you can process the form in the BusinessController@storePhoto method');
-            return view('console.user.business.businessimage');
+            return view('console.user.business.businessimage')
+                ->with(
+                    compact(
+                        [
+                            'business'
+                        ]
+                    )
+                );
 
         } catch (\Exception $e) {
             Log::error($e->getMessage());
@@ -513,7 +520,7 @@ class BusinessController extends Controller
             $upload->upload_type = 'business.photo';
             // Save to file
             $fileUpload = $request->file('file_path');
-            $path = $fileUpload->store('public/assets/reviewer/photo');
+            $path = $fileUpload->store('public/assets/business/photo');
             $upload->file_type = 'image';
             $upload->file_path = $path;
             $upload->file_name = basename($path);
