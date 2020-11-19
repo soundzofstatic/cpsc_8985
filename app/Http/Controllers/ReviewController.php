@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Business;
 use App\Feedback;
+use App\Helpers\Alert;
 use App\Review;
 use App\Question;
 use App\User;
@@ -44,12 +45,14 @@ class ReviewController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,business $business)
     {
         //dd($request->all());
         if (Auth::check()) {
 
             $user = Auth::user();
+            $business = Business::where('id', '=', $request->input('business_id'))
+                ->first();
 
             $review = new \App\Review();
             $review->user_id = $user->id;
@@ -69,6 +72,13 @@ class ReviewController extends Controller
             $feedback->sequence_number = 0;
             $feedback->text = $request->input('review');
             $feedback->save();
+            // Save a Notification Alert
+            Alert::createAlert(
+                'user.review.store',
+                'Successfully made a review',
+                $user,
+                $business
+            );
 
             // Update the $review with the feedback_id
             $review->feedback_id = $feedback->id;

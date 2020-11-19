@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\BusinessCheckIn;
 use App\Feedback;
+use App\PromotedBusiness;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class FrontPageController extends Controller
@@ -22,11 +24,20 @@ class FrontPageController extends Controller
         $feedBacks = Feedback::limit(5)
             ->orderBy('created_at', 'DESC')
             ->get();
+        $now=Carbon::now();
+
+        $promotedBusiness2 =PromotedBusiness::where('is_active','=',true)
+            ->where('promo_location','=','location_2')
+            ->where('start_date','<=',$now)
+            ->where('end_date','>=',$now)
+            ->orderBy('created_at', 'DESC')
+            ->first();
 
         return view('index')
             ->with(
                 compact(
                     [
+                        'promotedBusiness2',
                         'checkIns',
                         'feedBacks'
                     ]
