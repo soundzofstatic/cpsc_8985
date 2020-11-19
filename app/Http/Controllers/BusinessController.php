@@ -476,8 +476,8 @@ class BusinessController extends Controller
 
         try {
 
-            dd('HI Mythri, show a form where a user can upload an image. Then you can process the form in the BusinessController@storePhoto method');
-            return view('console.user.business.create');
+            //dd('HI Mythri, show a form where a user can upload an image. Then you can process the form in the BusinessController@storePhoto method');
+            return view('console.user.business.businessimage');
 
         } catch (\Exception $e) {
             Log::error($e->getMessage());

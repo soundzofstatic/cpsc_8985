@@ -132,7 +132,7 @@ Route::prefix('console')->name('console.')->middleware('auth')->group(function (
 
                         });
                     });
-                    Route::prefix('photo')->name('photo.')->group(function () {
+                        Route::prefix('photo')->name('photo.')->group(function () {
                         Route::get('/upload-photo', 'BusinessController@createPhoto')->name('upload-photo');
                         Route::post('/store-photo', 'BusinessController@storePhoto')->name('store-photo');
                         Route::prefix('{photo}')->group(function () {
