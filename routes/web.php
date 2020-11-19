@@ -133,8 +133,11 @@ Route::prefix('console')->name('console.')->middleware('auth')->group(function (
                         });
                     });
                     Route::prefix('photo')->name('photo.')->group(function () {
-                        Route::post('/set-photo', 'BusinessController@storephoto')->name('store-photo-upload');
-                        Route::get('/delete-photo', 'UserController@destroyphoto')->name('destroy-photo');
+                        Route::get('/upload-photo', 'BusinessController@createPhoto')->name('upload-photo');
+                        Route::post('/store-photo', 'BusinessController@storePhoto')->name('store-photo');
+                        Route::prefix('{photo}')->group(function () {
+                            Route::get('/delete-photo', 'BusinessController@destroyPhoto')->name('destroy-photo');
+                        });
                     });
                     Route::prefix('events')->name('events.')->group(function () {
 

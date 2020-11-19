@@ -73,7 +73,7 @@
                                        class="btn btn-danger">Create a Service</a>
                                 </div>
                                 <div class="share-btn">
-                                    <a href="{{ route('console.user.businesses.business.update.photo.store-photo-upload', ['user' => \Illuminate\Support\Facades\Auth::user()->id, 'business' => $business->id]) }}"
+                                    <a href="{{ route('console.user.businesses.business.update.photo.upload-photo', ['user' => \Illuminate\Support\Facades\Auth::user()->id, 'business' => $business->id]) }}"
                                            class="primary-btn">Upload Business image</a>
                                     </div>
                             </div>

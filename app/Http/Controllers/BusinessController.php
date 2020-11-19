@@ -471,7 +471,25 @@ class BusinessController extends Controller
 
     }
 
-    public function storephoto(User $user, business $business, request $request)
+    public function createPhoto(User $user, business $business, request $request)
+    {
+
+        try {
+
+            dd('HI Mythri, show a form where a user can upload an image. Then you can process the form in the BusinessController@storePhoto method');
+            return view('console.user.business.create');
+
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return redirect()
+                ->back()
+                ->withErrors([$e->getMessage()]);
+
+        }
+
+    }
+    
+    public function storePhoto(User $user, business $business, request $request)
     {
 
         try {
@@ -519,7 +537,7 @@ class BusinessController extends Controller
 
     }
 
-    public function destroyphoto(User $user, business $business)
+    public function destroyPhoto(User $user, business $business)
     {
 
         try {
