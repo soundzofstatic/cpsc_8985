@@ -167,3 +167,26 @@ a {
    overflow: hidden;
    height: 250px;
  }
+
+ section {
+   &.promoted-hero-wrap {
+     position: relative;
+     .promoted-hero {
+       position: absolute;
+       bottom: 1em;
+       padding: 1em;
+       right: 2em;
+       width: 50%;
+       background-color: rgba(255, 255, 255, .5);
+     }
+     .promo-label {
+       position: absolute;
+       top: 0;
+       right: 0;
+       background-color: $primary;
+       padding: 1em;
+       color: white;
+       font-weight: bold;
+     }
+   }
+ }

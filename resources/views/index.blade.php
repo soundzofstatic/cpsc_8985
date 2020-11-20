@@ -2,7 +2,11 @@
 @section ('page_name')Home
 @endsection
 @section ('content')
-    <section class="hero-section set-bg" data-setbg="{{ parse_url(asset('img/hero-bg.jpg'), PHP_URL_PATH) }}">
+    @if(!empty($promotedBusiness1) AND !empty($promotedBusiness1->business->mainPhoto))
+        <section class="hero-section set-bg promoted-hero-wrap" data-setbg="/storage/{{ str_replace("public/", "", $promotedBusiness1->business->mainPhoto->file_path) }}">
+    @else
+        <section class="hero-section set-bg" data-setbg="{{ parse_url(asset('img/hero-bg.jpg'), PHP_URL_PATH) }}">
+    @endif
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -19,6 +23,20 @@
                     </div>
                 </div>
             </div>
+            @if(!empty($promotedBusiness1) AND !empty($promotedBusiness1->business->mainPhoto))
+                <div class="row promoted-hero">
+                    <div class="col-lg-12">
+                        <div class="promo-text">
+                            <h2>{{ $promotedBusiness1->business->name }}</h2>
+                            <p>Some teaser text or business info line</p>
+                            <a href="{{ route('business.home', ['business' => $promotedBusiness1->business->id]) }}" class="btn btn-lg btn-info">See business</a>
+                        </div>
+                    </div>
+                    <div class="promo-label">
+                        <span>Promotion</span>
+                    </div>
+                </div>
+            @endif
         </div>
     </section>
     @include ('themes.localsdirectory.layout.section.trending')

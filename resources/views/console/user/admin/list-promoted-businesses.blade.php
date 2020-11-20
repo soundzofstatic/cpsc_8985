@@ -25,6 +25,8 @@
                                     <h6>Promotion period</h6>
                                     <span>{{ $promotedBusiness->start_date->format('m/d/Y g:i:s a') }} - {{ $promotedBusiness->end_date->format('m/d/Y g:i:s a') }}</span>
                                     <br/>
+                                    <span>{{ $promotedBusiness->promo_location }}</span>
+                                    <br/>
                                     @if($promotedBusiness->is_active)
                                         <a href="{{ route('console.user.admin.update.promoted_business.disable', ['user'=> \Illuminate\Support\Facades\Auth::user()->id, 'promoted_business' => $promotedBusiness->id]) }}"
                                            class="btn btn-sm btn-danger">Suspend Promotion</a>

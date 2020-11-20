@@ -26,7 +26,14 @@ class FrontPageController extends Controller
             ->get();
         $now=Carbon::now();
 
-        $promotedBusiness2 =PromotedBusiness::where('is_active','=',true)
+        $promotedBusiness1 = PromotedBusiness::where('is_active','=',true)
+            ->where('promo_location','=','location_1')
+            ->where('start_date','<=',$now)
+            ->where('end_date','>=',$now)
+            ->orderBy('created_at', 'DESC')
+            ->first();
+
+        $promotedBusiness2 = PromotedBusiness::where('is_active','=',true)
             ->where('promo_location','=','location_2')
             ->where('start_date','<=',$now)
             ->where('end_date','>=',$now)
@@ -37,9 +44,10 @@ class FrontPageController extends Controller
             ->with(
                 compact(
                     [
-                        'promotedBusiness2',
                         'checkIns',
-                        'feedBacks'
+                        'feedBacks',
+                        'promotedBusiness1',
+                        'promotedBusiness2'
                     ]
                 )
             );
