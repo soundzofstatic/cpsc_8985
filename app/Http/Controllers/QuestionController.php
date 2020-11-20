@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Business;
 use App\Feedback;
+use App\Helpers\Alert;
 use App\Question;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -34,6 +36,7 @@ class QuestionController extends Controller
             ->with(compact([
                 'business'
             ]));
+
     }
 
     /**
@@ -48,13 +51,23 @@ class QuestionController extends Controller
         if (Auth::check()) {
 
             $user = Auth::user();
+            $business = Business::where('id', '=', $request->input('business_id'))
+                ->first();
 
             $question = new \App\Question();
             $question->user_id = $user->id;
-            $question->business_id = $request->input('business_id');
+            $question->business_id = $business->id;
             $question->feedback_id = null;
             $question->is_active = true;
             $question->save();
+
+            // Save a Notification Alert
+            Alert::createAlert(
+                'user.question.store',
+                'Successfully asked a question',
+                $user,
+                $business
+            );
 
             // Now Set the feedback associated with the review
             $feedback = new \App\Feedback();
@@ -71,6 +84,7 @@ class QuestionController extends Controller
             $question->save();
 
             return redirect()->back();
+
         }
     }
 
@@ -184,6 +198,7 @@ class QuestionController extends Controller
                         return redirect()
                             ->back()
                             ->with(['message' => 'Successfully added Feedback']);
+
                     }
 
                 } catch (\Exception $e) {

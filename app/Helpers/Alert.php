@@ -51,7 +51,7 @@ class Alert
             foreach(Auth::user()->alerts as $alert) {
 
                 if((boolean)$alert->is_viewed == false) {
-                    $alerts[] = $alert;
+                    $alerts[$alert->id] = $alert;
                 }
 
             }
@@ -60,7 +60,7 @@ class Alert
 
                 foreach($business->alerts as $alert) {
                     if((boolean)$alert->is_viewed  == false) {
-                        $alerts[] = $alert;
+                        $alerts[$alert->id] = $alert;
                     }
                 }
 
