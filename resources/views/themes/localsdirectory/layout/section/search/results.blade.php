@@ -18,7 +18,11 @@
                         <div class="col-lg-4 col-sm-6 business listing" data-rating="{{ $business->rating() }}" data-dollarRating="{{ $business->dollar_rating }}" data-services="{{ $business->servicesAsStringId() }}">
                             <a class="arrange-items" href="{{ route('business.home', ['business'=>$business->id]) }}">
                                 <div class="arrange-pic">
-                                    <img src="{{ parse_url(asset('img/arrange/arrange-1.jpg'), PHP_URL_PATH) }}" alt="">
+                                    @if(!empty($business->mainPhoto))
+                                        <img src="/storage/{{ str_replace("public/", "", $business->mainPhoto->file_path) }}" alt="{{ $business->mainPhoto->alt_text }}">
+                                    @else
+                                        <img src="{{ parse_url(asset('img/arrange/arrange-1.jpg'), PHP_URL_PATH) }}" alt="">
+                                    @endif
                                     <div class="rating">{{ $business->rating() }}</div>
 {{--                                    <div class="tic-text">Restaurants</div>--}}
                                 </div>

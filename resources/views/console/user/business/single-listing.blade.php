@@ -25,7 +25,12 @@
 @section ('content')
 
     <!-- Hero Section Begin -->
-    <div class="hero-listing set-bg" data-setbg="{{ asset('img/hero_listing.jpg') }}">
+    @if(!empty($business->mainPhoto))
+        <div class="hero-listing set-bg" data-setbg="/storage/{{ str_replace("public/", "", $business->mainPhoto->file_path) }}">
+    @else
+        <div class="hero-listing set-bg" data-setbg="{{ asset('img/hero_listing.jpg') }}">
+    @endif
+            <h1>{{ $business->name }}</h1>
     </div>
     <!-- Hero Section End -->
 

@@ -38,9 +38,9 @@
                                 <p>{{ $feedback->text }}</p>
                                 <h4>{{ $feedback->user->first_name }} {{ $feedback->user->last_name }}</h4>
                                 @if(!empty($feedback->review_id))
-                                    <a href="{{ route('business.home', ['business' => $feedback->review->business->id]) }}" class="btn btn-primary btn-lg">See Review full context</a>
+                                    <a href="{{ route('business.home', ['business' => $feedback->review->business->id]) }}#feedback-{{ $feedback->id }}" class="btn btn-primary btn-lg">See Review full context</a>
                                 @elseif(!empty($feedback->question_id))
-                                    <a href="{{ route('business.home', ['business' => $feedback->question->business->id]) }}" class="btn btn-primary btn-lg">See Question full context</a>
+                                    <a href="{{ route('business.home', ['business' => $feedback->question->business->id]) }}#feedback-{{ $feedback->id }}" class="btn btn-primary btn-lg">See Question full context</a>
                                 @endif
                             </div>
                         @endforeach
@@ -57,10 +57,12 @@
     <!-- Testimonial Section End -->
 {{--    @include ('themes.localsdirectory.layout.section.events')--}}
 {{--    @include ('themes.localsdirectory.layout.section.download-app')--}}
-    {{--    todo - replace with dynamic Promotion --}}
-    {{--    todo - replace static image with business image if available--}}
    @if(!empty($promotedBusiness2))
-    <section class="promo-section promo-2 set-bg p-5" data-setbg="{{ parse_url(asset('img/hero-bg.jpg'), PHP_URL_PATH) }}">
+       @if(!empty($promotedBusiness2->business->mainPhoto))
+            <section class="promo-section promo-2 set-bg p-5" data-setbg="/storage/{{ str_replace("public/", "", $promotedBusiness2->business->mainPhoto->file_path) }}">
+        @else
+            <section class="promo-section promo-2 set-bg p-5" data-setbg="{{ parse_url(asset('img/hero-bg.jpg'), PHP_URL_PATH) }}">
+        @endif
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">

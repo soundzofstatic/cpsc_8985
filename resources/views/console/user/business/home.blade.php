@@ -31,7 +31,11 @@
                             <a class="arrange-items"
                                href="{{ route('console.user.businesses.business.business-console', ['user'=>$user->id, 'business'=>$business->id]) }}">
                                 <div class="arrange-pic">
-                                    <img src="{{ parse_url(asset('img/arrange/arrange-1.jpg'), PHP_URL_PATH) }}" alt="">
+                                    @if(!empty($business->mainPhoto))
+                                        <img src="/storage/{{ str_replace("public/", "", $business->mainPhoto->file_path) }}" alt="{{ $business->mainPhoto->alt_text }}">
+                                    @else
+                                        <img src="{{ parse_url(asset('img/arrange/arrange-1.jpg'), PHP_URL_PATH) }}" alt="">
+                                    @endif
                                     <div class="rating">{{ $business->rating() }}</div>
                                     <div class="tic-text">Restaurants</div>
                                 </div>

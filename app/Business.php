@@ -130,6 +130,21 @@ class Business extends Model
         );
     }
 
+    /**
+     * Relationship that defaults the first uploaded photo for the business as the main photo
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function mainPhoto() {
+        return $this->hasOne(
+            'App\\FileUpload',
+            'business_id',
+            'id'
+        )
+            ->where('upload_type', '=', 'business.photo')
+            ->orderBy('created_at', 'ASC');
+    }
+
     public function rating()
     {
         return round($this->reviews->avg('rating'), 1);

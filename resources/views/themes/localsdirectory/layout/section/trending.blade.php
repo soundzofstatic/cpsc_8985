@@ -14,7 +14,11 @@
                 <div class="col-lg-6">
                     <div class="trend-item">
                         <div class="trend-pic">
-                            <img src="{{ parse_url(asset('img/trending/trending-1.jpg'), PHP_URL_PATH) }}" alt="">
+                            @if(!empty($checkIn->business->mainPhoto))
+                                <img src="/storage/{{ str_replace("public/", "", $checkIn->business->mainPhoto->file_path) }}" alt="{{ $checkIn->business->mainPhoto->alt_text }}">
+                            @else
+                                <img src="{{ parse_url(asset('img/trending/trending-1.jpg'), PHP_URL_PATH) }}" alt="">
+                            @endif
                             <div class="rating">{{ $checkIn->business->rating() }}</div>
                         </div>
                         <div class="trend-text" style="width: 60%">
@@ -28,52 +32,6 @@
                     </div>
                 </div>
             @endforeach
-{{--            <div class="col-lg-6">--}}
-{{--                <div class="trend-item nightlife">--}}
-{{--                    <div class="trend-pic">--}}
-{{--                        <img src="{{ parse_url(asset('img/trending/trending-2.jpg'), PHP_URL_PATH) }}" alt="">--}}
-{{--                        <div class="rating">4.9</div>--}}
-{{--                    </div>--}}
-{{--                    <div class="trend-text">--}}
-{{--                        <h4>Palace Club</h4>--}}
-{{--                        <span>Parker Street, No 234/40</span>--}}
-{{--                        <p>Fusce urna quam, euismod sit amet mollis quis.</p>--}}
-{{--                        <div class="open">Open Until 3am</div>--}}
-{{--                    </div>--}}
-{{--                    <div class="tic-text">Nightlife</div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--            <div class="col-lg-6">--}}
-{{--                <div class="trend-item hotels">--}}
-{{--                    <div class="trend-pic">--}}
-{{--                        <img src="{{ parse_url(asset('img/trending/trending-3.jpg'), PHP_URL_PATH) }}" alt="">--}}
-{{--                        <div class="rating">4.6</div>--}}
-{{--                    </div>--}}
-{{--                    <div class="trend-text">--}}
-{{--                        <h4>Grand Hotel</h4>--}}
-{{--                        <span>Main Road , No 25/11</span>--}}
-{{--                        <p>Morbi id dictum quam, ut commodo lorem.</p>--}}
-{{--                        <div class="closed">Closed Now</div>--}}
-{{--                        <div class="open">Opens Tomorow at 10am</div>--}}
-{{--                    </div>--}}
-{{--                    <div class="tic-text">Hotels</div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--            <div class="col-lg-6">--}}
-{{--                <div class="trend-item events">--}}
-{{--                    <div class="trend-pic">--}}
-{{--                        <img src="{{ parse_url(asset('img/trending/trending-4.jpg'), PHP_URL_PATH) }}" alt="">--}}
-{{--                        <div class="rating">5.0</div>--}}
-{{--                    </div>--}}
-{{--                    <div class="trend-text">--}}
-{{--                        <h4>Opera Concert</h4>--}}
-{{--                        <span>Parker Street, No 234/40</span>--}}
-{{--                        <p>Aliquam erat volutpat. Morbi id dictum.</p>--}}
-{{--                        <div class="open">Open Until 3am</div>--}}
-{{--                    </div>--}}
-{{--                    <div class="tic-text">Events</div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
         </div>
     </div>
 </section>

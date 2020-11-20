@@ -11,7 +11,12 @@
         }
     </style>
     <!-- Hero Section Begin -->
-    <div class="hero-listing set-bg" data-setbg="{{ asset('img/hero_listing.jpg') }}">
+    @if(!empty($business->mainPhoto))
+        <div class="hero-listing set-bg" data-setbg="/storage/{{ str_replace("public/", "", $business->mainPhoto->file_path) }}">
+    @else
+        <div class="hero-listing set-bg" data-setbg="{{ asset('img/hero_listing.jpg') }}">
+    @endif
+            <h1>{{ $business->name }}</h1>
     </div>
     <!-- Hero Section End -->
     @include ('themes.localsdirectory.layout.section.search.search')
@@ -105,7 +110,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         @foreach($business->reviews as $key=>$review)
-                                            <div class="reviews-item" data-key="{{ $key }}" @if($key >= 5)style="display:none;"@endif>
+                                            <div id="feedback-{{ $review->originalFeedback->id }}" class="reviews-item" data-key="{{ $key }}" @if($key >= 5)style="display:none;"@endif>
                                                 <div class="rating">
                                                     @for($i=0;$i<$review->rating;$i++)
                                                         <i class="fa fa-star"></i>
@@ -123,7 +128,7 @@
                                                 <div class="col-md-12 mt-2">
                                                     <div class="row">
                                                         @foreach($review->relatedFeedbacks as $relatedFeedback)
-                                                            <div class="col-md-11 offset-md-1 mb-5 related-feedback"
+                                                            <div id="feedback-{{ $relatedFeedback->id }}" class="col-md-11 offset-md-1 mb-5 related-feedback"
                                                                  style="border-left: solid thin red;">
                                                                 <p>{{ $relatedFeedback->text }}</p>
                                                                 <div class="client-text">
@@ -145,12 +150,11 @@
                                 </div>
                             </div>
                             <!-- Reviews End -->
-{{--                   Question         --}}
-
+                            <!-- Questions Being -->
                             <div class="client-reviews questions row">
                                 <h3 class="col-2">Questions</h3>
                                 @foreach($business->lastHundredQuestions as $question)
-                                    <div class="reviews-item">
+                                    <div id="feedback-{{ $review->originalFeedback->id }}" class="reviews-item">
                                         <h5>Question Title {{$question->id}}</h5>
                                         <p>{{ $question->originalFeedback['text'] }}</p>
                                         <div class="client-text">
@@ -161,41 +165,12 @@
                                         </div>
                                         <div class="col-md-12 mt-2">
                                             <div class="row">
-                                                {{--                                                @dd($question->relatedFeedbacks)--}}
                                                 @foreach($question->relatedFeedbacks as $relatedFeedback)
-                                                    <div class="col-md-11 offset-md-1 mb-5 related-feedback"
+                                                    <div id="feedback-{{ $relatedFeedback->id }}" class="col-md-11 offset-md-1 mb-5 related-feedback"
                                                          style="border-left: solid thin red;">
                                                         <p>{{ $relatedFeedback->text }} </p>
                                                         <div class="Additional Feedback">
-                                                            {{--                                  like & dislike            --}}
-                                                            {{--                                                            <i onclick="myFunction(this,'like')"--}}
-                                                            {{--                                                               class="fa fa-thumbs-o-up mr-2"></i>--}}
-                                                            {{--                                                            <i onclick="myFunction(this,'dislike')"--}}
-                                                            {{--                                                               class="fa fa-thumbs-o-down"></i>--}}
-                                                            {{--                                                            <script>--}}
-                                                            {{--                                                                function myFunction(x, like_dislike) {--}}
-                                                            {{--                                                                    if (like_dislike == 'like') {--}}
-
-                                                            {{--                                                                        x.classList.toggle("fa-thumbs-up");--}}
-                                                            {{--                                                                        let checkClass = x.classList.toString();--}}
-                                                            {{--                                                                        if (checkClass.search("fa-thumbs-up") != -1) {--}}
-                                                            {{--                                                                            x.innerHTML = 1;--}}
-                                                            {{--                                                                        } else {--}}
-                                                            {{--                                                                            x.innerHTML = '';--}}
-                                                            {{--                                                                        }--}}
-                                                            {{--                                                                    } else {--}}
-                                                            {{--                                                                        x.classList.toggle("fa-thumbs-down");--}}
-                                                            {{--                                                                        let checkClass = x.classList.toString();--}}
-                                                            {{--                                                                        if (checkClass.search("fa-thumbs-down") != -1) {--}}
-                                                            {{--                                                                            x.innerHTML = 1;--}}
-                                                            {{--                                                                        } else {--}}
-                                                            {{--                                                                            x.innerHTML = '';--}}
-                                                            {{--                                                                        }--}}
-                                                            {{--                                                                    }--}}
-                                                            {{--                                                                }--}}
-                                                            {{--                                                            </script>--}}
                                                         </div>
-
                                                         <div class="client-text">
                                                             <h5>
                                                                 <a href="{{ route('user.home', ['user' => $relatedFeedback->user_id]) }}"
@@ -237,7 +212,7 @@
                                     </div>
                                 @endforeach
                             </div>
-{{--                            End question --}}
+                            <!-- Questions End -->
                         </div>
                     </div>
                     <div class="col-lg-4">

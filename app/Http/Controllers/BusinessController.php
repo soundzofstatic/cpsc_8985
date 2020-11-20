@@ -507,15 +507,9 @@ class BusinessController extends Controller
 
             }
 
-            if (!empty($user->photo)) {
-
-                $user->photo->delete();
-
-            }
-
             $upload = new FileUpload();
             $upload->user_id = $user->id;
-            $upload->business_id = null;
+            $upload->business_id = $business->id;
             $upload->is_active = true;
             $upload->upload_type = 'business.photo';
             // Save to file
@@ -531,9 +525,11 @@ class BusinessController extends Controller
             $upload->mime_type = $fileUpload->getMimeType();
             $upload->alt_text = $request->input('alt-text');
             $upload->save();
+
             return redirect()
                 ->back()
                 ->with(['message' => 'Successfully Set photo for business.']);
+
         } catch (\Exception $e) {
             Log::error($e->getMessage());
             return redirect()
