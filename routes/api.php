@@ -19,3 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::post('/users/query', 'UserApiController@query')->name('user-query');
+
+//LikeDislike
+Route::post('/like','ReviewController@like')->name('like');
+Route::post('/dislike','ReviewController@dislike')->name('dislike');

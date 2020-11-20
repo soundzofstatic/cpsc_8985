@@ -76,6 +76,64 @@
             </div>
         </div>
         <div class="rating-filter">
+            <h3>Dollar Ratings</h3>
+            <div class="rating-option ratings">
+                <div class="ro-item">
+                    <label><input type="radio" class="dollarRating_select" name="dollarRating" value="5"> 5</label>
+                    <div class="rating-pic">
+                        <i class="fa fa-usd"></i>
+                        <i class="fa fa-usd"></i>
+                        <i class="fa fa-usd"></i>
+                        <i class="fa fa-usd"></i>
+                        <i class="fa fa-usd"></i>
+                    </div>
+                </div>
+                <div class="ro-item">
+                    <label> <input type="radio" class="dollarRating_select" name="dollarRating" value="4"> 4</label>
+                    <div class="rating-pic">
+                        <i class="fa fa-usd"></i>
+                        <i class="fa fa-usd"></i>
+                        <i class="fa fa-usd"></i>
+                        <i class="fa fa-usd"></i>
+                        <i class="fa fa-usd grey-bg"></i>
+                    </div>
+                </div>
+                <div class="ro-item">
+                    <label><input type="radio" class="dollarRating_select" name="dollarRating" value="3">3</label>
+                    <div class="rating-pic">
+                        <i class="fa fa-usd"></i>
+                        <i class="fa fa-usd"></i>
+                        <i class="fa fa-usd"></i>
+                        <i class="fa fa-usd grey-bg"></i>
+                        <i class="fa fa-usd grey-bg"></i>
+                    </div>
+                </div>
+                <div class="ro-item">
+                    <label> <input type="radio" class="dollarRating_select" name="dollarRating" value="2">2</label>
+                    <div class="rating-pic">
+                        <i class="fa fa-usd"></i>
+                        <i class="fa fa-usd"></i>
+                        <i class="fa fa-usd grey-bg"></i>
+                        <i class="fa fa-usd grey-bg"></i>
+                        <i class="fa fa-usd grey-bg"></i>
+                    </div>
+                </div>
+                <div class="ro-item">
+                    <label> <input type="radio" class="dollarRating_select" name="dollarRating" value="1" checked>1</label>
+                    <div class="rating-pic">
+                        <i class="fa fa-usd"></i>
+                        <i class="fa fa-usd grey-bg"></i>
+                        <i class="fa fa-usd grey-bg"></i>
+                        <i class="fa fa-usd grey-bg"></i>
+                        <i class="fa fa-usd grey-bg"></i>
+                    </div>
+                </div>
+                <div class="ro-item">
+                    <button class="btn btn-sm btn-danger reset-dollarRating" role="button" style="display: none;">Reset</button>
+                </div>
+            </div>
+        </div>
+        <div class="rating-filter">
             <h3>Services</h3>
             <div class="rating-option services">
                 @foreach(\App\Service::get() as $service)
@@ -119,6 +177,36 @@
 
             $('input[type="radio"][name="rating"]:checked').removeAttr('checked');
             $('.rating-option.ratings .ro-item label').removeClass('active');
+            $('div.business.listing').show();
+
+        });
+        //dollar rating
+        $('input[type="radio"][name="dollarRating"]').click(function(){
+                console.log(parseFloat($(this).val()));
+            selectedDollarRatingFilter = parseFloat($(this).val());
+
+            $('div.business.listing').each(function(index, value){
+                console.log(value);
+                if( parseFloat($(value).data('dollarrating')) >= selectedDollarRatingFilter) {
+
+                    $(this).show();
+
+                } else {
+
+                    $(this).hide();
+
+                }
+
+            });
+
+            $('button.reset-dollarRating').show();
+
+        });
+
+        $('button.reset-dollarRating').click(function(){
+
+            $('input[type="radio"][name="dollarRating"]:checked').removeAttr('checked');
+            $('.dollarRating-option.ratings .ro-item label').removeClass('active');
             $('div.business.listing').show();
 
         });

@@ -20,6 +20,7 @@
     }
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="{{ parse_url(asset('js/jquery-3.3.1.min.js'), PHP_URL_PATH) }}"></script>
 @endsection
 @section ('content')
 
@@ -123,6 +124,7 @@
                                 <p>{{ $business->description }}</p>
                             </div>
                             <!-- About End -->
+                            <!-- Business Services Begin -->
                             <div class="container">
                                 <div class="row">
                                     <div class="col-sm-4">
@@ -137,26 +139,20 @@
                                     </div>
                                 </div>
                             </div>
-
+                            <!-- Business Services End -->
+                            <!-- Review/Question Filter Begin -->
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <button type="button" id="review-button-toggle" class="btn btn-md btn-danger mr4" data-active="true">Reviews</button>
+                                        <button type="button" id="question-button-toggle" class="btn btn-md btn-info" data-active="false">Show Questions</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Review/Question Filter End -->
                             <!-- Reviews Begin -->
                             <div class="client-reviews reviews row">
                                 <h3 class="col-2">Reviews</h3>
-{{--                                --}}{{-- FILTER--}}
-{{--                                <div class="col-1 dropdown">--}}
-{{--                                    <i class="btn  dropdown-toggle fa fa-filter" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--}}
-{{--                                    </i>--}}
-{{--                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">--}}
-{{--                                        <a class="dropdown-item" href="#">FEEDBACK</a>--}}
-{{--                                        <a class="dropdown-item" href="#">QUESTION</a>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                                --}}{{--end of filter--}}
-{{--                                <div>--}}
-{{--                                    Questions:--}}
-{{--                                    @foreach($business->questions as $question)--}}
-{{--                                        <p{{$question}}</p>--}}
-{{--                                    @endforeach--}}
-{{--                                </div>--}}
                                 @foreach($business->lastHundredReviews as $review)
                                     <div class="reviews-item">
                                         <div class="rating">
@@ -177,47 +173,18 @@
                                         </div>
                                         <div class="col-md-12 mt-2">
                                             <div class="row">
-{{--                                                @foreach($review->questions as $question)--}}
-{{--                                                    <div>Question:--}}
-{{--                                                        <p>{{$question}}</p>--}}
-{{--                                                    </div>--}}
-{{--                                                @endforeach--}}
                                                 @foreach($review->relatedFeedbacks as $relatedFeedback)
                                                     <div class="col-md-11 offset-md-1 mb-5 related-feedback"
                                                          style="border-left: solid thin red;">
                                                         <p>{{ $relatedFeedback->text }} </p>
                                                         <div class="Additional Feedback">
                                                             {{--                                  like & dislike            --}}
-                                                            <i onclick="myFunction(this,'like')"
-                                                               class="fa fa-thumbs-o-up mr-2"></i>
-                                                            <i onclick="myFunction(this,'dislike')"
-                                                               class="fa fa-thumbs-o-down"></i>
-                                                            <script>
-                                                                function myFunction(x, like_dislike) {
-                                                                    if (like_dislike == 'like') {
-
-                                                                        x.classList.toggle("fa-thumbs-up");
-                                                                        let checkClass = x.classList.toString();
-                                                                        if (checkClass.search("fa-thumbs-up") != -1) {
-                                                                            x.innerHTML = 1;
-                                                                        } else {
-                                                                            x.innerHTML = '';
-                                                                        }
-
-                                                                    } else {
-
-                                                                        x.classList.toggle("fa-thumbs-down");
-                                                                        let checkClass = x.classList.toString();
-                                                                        if (checkClass.search("fa-thumbs-down") != -1) {
-                                                                            x.innerHTML = 1;
-                                                                        } else {
-                                                                            x.innerHTML = '';
-                                                                        }
-                                                                    }
-                                                                }
-                                                            </script>
+                                                            <i onclick="likeButton(this,{{$relatedFeedback->id}})" class="fa fa-thumbs-o-up mr-2"></i>
+                                                            <span id="like_counter-{{$relatedFeedback->id}}" class="like_counter" data-original_count="{{ $relatedFeedback->like }}">{{ $relatedFeedback->like }}</span>
+                                                            <i onclick="dislikeButton(this,{{$relatedFeedback->id}})" class="fa fa-thumbs-o-down"></i>
+                                                            <span id="dislike_counter-{{$relatedFeedback->id}}" class="dislike_counter" data-original_count="{{ $relatedFeedback->like }}">{{ $relatedFeedback->dislike }}</span>
+                                                            <input type="hidden" name="feedback_id_like" value="{{$relatedFeedback->id}}">
                                                         </div>
-
                                                         <div class="client-text">
                                                             <h5>
                                                                 <a href="{{ route('user.home', ['user' => $relatedFeedback->user_id]) }}"
@@ -358,15 +325,27 @@
                             <script>
                                 $(document).ready(function(){
 
-                                    $('ASRITH_SELECTS_TO_SEE_REVIEWS').click(function(){
+                                    $('#review-button-toggle').click(function(){
 
+                                        $(this).data('active', 'true');
+                                        $(this).html('Reviews');
+                                        $(this).addClass('btn-danger').removeClass('btn-info');
+                                        $('#question-button-toggle').data('active', 'false');
+                                        $('#question-button-toggle').html('Show Questions');
+                                        $('#question-button-toggle').addClass('btn-info').removeClass('btn-danger');
                                         $('.client-reviews.reviews').show();
                                         $('.client-reviews.questions').hide();
 
                                     });
 
-                                    $('ASRITH_SELECTS_TO_SEE_QUESTIONS').click(function(){
+                                    $('#question-button-toggle').click(function(){
 
+                                        $(this).data('active', 'true');
+                                        $(this).html('Questions');
+                                        $(this).addClass('btn-danger').removeClass('btn-info');
+                                        $('#review-button-toggle').data('active', 'false');
+                                        $('#review-button-toggle').html('Show Reviews');
+                                        $('#review-button-toggle').addClass('btn-info').removeClass('btn-danger');
                                         $('.client-reviews.reviews').hide();
                                         $('.client-reviews.questions').show();
 
@@ -459,4 +438,83 @@
         </div>
     </section>
     <!-- About Section End -->
+@endsection
+@section('scripts')
+    <script>
+        function likeButton(x, feedback_id) {
+
+            let like = false;
+
+            x.classList.toggle("fa-thumbs-up");
+            let checkClass = x.classList.toString();
+
+            if (checkClass.search("fa-thumbs-up") != -1) {
+
+                console.log('here');
+                like = true;
+
+            } else {
+
+                console.log('there');
+                like = false;
+
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: '{{ route('like') }}',
+                data:
+                    {
+                        '_token': $('input[name=_token]').val(),
+                        'feedback_id': feedback_id,
+                        'isLike': like
+                    },
+                headers:
+                    {
+                        'X-CSRF-Token': '{{ csrf_token() }}',
+                    },
+                success: function (data) {
+                    console.log(data);
+                    $('#like_counter-' + data.id).html(data.attributes.like);
+                    $('#dislike_counter-' + data.id).html(data.attributes.dislike);
+                }
+            });
+
+        }
+        function dislikeButton(x, feedback_id) {
+            let disLike = false;
+
+            x.classList.toggle("fa-thumbs-down");
+            let checkClass = x.classList.toString();
+            if (checkClass.search("fa-thumbs-down") != -1) {
+
+                disLike = true;
+
+            } else {
+
+                disLike = false;
+
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: '{{ route('dislike') }}',
+                data:
+                    {
+                        '_token': $('input[name=_token]').val(),
+                        'feedback_id': feedback_id,
+                        'isDislike': disLike
+                    },
+                headers:
+                    {
+                        'X-CSRF-Token': '{{ csrf_token() }}',
+                    },
+                success: function (data) {
+                    $('#like_counter-' + data.id).html(data.attributes.like);
+                    $('#dislike_counter-' + data.id).html(data.attributes.dislike);
+                }
+            });
+
+        }
+    </script>
 @endsection
