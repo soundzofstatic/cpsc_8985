@@ -182,6 +182,8 @@ class QuestionController extends Controller
                             ->orderBy('sequence_number', 'DESC')
                             ->first();
                         $user = Auth::user();
+                        $business = Business::where('id', '=', $request->input('business_id'))
+                            ->first();
 
                         // Now Set the feedback associated with the review
                         $feedback = new \App\Feedback();
@@ -193,12 +195,17 @@ class QuestionController extends Controller
                         $feedback->sequence_number = $lastFeedback->sequence_number + 1;
                         $feedback->text = $request->input('reply');
                         $feedback->save();
+                        Alert::createAlert(
+                            'user.question.reply',
+                            'Successfully answered the question.',
+                            $user,
+                            $business
+                        );
 
                         // Update the $review with the feedback_id
                         return redirect()
                             ->back()
-                            ->with(['message' => 'Successfully added Feedback']);
-
+                            ->with(['message' => 'Successfully answered ']);
                     }
 
                 } catch (\Exception $e) {
