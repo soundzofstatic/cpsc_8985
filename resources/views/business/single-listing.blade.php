@@ -119,18 +119,56 @@
                                                     <div class="col-md-11 offset-md-1 mb-5 related-feedback"
                                                          style="border-left: solid thin red;">
                                                         <p>{{ $relatedFeedback->text }}</p>
+                                                        <div class="Additional Feedback">
+                                                            {{--                                  like & dislike            --}}
+                                                            <i onclick="likeButton(this,{{$relatedFeedback->id}})" class="fa fa-thumbs-o-up mr-2"></i>
+                                                            <span id="like_counter-{{$relatedFeedback->id}}" class="like_counter" data-original_count="{{ $relatedFeedback->like }}">{{ $relatedFeedback->like }}</span>
+                                                            <i onclick="dislikeButton(this,{{$relatedFeedback->id}})" class="fa fa-thumbs-o-down"></i>
+                                                            <span id="dislike_counter-{{$relatedFeedback->id}}" class="dislike_counter" data-original_count="{{ $relatedFeedback->like }}">{{ $relatedFeedback->dislike }}</span>
+                                                            <input type="hidden" name="feedback_id_like" value="{{$relatedFeedback->id}}">
+                                                        </div>
                                                         <div class="client-text">
                                                             <h5><a href="{{ route('user.home', ['user' => $review->user_id]) }}" class="author-link">{{ $relatedFeedback->user->first_name }} {{ $relatedFeedback->user->last_name }}</a></h5>
                                                             <span>{{ $relatedFeedback->created_at->format('F j, Y, g:i a') }}</span>
                                                         </div>
                                                     </div>
                                                 @endforeach
+                                                    {{--Reply on feedback--}}
+                                                    <button type="button" class="btn text-danger ml-5 btn-sm"
+                                                            data-toggle="collapse"
+                                                            data-target="#reply-{{ $review->originalFeedback->id }}"
+                                                            aria-expanded="false"
+                                                            aria-controls="collapseExample" style="height: 7px; box-shadow: none;">Reply
+                                                    </button>
+                                                    <div class="collapse" id="reply-{{ $review->originalFeedback->id }}">
+                                                        <form action="{{route('review-reply')}}" method="post"
+                                                              class="row">
+                                                            @csrf
+                                                            <div class="form-group">
+                                                                <label for="reply-{{ $review->originalFeedback->id }}">Reply</label>
+                                                                <textarea class="form-control"
+                                                                          id="reply-{{ $review->originalFeedback->id }}"
+                                                                          name="reply">
+                                                            </textarea>
+                                                            </div>
+                                                            <input type="hidden" name="business_id"
+                                                                   value="{{$business->id}}"/>
+                                                            <input type="hidden" name="feedback_id"
+                                                                   value="{{$review->originalFeedback->id}}"/>
+                                                            <input type="hidden" name="review_id" value="{{$review->id}}"/>
+                                                            <button type="submit" name="submit"
+                                                                    class="col-1 fa fa-paper-plane send-btn"
+                                                                    id="{{$relatedFeedback->id}}"/>
+                                                        </form>
+                                                    </div>
                                             </div>
                                         </div>
                                     </div>
                                 @endforeach
                             </div>
                             <!-- Reviews End -->
+
+
 {{--                   Question         --}}
 
                             <div class="client-reviews questions row">
@@ -287,4 +325,83 @@
         </div>
     </section>
     <!-- About Section End -->
+@endsection
+@section('scripts')
+    <script>
+        function likeButton(x, feedback_id) {
+
+            let like = false;
+
+            x.classList.toggle("fa-thumbs-up");
+            let checkClass = x.classList.toString();
+
+            if (checkClass.search("fa-thumbs-up") != -1) {
+
+                console.log('here');
+                like = true;
+
+            } else {
+
+                console.log('there');
+                like = false;
+
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: '{{ route('like') }}',
+                data:
+                    {
+                        '_token': $('input[name=_token]').val(),
+                        'feedback_id': feedback_id,
+                        'isLike': like
+                    },
+                headers:
+                    {
+                        'X-CSRF-Token': '{{ csrf_token() }}',
+                    },
+                success: function (data) {
+                    console.log(data);
+                    $('#like_counter-' + data.id).html(data.attributes.like);
+                    $('#dislike_counter-' + data.id).html(data.attributes.dislike);
+                }
+            });
+
+        }
+        function dislikeButton(x, feedback_id) {
+            let disLike = false;
+
+            x.classList.toggle("fa-thumbs-down");
+            let checkClass = x.classList.toString();
+            if (checkClass.search("fa-thumbs-down") != -1) {
+
+                disLike = true;
+
+            } else {
+
+                disLike = false;
+
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: '{{ route('dislike') }}',
+                data:
+                    {
+                        '_token': $('input[name=_token]').val(),
+                        'feedback_id': feedback_id,
+                        'isDislike': disLike
+                    },
+                headers:
+                    {
+                        'X-CSRF-Token': '{{ csrf_token() }}',
+                    },
+                success: function (data) {
+                    $('#like_counter-' + data.id).html(data.attributes.like);
+                    $('#dislike_counter-' + data.id).html(data.attributes.dislike);
+                }
+            });
+
+        }
+    </script>
 @endsection
