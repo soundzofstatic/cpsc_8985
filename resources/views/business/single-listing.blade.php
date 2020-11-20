@@ -92,43 +92,57 @@
                                 <p>{{ $business->description }}</p>
                             </div>
                             <!-- About End -->
+
                             <!-- Reviews Begin -->
                             <div class="client-reviews">
-                                <a href="#">Submit a Review</a>
                                 <h3>Reviews</h3>
-                                <p> Total number of reviews - {{count($business->reviews)}} </p>
-                                @foreach($business->reviews as $review)
-                                    <div class="reviews-item">
-                                        <div class="rating">
-                                            @for($i=0;$i<$review->rating;$i++)
-                                                <i class="fa fa-star"></i>
-                                            @endfor
-                                            @for($i=0;$i< (5 - $review->rating);$i++)
-                                                <i class="fa fa-star-o"></i>
-                                            @endfor
-                                        </div>
-                                        <h5>Review Title</h5>
-                                        <p>{{ $review->originalFeedback->text }}</p>
-                                        <div class="client-text">
-                                            <h5><a href="{{ route('user.home', ['user' => $review->user_id]) }}" class="author-link">{{ $review->user->first_name }} {{ $review->user->last_name }}</a></h5>
-                                            <span>{{ $review->created_at->format('F j, Y, g:i a') }}</span>
-                                        </div>
-                                        <div class="col-md-12 mt-2">
-                                            <div class="row">
-                                                @foreach($review->relatedFeedbacks as $relatedFeedback)
-                                                    <div class="col-md-11 offset-md-1 mb-5 related-feedback"
-                                                         style="border-left: solid thin red;">
-                                                        <p>{{ $relatedFeedback->text }}</p>
-                                                        <div class="client-text">
-                                                            <h5><a href="{{ route('user.home', ['user' => $review->user_id]) }}" class="author-link">{{ $relatedFeedback->user->first_name }} {{ $relatedFeedback->user->last_name }}</a></h5>
-                                                            <span>{{ $relatedFeedback->created_at->format('F j, Y, g:i a') }}</span>
-                                                        </div>
-                                                    </div>
-                                                @endforeach
-                                            </div>
-                                        </div>
+                                <p>Total number of reviews - {{count($business->reviews)}}</p>
+                                <div class="row mb-5">
+                                    <div class="col-md-12">
+                                        <button type="button" class="btn btn-md btn-info show-trigger show-all">Show All Reviews</button>
                                     </div>
-                                @endforeach
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        @foreach($business->reviews as $key=>$review)
+                                            <div class="reviews-item" data-key="{{ $key }}" @if($key >= 5)style="display:none;"@endif>
+                                                <div class="rating">
+                                                    @for($i=0;$i<$review->rating;$i++)
+                                                        <i class="fa fa-star"></i>
+                                                    @endfor
+                                                    @for($i=0;$i< (5 - $review->rating);$i++)
+                                                        <i class="fa fa-star-o"></i>
+                                                    @endfor
+                                                </div>
+                                                <h5>{{ $key + 1 }} - Review Title</h5>
+                                                <p>{{ $review->originalFeedback->text }}</p>
+                                                <div class="client-text">
+                                                    <h5><a href="{{ route('user.home', ['user' => $review->user_id]) }}" class="author-link">{{ $review->user->first_name }} {{ $review->user->last_name }}</a></h5>
+                                                    <span>{{ $review->created_at->format('F j, Y, g:i a') }}</span>
+                                                </div>
+                                                <div class="col-md-12 mt-2">
+                                                    <div class="row">
+                                                        @foreach($review->relatedFeedbacks as $relatedFeedback)
+                                                            <div class="col-md-11 offset-md-1 mb-5 related-feedback"
+                                                                 style="border-left: solid thin red;">
+                                                                <p>{{ $relatedFeedback->text }}</p>
+                                                                <div class="client-text">
+                                                                    <h5><a href="{{ route('user.home', ['user' => $review->user_id]) }}" class="author-link">{{ $relatedFeedback->user->first_name }} {{ $relatedFeedback->user->last_name }}</a></h5>
+                                                                    <span>{{ $relatedFeedback->created_at->format('F j, Y, g:i a') }}</span>
+                                                                </div>
+                                                            </div>
+                                                        @endforeach
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                                <div class="row mb-5">
+                                    <div class="col-md-12 text-center">
+                                        <button type="button" class="btn btn-md btn-info show-trigger show-all">Show All Reviews</button>
+                                    </div>
+                                </div>
                             </div>
                             <!-- Reviews End -->
 {{--                   Question         --}}
@@ -287,4 +301,60 @@
         </div>
     </section>
     <!-- About Section End -->
+@endsection
+@section('scripts')
+    <script>
+        $(document).ready(function(){
+           $('button.show-trigger').click(function(){
+
+               if($(this).hasClass('show-all')) {
+
+                   $('button.show-all')
+                       .removeClass('show-all')
+                       .removeClass('btn-info')
+                       .addClass('show-less')
+                       .addClass('btn-danger')
+                       .html('Show Less Reviews');
+                   $('.reviews-item').each(function (index, value) {
+                       $(this).show();
+                   });
+               } else {
+
+                   $('button.show-less')
+                       .removeClass('show-less')
+                       .removeClass('btn-danger')
+                       .addClass('show-all')
+                       .addClass('btn-info')
+                       .html('Show All Reviews');
+                   $('.reviews-item').each(function(index, value){
+
+                       if(index < 5) {
+                           $(this).show();
+                       } else {
+                           $(this).hide();
+                       }
+                   });
+
+               }
+           });
+
+            // $('button.show-less').click(function(){
+            //     $('button.show-less')
+            //         .removeClass('show-less')
+            //         .removeClass('btn-danger')
+            //         .addClass('show-all')
+            //         .addClass('btn-info')
+            //         .html('Show All Reviews');
+            //     $('.reviews-item').each(function(index, value){
+            //
+            //         if(index < 5) {
+            //             $(this).show();
+            //         } else {
+            //             $(this).hide();
+            //         }
+            //     });
+            // });
+        });
+
+    </script>
 @endsection
