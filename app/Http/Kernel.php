@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\CheckIfAuthenticatedIsAdmin;
+use App\Http\Middleware\CheckIsBusinessOwner;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -61,7 +62,8 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'auth_admin' => CheckIfAuthenticatedIsAdmin::class
+        'auth_admin' => CheckIfAuthenticatedIsAdmin::class,
+        'business_owner' => CheckIsBusinessOwner::class,
     ];
 
     /**
