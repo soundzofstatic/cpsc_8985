@@ -1,7 +1,7 @@
 @extends('themes.localsdirectory.layout.base')
 @section ('page_name')Single Listing
 @endsection
-@section ('content')
+@section('styles')
     <style>
         .send-btn {
             margin-top: 50px !important;
@@ -10,14 +10,35 @@
             margin-left: -10px;
         }
     </style>
+@endsection
+@section ('content')
     <!-- Hero Section Begin -->
     @if(!empty($business->mainPhoto))
         <div class="hero-listing set-bg" data-setbg="/storage/{{ str_replace("public/", "", $business->mainPhoto->file_path) }}">
     @else
         <div class="hero-listing set-bg" data-setbg="{{ asset('img/hero_listing.jpg') }}">
     @endif
-            <h1>{{ $business->name }}</h1>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1>{{ $business->name }}</h1>
+                    </div>
+                </div>
+            </div>
     </div>
+    <section class="testimonial-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="business-image-slideshow owl-carousel">
+                        @foreach(\App\Feedback::limit(10)->get() as $feedback)
+                            <img src="https://via.placeholder.com/150" />
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     <!-- Hero Section End -->
     @include ('themes.localsdirectory.layout.section.search.search')
     <!-- About Secton Begin -->
@@ -368,6 +389,17 @@
             //         }
             //     });
             // });
+
+            $(".business-image-slideshow").owlCarousel({
+                loop: true,
+                margin: 0,
+                nav: true,
+                items: 10,
+                dots: false,
+                navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
+                smartSpeed: 1200,
+                autoplay: true,
+            });
         });
 
         function likeButton(x, feedback_id) {
