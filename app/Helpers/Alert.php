@@ -29,6 +29,19 @@ class Alert
         $alert->alert_type = $alert_type;
         $alert->save();
 
+        if($alert_type == 'user.question.store') {
+
+            // Create an alert for the Business Owner
+            $businessOwnerAlert = new \App\Alert();
+            $businessOwnerAlert->user_id = $business->user->id;
+            $businessOwnerAlert->business_id = $business->id;
+            $businessOwnerAlert->is_viewed = false;
+            $businessOwnerAlert->text = $text;
+            $businessOwnerAlert->alert_type = $alert_type;
+            $businessOwnerAlert->save();
+
+        }
+
     }
 
     /**
