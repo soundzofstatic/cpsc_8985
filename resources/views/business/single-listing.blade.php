@@ -31,8 +31,10 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="business-image-slideshow owl-carousel">
-                        @foreach(\App\Feedback::limit(10)->get() as $feedback)
-                            <img src="https://via.placeholder.com/150" />
+                        @foreach($business->photos as $photo)
+                            <a href="/storage/{{ str_replace("public/", "", $photo->file_path) }}" target="_blank">
+                                <img src="/storage/{{ str_replace("public/", "", $photo->file_path) }}" />
+                            </a>
                         @endforeach
                     </div>
                 </div>

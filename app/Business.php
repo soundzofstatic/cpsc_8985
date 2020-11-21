@@ -145,6 +145,16 @@ class Business extends Model
             ->orderBy('created_at', 'ASC');
     }
 
+    public function photos() {
+        return $this->hasMany(
+            'App\\FileUpload',
+            'business_id',
+            'id'
+        )
+            ->where('upload_type', '=', 'business.photo')
+            ->orderBy('created_at', 'ASC');
+    }
+
     public function rating()
     {
         return round($this->reviews->avg('rating'), 1);

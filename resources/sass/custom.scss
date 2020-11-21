@@ -10,6 +10,14 @@
   padding-bottom: 72px;
 }
 
+.business-image-slideshow {
+  height: 100px;
+  overflow: hidden;
+  img {
+
+  }
+}
+
 button {
   &.promote, &.demote{
     display: inline-block;
