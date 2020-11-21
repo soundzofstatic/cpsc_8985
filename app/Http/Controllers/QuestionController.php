@@ -159,41 +159,47 @@ class QuestionController extends Controller
     }
 
     public function reply(Request $request)
-            {
-                try {
+    {
+        try {
 
-                    if (Auth::check()) {
+            if (Auth::check()) {
 
-                        $lastFeedback = Feedback::where('review_id', '=', $request->input('review_id'))
-                            ->orderBy('sequence_number', 'DESC')
-                            ->first();
-                        $user = Auth::user();
+                $lastFeedback = Feedback::where('question_id', '=', $request->input('question_id'))
+                    ->orderBy('sequence_number', 'DESC')
+                    ->first();
+                $user = Auth::user();
 
-                        // Now Set the feedback associated with the review
-                        $feedback = new \App\Feedback();
-                        $feedback->user_id = $user->id;
-                        $feedback->question_id = $request->input('question_id');
-                        $feedback->review_id = null;
-                        $feedback->reply_on_type = 'App\\Question';
-                        $feedback->reply_on_feedback_id = $request->input('feedback_id');
-                        $feedback->sequence_number = $lastFeedback->sequence_number + 1;
-                        $feedback->text = $request->input('reply');
-                        $feedback->save();
+                // Now Set the feedback associated with the review
+                $feedback = new \App\Feedback();
+                $feedback->user_id = $user->id;
+                $feedback->question_id = $request->input('question_id');
+                $feedback->review_id = null;
+                $feedback->reply_on_type = 'App\\Question';
+                $feedback->reply_on_feedback_id = $request->input('feedback_id');
+                $feedback->sequence_number = $lastFeedback->sequence_number + 1;
+                $feedback->text = $request->input('reply');
+                $feedback->save();
 
-                        // Update the $review with the feedback_id
-                        return redirect()
-                            ->back()
-                            ->with(['message' => 'Successfully added Feedback']);
-                    }
+                // Update the $review with the feedback_id
+                return redirect()
+                    ->back()
+                    ->with(['message' => 'Successfully added Feedback']);
+            } else {
 
-                } catch (\Exception $e) {
+                return redirect()
+                    ->route('login')
+                    ->withErrors(['Must be logged in before you can answer a Business.']);
 
-                    Log::error($e->getMessage());
-                    return redirect()
-                        ->back()
-                        ->withErrors([$e->getMessage()]);
-
-                }
             }
+
+        } catch (\Exception $e) {
+
+            Log::error($e->getMessage());
+            return redirect()
+                ->back()
+                ->withErrors([$e->getMessage()]);
+
+        }
+    }
 
 }
