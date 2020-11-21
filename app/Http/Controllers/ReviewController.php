@@ -126,6 +126,12 @@ class ReviewController extends Controller
                 return redirect()
                     ->back()
                     ->with(['message' => 'Successfully added Feedback']);
+            } else {
+
+                return redirect()
+                    ->route('login')
+                    ->withErrors(['Must be logged in before you can review a Business.']);
+
             }
 
         } catch (\Exception $e) {
