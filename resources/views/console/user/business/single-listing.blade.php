@@ -313,37 +313,6 @@
                                 @endforeach
                             </div>
                             <!-- Questions End -->
-                            <script>
-                                $(document).ready(function(){
-
-                                    $('#review-button-toggle').click(function(){
-
-                                        $(this).data('active', 'true');
-                                        $(this).html('Reviews');
-                                        $(this).addClass('btn-danger').removeClass('btn-info');
-                                        $('#question-button-toggle').data('active', 'false');
-                                        $('#question-button-toggle').html('Show Questions');
-                                        $('#question-button-toggle').addClass('btn-info').removeClass('btn-danger');
-                                        $('.client-reviews.reviews').show();
-                                        $('.client-reviews.questions').hide();
-
-                                    });
-
-                                    $('#question-button-toggle').click(function(){
-
-                                        $(this).data('active', 'true');
-                                        $(this).html('Questions');
-                                        $(this).addClass('btn-danger').removeClass('btn-info');
-                                        $('#review-button-toggle').data('active', 'false');
-                                        $('#review-button-toggle').html('Show Reviews');
-                                        $('#review-button-toggle').addClass('btn-info').removeClass('btn-danger');
-                                        $('.client-reviews.reviews').hide();
-                                        $('.client-reviews.questions').show();
-
-                                    });
-
-                                });
-                            </script>
                         </div>
                     </div>
                     <div class="col-lg-4">
@@ -395,7 +364,7 @@
                                     <h4>Services</h4>
                                     <ul>
                                         @foreach($business->businessService as $businessService)
-                                            <li>{{ $businessService->service->name }}</li>
+                                            <li>{{ $businessService->service->name }} <a href="{{ route('console.user.businesses.business.update.service.destroy', ['business' => $business->id, 'user' => \Illuminate\Support\Facades\Auth::user()->id, 'service' => $businessService->id]) }}"><i class="fa fa-trash-o"></i></a></li>
                                         @endforeach
                                     </ul>
                                 </div>
@@ -458,6 +427,33 @@
                     }
                 }
             });
+
+            $('#review-button-toggle').click(function(){
+
+                $(this).data('active', 'true');
+                $(this).html('Reviews');
+                $(this).addClass('btn-danger').removeClass('btn-info');
+                $('#question-button-toggle').data('active', 'false');
+                $('#question-button-toggle').html('Show Questions');
+                $('#question-button-toggle').addClass('btn-info').removeClass('btn-danger');
+                $('.client-reviews.reviews').show();
+                $('.client-reviews.questions').hide();
+
+            });
+
+            $('#question-button-toggle').click(function(){
+
+                $(this).data('active', 'true');
+                $(this).html('Questions');
+                $(this).addClass('btn-danger').removeClass('btn-info');
+                $('#review-button-toggle').data('active', 'false');
+                $('#review-button-toggle').html('Show Reviews');
+                $('#review-button-toggle').addClass('btn-info').removeClass('btn-danger');
+                $('.client-reviews.reviews').hide();
+                $('.client-reviews.questions').show();
+
+            });
+
         });
         function likeButton(x, feedback_id) {
 
