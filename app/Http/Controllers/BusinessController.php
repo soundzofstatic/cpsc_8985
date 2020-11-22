@@ -386,6 +386,7 @@ class BusinessController extends Controller
                 ->orWhere('contact_email', 'like', '%' . $request->input('query') . '%')
                 ->orWhere('web_url', 'like', '%' . $request->input('query') . '%')
                 ->orWhere('contact_phone', 'like', '%' . $request->input('query') . '%')
+                ->orWhere('address', 'like', '%' . $request->input('query') . '%')
                 ->orderBy('name', 'asc')
                 ->orderBy('contact_email', 'asc')
                 ->orderBy('contact_phone', 'asc')
