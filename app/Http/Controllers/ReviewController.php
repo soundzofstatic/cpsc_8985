@@ -110,7 +110,7 @@ class ReviewController extends Controller
                 $feedback->user_id = $user->id;
                 $feedback->question_id = null;
                 $feedback->review_id = $request->input('review_id');
-                $feedback->reply_on_type = 'App\\Feedback';
+                $feedback->reply_on_type = 'App\\Review';
                 $feedback->reply_on_feedback_id = $request->input('feedback_id');
                 $feedback->sequence_number = $lastFeedback->sequence_number + 1;
                 $feedback->text = $request->input('reply');

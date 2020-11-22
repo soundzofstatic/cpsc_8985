@@ -172,7 +172,7 @@ class QuestionController extends Controller
         }
     }
 
-    public function reply(Request $request)
+    public function answer(Request $request)
     {
         try {
 
@@ -193,7 +193,7 @@ class QuestionController extends Controller
                 $feedback->reply_on_type = 'App\\Question';
                 $feedback->reply_on_feedback_id = $request->input('feedback_id');
                 $feedback->sequence_number = $lastFeedback->sequence_number + 1;
-                $feedback->text = $request->input('reply');
+                $feedback->text = $request->input('answer');
                 $feedback->save();
                 Alert::createAlert(
                             'user.question.reply',

@@ -527,8 +527,12 @@ class BusinessController extends Controller
             $upload->save();
 
             return redirect()
-                ->back()
-                ->with(['message' => 'Successfully Set photo for business.']);
+                ->route('console.user.businesses.business.business-console', ['user'=> $user, 'business'=>$business])
+                ->with(
+                    [
+                        'message' => 'Successfully Set photo for business.'
+                    ]
+                );
 
         } catch (\Exception $e) {
             Log::error($e->getMessage());
@@ -570,6 +574,78 @@ class BusinessController extends Controller
 
         } catch (\Exception $e) {
 
+            Log::error($e->getMessage());
+            return redirect()
+                ->back()
+                ->withErrors([$e->getMessage()]);
+
+        }
+
+    }
+
+    public function publicCreatePhoto(business $business, User $user, request $request)
+    {
+
+        try {
+
+            return view('console.user.business.businessimage')
+                ->with(
+                    compact(
+                        [
+                            'business'
+                        ]
+                    )
+                );
+
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return redirect()
+                ->back()
+                ->withErrors([$e->getMessage()]);
+
+        }
+
+    }
+
+    public function publicStorePhoto(business $business, User $user, request $request)
+    {
+
+        try {
+
+            if ($user->id != Auth::user()->id) {
+
+                throw new \Exception('Authenticated user must be the requesting user.');
+
+            }
+
+            $upload = new FileUpload();
+            $upload->user_id = $user->id;
+            $upload->business_id = $business->id;
+            $upload->is_active = true;
+            $upload->upload_type = 'business.photo';
+            // Save to file
+            $fileUpload = $request->file('file_path');
+            $path = $fileUpload->store('public/assets/business/photo');
+            $upload->file_type = 'image';
+            $upload->file_path = $path;
+            $upload->file_name = basename($path);
+            $upload->path_directory = $path;
+            preg_match('/\.[0-9A-Za-z]+$/', $path, $output_array);
+            $upload->file_extension = $output_array[0]; // file extension, includes leading .
+            $upload->file_size = $fileUpload->getSize();
+            $upload->mime_type = $fileUpload->getMimeType();
+            $upload->alt_text = $request->input('alt-text');
+            $upload->save();
+
+            return redirect()
+                ->route('business.home', ['business'=>$business])
+                ->with(
+                    [
+                        'message' => 'Successfully Set photo for business.'
+                    ]
+                );
+
+        } catch (\Exception $e) {
             Log::error($e->getMessage());
             return redirect()
                 ->back()

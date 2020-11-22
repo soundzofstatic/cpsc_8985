@@ -225,6 +225,12 @@ Route::prefix('business')->name('business.')->group(function () {
         Route::prefix('/action')->name('action.')->group(function () {
             Route::post('/store-review', 'BusinessController@storeReview')->name('store-review');
         });
+        Route::prefix('photo')->name('photo.')->group(function () {
+            Route::prefix('{user}')->name('user.')->group(function () {
+                Route::get('/upload-photo', 'BusinessController@publicCreatePhoto')->name('upload-photo');
+                Route::post('/store-photo', 'BusinessController@publicStorePhoto')->name('store-photo');
+            });
+        });
     });
 });
 
@@ -288,7 +294,7 @@ Route::post('/question-disable' ,'QustionController@disableQuestion')->name('que
 
 Route::post('/question','ReviewController@question')->name('question');
 // Reply on a question
-Route::post('/question-reply' ,'QuestionController@reply')->name('question-reply');
+Route::post('/question-answer' ,'QuestionController@answer')->name('question-answer');
 //
 Route::post('/filter-search','BusinessServiceController@searchFilter')->name('filter');
 

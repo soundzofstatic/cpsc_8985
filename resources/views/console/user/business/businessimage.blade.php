@@ -6,6 +6,7 @@
         <div class="row">
             <div class="col">
                 <h1>Business Profile picture Settings</h1>
+{{--                @dd(\Request::route()->getName())--}}
             </div>
         </div>
         <!-- Avatar Begin -->
@@ -31,7 +32,11 @@
 {{--                                </div>--}}
 {{--                            </div>--}}
 {{--                        @endif--}}
-                        <form method="POST" action="{{ route('console.user.businesses.business.update.photo.store-photo', ['user' => \Illuminate\Support\Facades\Auth::user()->id, 'business' => $business->id]) }}" enctype="multipart/form-data">
+                        @if(\Request::route()->getName() == 'business.photo.user.upload-photo')
+                            <form method="POST" action="{{ route('business.photo.user.store-photo', ['user' => \Illuminate\Support\Facades\Auth::user()->id, 'business' => $business->id]) }}" enctype="multipart/form-data">
+                        @else
+                            <form method="POST" action="{{ route('console.user.businesses.business.update.photo.store-photo', ['user' => \Illuminate\Support\Facades\Auth::user()->id, 'business' => $business->id]) }}" enctype="multipart/form-data">
+                        @endif
                             @csrf
 
                             <div class="form-group row">
