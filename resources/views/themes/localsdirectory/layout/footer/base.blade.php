@@ -13,11 +13,7 @@
                 <div class="footer-widget">
                     <h4>Usefull Links</h4>
                     <ul>
-                        <li>About us</li>
-                        <li>Testimonials</li>
-                        <li>Events</li>
-                        <li>Create an account</li>
-                        <li>Our Services</li>
+                        <li><a href="/">Home</a></li>
                     </ul>
                 </div>
             </div>
@@ -25,11 +21,7 @@
                 <div class="footer-widget">
                     <h4>Categories</h4>
                     <ul>
-                        <li>Hotels</li>
-                        <li>Restaurant</li>
-                        <li>Spa & resorts</li>
-                        <li>Concert & Events</li>
-                        <li>Bars & Pubs</li>
+                        <li><a href="{{ route('business.show-all') }}">Businesses</a></li>
                     </ul>
                 </div>
             </div>
@@ -37,35 +29,34 @@
                 <div class="footer-widget">
                     <h4>Useful Links</h4>
                     <ul>
-                        <li>About us</li>
-                        <li>Testimonials</li>
-                        <li>Events</li>
-                        <li>Create an account</li>
-                        <li>Our Services</li>
+{{--                        <li>About us</li>--}}
+{{--                        <li>Testimonials</li>--}}
+                        <li><a href="{{ route('events.home') }}">Events</a></li>
+{{--                        <li>Create an account</li>--}}
+{{--                        <li>Our Services</li>--}}
                     </ul>
                 </div>
             </div>
             <div class="col-lg-3 col-sm-6">
                 <div class="footer-widget">
-                    <h4>From the Blog</h4>
-                    <div class="single-blog">
-                        <div class="blog-pic">
-                            <img src="{{ parse_url(asset('img/f-blog-1.jpg'), PHP_URL_PATH) }}" alt="">
+                    <h4>Newest on the Platform</h4>
+                    @foreach(\App\Business::limit(2)->orderBy('created_at', 'desc')->get() as $business)
+                        <div class="single-blog">
+                            <a href="{{ route('business.home', ['business' => $business->id]) }}">
+                                <div class="blog-pic">
+                                    @if(!empty($business->mainPhoto))
+                                        <img src="/storage/{{ str_replace("public/", "", $business->mainPhoto->file_path) }}" alt="{{ $business->mainPhoto->alt_text }}">
+                                    @else
+                                        <img src="{{ parse_url(asset('img/f-blog-1.jpg'), PHP_URL_PATH) }}" alt="">
+                                    @endif
+                                </div>
+                                <div class="blog-text">
+                                    <h6>{{ $business->name }}</h6>
+                                    <span>{{ $business->created_at->format('F d, Y') }}</span>
+                                </div>
+                            </a>
                         </div>
-                        <div class="blog-text">
-                            <h6>10 Best clubs in town</h6>
-                            <span>March 27, 2019</span>
-                        </div>
-                    </div>
-                    <div class="single-blog">
-                        <div class="blog-pic">
-                            <img src="{{ parse_url(asset('img/f-blog-2.jpg'), PHP_URL_PATH) }}" alt="">
-                        </div>
-                        <div class="blog-text">
-                            <h6>10 Best clubs in town</h6>
-                            <span>March 27, 2019</span>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -80,10 +71,10 @@
             <div class="col-lg-7 text-center text-lg-right order-1 order-lg-2">
                 <div class="footer-menu">
                     <a href="/">Home</a>
-                    <a href="{{ route('theme.events') }}">Explore</a>
-                    <a href="{{ route('theme.listings') }}">More Cities</a>
-                    <a href="{{ route('theme.blog') }}">News</a>
-                    <a href="{{ route('theme.contact') }}">Contact</a>
+                    <a href="{{ route('business.show-all') }}">Businesses</a>
+                    <a href="{{ route('events.home') }}">Events</a>
+                    <a href="{{ route('register') }}">Register</a>
+                    <a href="{{ route('login') }}">Login</a>
                 </div>
             </div>
         </div>

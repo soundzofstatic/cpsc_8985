@@ -56,7 +56,7 @@
                             <div class="share-btn">
                                 <a href="{{ route('business.check-in', ['business'=>$business->id]) }}" class="share">Check-in</a>
                                 <a href="{{ route('review-create',['business'=>$business->id]) }}">Submit a Review</a>
-                                <a href="{{ route('business.photo.user.upload-photo', ['user' => \Illuminate\Support\Facades\Auth::user()->id, 'business' => $business->id]) }}" class="primary-btn">Upload Business image</a>
+                                <a href="{{ route('business.photo.upload-photo', ['business' => $business->id]) }}" class="primary-btn">Upload Business image</a>
 
                             </div>
                             <div class="share-icon">

@@ -209,3 +209,8 @@ a {
  .reviews-item {
    border-bottom: solid 1px $primary;
  }
+
+.pagination-num a.active {
+  color: #fff;
+  background: #f44b00;
+}

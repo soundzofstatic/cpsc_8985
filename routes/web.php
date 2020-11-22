@@ -215,21 +215,21 @@ Route::prefix('user')->name('user.')->group(function () {
 // Business Pages/Routes
 Route::prefix('business')->name('business.')->group(function () {
 
+    Route::get('/all/{page?}', 'BusinessController@index')->name('show-all');
+
     Route::prefix('{business}')->group(function () {
         Route::get('/', 'BusinessController@show')->name('home');
         Route::get('/check-in', 'BusinessCheckInController@store')->name('check-in');
-        Route::prefix('/bookmark')->name('bookmark.')->group(function () {
+        Route::prefix('/bookmark')->name('bookmark.')->middleware('auth')->group(function () {
             Route::get('/store', 'BookmarkController@store')->name('store');
             Route::get('/destroy/{bookmark}', 'BookmarkController@destroy')->name('destroy');
         });
-        Route::prefix('/action')->name('action.')->group(function () {
+        Route::prefix('/action')->name('action.')->middleware('auth')->group(function () {
             Route::post('/store-review', 'BusinessController@storeReview')->name('store-review');
         });
-        Route::prefix('photo')->name('photo.')->group(function () {
-            Route::prefix('{user}')->name('user.')->group(function () {
-                Route::get('/upload-photo', 'BusinessController@publicCreatePhoto')->name('upload-photo');
-                Route::post('/store-photo', 'BusinessController@publicStorePhoto')->name('store-photo');
-            });
+        Route::prefix('photo')->name('photo.')->middleware('auth')->group(function () {
+            Route::get('/upload-photo', 'BusinessController@publicCreatePhoto')->name('upload-photo');
+            Route::post('/store-photo', 'BusinessController@publicStorePhoto')->name('store-photo');
         });
     });
 });

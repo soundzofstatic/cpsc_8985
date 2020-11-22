@@ -55,13 +55,13 @@
                             </a>
                         </div>
                     @endforeach
-                    <div class="col-lg-12 text-right">
-                        <div class="pagination-num">
-                            <a href="#">01</a>
-                            <a href="#">02</a>
-                            <a href="#">03</a>
-                        </div>
-                    </div>
+{{--                    <div class="col-lg-12 text-right">--}}
+{{--                        <div class="pagination-num">--}}
+{{--                            <a href="#">01</a>--}}
+{{--                            <a href="#">02</a>--}}
+{{--                            <a href="#">03</a>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
                 </div>
                 {{--                @foreach($user->businesses as $business)--}}
                 {{--                    <div class="row mb-2" style="border: thin solid red">--}}

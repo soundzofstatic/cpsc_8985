@@ -29,7 +29,7 @@ class Alert
         $alert->alert_type = $alert_type;
         $alert->save();
 
-        if($alert_type == 'user.question.store') {
+        if($alert_type == 'user.question.store' OR $alert_type == 'business.photo.store') {
 
             // Create an alert for the Business Owner
             $businessOwnerAlert = new \App\Alert();

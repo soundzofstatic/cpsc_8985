@@ -22,9 +22,28 @@ class BusinessController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($page = 0)
     {
-        //
+
+        $totalBusinessess = Business::get()->count();
+        $totalPages = floor(($totalBusinessess/9));
+
+        $businesses = Business::offset(((int)$page == 0 OR (int)$page == 1) ? 0 : ((int)$page * 9))
+            ->limit(9)
+            ->orderBy('name', 'ASC')
+            ->get();
+
+        return view('business.show-all')
+            ->with(
+                compact(
+                    [
+                        'businesses',
+                        'totalBusinessess',
+                        'totalPages',
+                        'page'
+                    ]
+                )
+            );;
     }
 
     /**
@@ -619,19 +638,19 @@ class BusinessController extends Controller
 
     }
 
-    public function publicStorePhoto(business $business, User $user, request $request)
+    public function publicStorePhoto(business $business, request $request)
     {
 
         try {
 
-            if ($user->id != Auth::user()->id) {
+            if (!Auth::check()) {
 
-                throw new \Exception('Authenticated user must be the requesting user.');
+                throw new \Exception('User must be authenticated');
 
             }
 
             $upload = new FileUpload();
-            $upload->user_id = $user->id;
+            $upload->user_id = Auth::user()->id;
             $upload->business_id = $business->id;
             $upload->is_active = true;
             $upload->upload_type = 'business.photo';
@@ -648,6 +667,13 @@ class BusinessController extends Controller
             $upload->mime_type = $fileUpload->getMimeType();
             $upload->alt_text = $request->input('alt-text');
             $upload->save();
+
+            Alert::createAlert(
+                'business.photo.store',
+                'Successfully uploaded a business image for ' . $business->name,
+                Auth::user(),
+                $business
+            );
 
             return redirect()
                 ->route('business.home', ['business'=>$business])
