@@ -48,7 +48,11 @@
     </div>
 </section>
 @if(!empty($promotedBusiness3))
-    <section class="promo-section promo-3 set-bg p-5" data-setbg="{{ parse_url(asset('img/hero-bg.jpg'), PHP_URL_PATH) }}">
+    @if(!empty($promotedBusiness3->business->mainPhoto))
+        <section class="promo-section promo-3 set-bg p-5" data-setbg="/storage/{{ str_replace("public/", "", $promotedBusiness3->business->mainPhoto->file_path) }}">
+    @else
+        <section class="promo-section promo-3 set-bg p-5" data-setbg="{{ parse_url(asset('img/hero-bg.jpg'), PHP_URL_PATH) }}">
+    @endif
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
