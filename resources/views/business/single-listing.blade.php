@@ -174,7 +174,7 @@
                                                                         <input type="hidden" name="feedback_id" value="{{$review->originalFeedback->id}}"/>
                                                                         <input type="hidden" name="review_id" value="{{$review->id}}"/>
                                                                         <div class="form-group text-center">
-                                                                            <button type="submit" name="submit" class="btn btn-outline-dark send-btn" id="{{$relatedFeedback->id}}"><i class="fa fa-paper-plane"></i> Submit</button>
+                                                                            <button type="submit" name="submit" class="btn btn-outline-dark send-btn"><i class="fa fa-paper-plane"></i> Submit</button>
                                                                         </div>
                                                                     </form>
                                                                 </div>
@@ -239,7 +239,7 @@
                                                                 <input type="hidden" name="feedback_id" value="{{$question->originalFeedback->id}}"/>
                                                                 <input type="hidden" name="question_id" value="{{$question->id}}"/>
                                                                 <div class="form-group text-center">
-                                                                    <button type="submit" name="submit" class="btn btn-outline-dark send-btn" id="{{$relatedFeedback->id}}"><i class="fa fa-paper-plane"></i> Submit</button>
+                                                                    <button type="submit" name="submit" class="btn btn-outline-dark send-btn"><i class="fa fa-paper-plane"></i> Submit</button>
                                                                 </div>
                                                             </form>
                                                         </div>
