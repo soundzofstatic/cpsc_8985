@@ -1,5 +1,5 @@
 @extends('themes.localsdirectory.layout.base')
-@section ('page_name')Single Listing
+@section ('page_name'){{ $business->name }}
 @endsection
 @section('styles')
 @endsection
