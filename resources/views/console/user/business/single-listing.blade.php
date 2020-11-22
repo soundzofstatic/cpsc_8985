@@ -11,7 +11,13 @@
     @else
         <div class="hero-listing set-bg" data-setbg="{{ asset('img/hero_listing.jpg') }}">
     @endif
-            <h1>{{ $business->name }}</h1>
+            <div class="container promoted-hero-wrap">
+                <div class="row promoted-hero">
+                    <div class="col-md-12">
+                        <h1>{{ $business->name }}</h1>
+                    </div>
+                </div>
+            </div>
     </div>
     <section class="testimonial-section">
         <div class="container">
@@ -36,14 +42,30 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-7">
-                        <div class="about-intro">
-                            <div class="rating">{{ $business->rating() }}</div>
-                            <div class="intro-text">
+                        <div class="about-intro row">
+                            <div class="col-sm-2">
+                                <div class="rating-2"> {{ $business->rating() }}</div>
+                                <div class="stars">
+                                    @for($i=0;$i< floor($business->rating());$i++)
+                                        <i class="fa fa-star"></i>
+                                    @endfor
+                                    @if($business->rating() > floor($business->rating()) AND $business->rating() < ceil($business->rating()))
+                                        <i class="fa fa-star-half-o"></i>
+                                    @endif
+                                </div>
+                                <div class="dollars">
+                                    @for($i=0;$i<$business->dollar_rating;$i++)
+                                        <i class="fa fa-usd"></i>
+                                    @endfor
+                                </div>
+                            </div>
+                            <div class="col-sm-10 text">
                                 <h2>{{ $business->name }}</h2>
                                 <p>Explore some of the best places in the world</p>
-                                {{--                                <div class="open">Opens Tomorow at 10am</div>--}}
-                                {{--                                <div class="closed">Closed now</div>--}}
-                                <div class="open">Visits - {{ $business->businessVisit->count() }}</div>
+                                <div class="visits">Visits - {{ $business->businessVisit->count() }}</div>
+                                <div class="reviews">Reviews - {{ $business->reviews->count() }}</div>
+                                <div class="questions">Questions - {{ $business->questions->count() }}</div>
+                                <div class="check-ins">Check-ins - {{ $business->businessCheckIn->count() }}</div>
                             </div>
                         </div>
                     </div>
@@ -60,15 +82,9 @@
                                 @endif
                                 <a href="{{route('console.user.businesses.business.edit', ['user'=> \Illuminate\Support\Facades\Auth::user()->id, 'business' => $business->id])}}" class="btn btn-danger">Edit Business</a>
                                 <a href="{{route('console.user.businesses.business.update.events.create', ['user'=> \Illuminate\Support\Facades\Auth::user()->id, 'business' => $business->id])}}" class="btn btn-danger m-1">Create an Event</a>
-                                <a href="{{route('console.user.businesses.business.update.service.create', ['user'=> \Illuminate\Support\Facades\Auth::user()->id, 'business' => $business->id])}}" class="btn btn-danger m-1">Create a Service</a>
                                 <a href="{{ route('console.user.businesses.business.update.photo.upload-photo', ['user' => \Illuminate\Support\Facades\Auth::user()->id, 'business' => $business->id]) }}"  class="btn btn-danger m-1">Upload Business image</a>
                             </div>
                             <div class="share-icon">
-                                {{--                                <a href="#"><i class="fa fa-map-marker"></i></a>--}}
-                                {{--                                <a href="#"><i class="fa fa-book"></i></a>--}}
-                                {{--                                <a href="#"><i class="fa fa-hand-o-right"></i></a>--}}
-                                {{--                                <a href="#"><i class="fa fa-user-o"></i></a>--}}
-                                {{--                                <a href="#"><i class="fa fa-star-o"></i></a>--}}
                                 @foreach($business->businessSocialMedia as $socialMedia)
                                     @if(\App\BusinessSocialMedia::SOCIAL_MEDIA_PROVIDERS[0] == $socialMedia->social_media_provider)
                                         <a href="{{ $socialMedia->social_media_link }}" target="_blank"><i
@@ -87,11 +103,6 @@
                                                     class="fa fa-youtube"></i></a>
                                     @endif
                                 @endforeach
-                            </div>
-                            <div class="share-icon">
-                                @for($i=0;$i<$business->dollar_rating;$i++)
-                                    <i class="fa fa-usd"></i>
-                                @endfor
                             </div>
                         </div>
                     </div>
@@ -255,58 +266,6 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                {{--                                                    <div class="col-md-12">--}}
-                                                {{--                                                        <button type="button" class="btn text-danger ml-5 btn-sm" data-toggle="collapse" data-target="#reply-{{ $review->originalFeedback->id }}" aria-expanded="false" aria-controls="collapseExample">Reply--}}
-                                                {{--                                                        </button>--}}
-                                                {{--                                                        <div class="row">--}}
-                                                {{--                                                            <div class="collapse col-md-11 offset-md-1" id="reply-{{ $review->originalFeedback->id }}">--}}
-                                                {{--                                                                <form action="{{route('review-reply')}}" method="POST" class="col-md-12">--}}
-                                                {{--                                                                    @csrf--}}
-                                                {{--                                                                    <div class="form-group">--}}
-                                                {{--                                                                        <label for="reply-{{ $review->originalFeedback->id }}" class="sr-only">Reply</label>--}}
-                                                {{--                                                                        <textarea class="form-control" id="reply-{{ $review->originalFeedback->id }}" name="reply" style="min-height: 100px;">--}}
-                                                {{--                                                                            </textarea>--}}
-                                                {{--                                                                    </div>--}}
-                                                {{--                                                                    <input type="hidden" name="business_id" value="{{$business->id}}"/>--}}
-                                                {{--                                                                    <input type="hidden" name="feedback_id" value="{{$review->originalFeedback->id}}"/>--}}
-                                                {{--                                                                    <input type="hidden" name="review_id" value="{{$review->id}}"/>--}}
-                                                {{--                                                                    <div class="form-group text-center">--}}
-                                                {{--                                                                        <button type="submit" name="submit" class="btn btn-outline-dark send-btn" id="{{$relatedFeedback->id}}"><i class="fa fa-paper-plane"></i> Submit</button>--}}
-                                                {{--                                                                    </div>--}}
-                                                {{--                                                                </form>--}}
-                                                {{--                                                            </div>--}}
-                                                {{--                                                        </div>--}}
-                                                {{--                                                    </div>--}}
-
-
-
-                                                {{--                                                <button type="button" class="btn text-danger ml-5 btn-sm"--}}
-                                                {{--                                                        data-toggle="collapse"--}}
-                                                {{--                                                        data-target="#reply-{{ $question->originalFeedback->id }}"--}}
-                                                {{--                                                        aria-expanded="false"--}}
-                                                {{--                                                        aria-controls="collapseExample" style="height: 7px; box-shadow: none;">Answer--}}
-                                                {{--                                                </button>--}}
-                                                {{--                                                <div class="collapse" id="reply-{{ $question->originalFeedback->id }}">--}}
-                                                {{--                                                    <form action="{{route('question-answer')}}" method="post"--}}
-                                                {{--                                                          class="row">--}}
-                                                {{--                                                        @csrf--}}
-                                                {{--                                                        <div class="form-group">--}}
-                                                {{--                                                            <label for="reply-{{ $question->originalFeedback->id }}">Answer</label>--}}
-                                                {{--                                                            <textarea class="form-control"--}}
-                                                {{--                                                                      id="reply-{{ $question->originalFeedback->id }}"--}}
-                                                {{--                                                                      name="reply">--}}
-                                                {{--                                                            </textarea>--}}
-                                                {{--                                                        </div>--}}
-                                                {{--                                                        <input type="hidden" name="business_id"--}}
-                                                {{--                                                               value="{{$business->id}}"/>--}}
-                                                {{--                                                        <input type="hidden" name="feedback_id"--}}
-                                                {{--                                                               value="{{$question->originalFeedback->id}}"/>--}}
-                                                {{--                                                        <input type="hidden" name="question_id" value="{{$question->id}}"/>--}}
-                                                {{--                                                        <button type="submit" name="submit"--}}
-                                                {{--                                                                class="col-1 fa fa-paper-plane send-btn"--}}
-                                                {{--                                                                id="{{$relatedFeedback->id}}"/>--}}
-                                                {{--                                                    </form>--}}
-                                                {{--                                                </div>--}}
                                             </div>
                                         </div>
                                     </div>
@@ -367,6 +326,11 @@
                                             <li>{{ $businessService->service->name }} <a href="{{ route('console.user.businesses.business.update.service.destroy', ['business' => $business->id, 'user' => \Illuminate\Support\Facades\Auth::user()->id, 'service' => $businessService->id]) }}"><i class="fa fa-trash-o"></i></a></li>
                                         @endforeach
                                     </ul>
+                                    <div class="row mb-3">
+                                        <div class="col-md-12 text-center">
+                                            <a href="{{route('console.user.businesses.business.update.service.create', ['user'=> \Illuminate\Support\Facades\Auth::user()->id, 'business' => $business->id])}}" class="btn btn-danger btn-sm">Create a Service</a>
+                                        </div>
+                                    </div>
                                 </div>
                                 <!-- Business Services End -->
                             </div>

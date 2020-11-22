@@ -22,7 +22,7 @@ class Business extends Model
         return $this->hasMany(
             BusinessVisit::class,
             'business_id',
-            'business_id'
+            'id'
         );
 
     }

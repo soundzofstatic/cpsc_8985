@@ -205,6 +205,19 @@ a {
      }
    }
  }
+.hero-listing {
+  .promoted-hero-wrap {
+    position: relative;
+    .promoted-hero {
+      //position: absolute;
+      //bottom: 1em;
+      padding: 1em 1em 4em 1em;
+      right: 2em;
+      width: 50%;
+      background-color: rgba(255, 255, 255, .63);
+    }
+  }
+}
 
  .reviews-item {
    border-bottom: solid 1px $primary;
@@ -213,4 +226,104 @@ a {
 .pagination-num a.active {
   color: #fff;
   background: #f44b00;
+}
+
+.about-intro .rating-2 {
+  height: 55px;
+  width: 55px;
+  background: #F44B00;
+  text-align: center;
+  line-height: 55px;
+  border-radius: 50%;
+  font-size: 16px;
+  font-weight: 900;
+  color: #fff;
+  //position: absolute;
+  //left: 0;
+  //top: 12px;
+}
+
+.about-intro .stars {
+  //height: 100px;
+  //width: 100px;
+  text-align: left;
+  //line-height: 55px;
+  font-size: 18px;
+  font-weight: 900;
+  color: $primary;
+  //position: absolute;
+  //left: 0;
+  //bottom: -8px;
+}
+.about-intro .dollars {
+  //height: 100px;
+  //width: 100px;
+  text-align: left;
+  //line-height: 55px;
+  font-size: 18px;
+  font-weight: 900;
+  color: $primary;
+  //position: absolute;
+  //left: 0;
+  //bottom: -30px;
+}
+.about-intro .text h2 {
+  color: #242424;
+  font-size: 48px;
+  font-weight: 700;
+}
+
+.about-intro .text p {
+  color: #787878;
+  font-size: 18px;
+  letter-spacing: 0.2px;
+  margin-bottom: 20px;
+  line-height: 35px;
+}
+
+.about-intro .text .reviews {
+  display: inline-block;
+  padding: 7px 20px;
+  background: $tertiary;
+  font-size: 14px;
+  color: #fff;
+  letter-spacing: 0.2px;
+  margin-right: 12px;
+  margin-bottom: 15px;
+}
+.about-intro .text .check-ins {
+  display: inline-block;
+  padding: 7px 20px;
+  background: #6063ED;
+  font-size: 14px;
+  color: #fff;
+  letter-spacing: 0.2px;
+  margin-right: 12px;
+  margin-bottom: 15px;
+}
+.about-intro .text .visits {
+  display: inline-block;
+  padding: 7px 20px;
+  background: $accent_secondary;
+  font-size: 14px;
+  color: #fff;
+  letter-spacing: 0.2px;
+  margin-right: 12px;
+  margin-bottom: 15px;
+}
+.about-intro .text .questions {
+  display: inline-block;
+  padding: 7px 20px;
+  background: $red;
+  font-size: 14px;
+  color: #fff;
+  letter-spacing: 0.2px;
+  margin-right: 12px;
+  margin-bottom: 15px;
+}
+.share-btn .reviews {
+  background: $tertiary !important;
+}
+.share-btn .check-ins {
+  background: #6063ED !important;
 }
