@@ -152,7 +152,7 @@ Route::prefix('console')->name('console.')->middleware('auth')->group(function (
 
                         Route::get('/create', 'PromotedBusinessController@create')->name('create');
                         Route::post('/store', 'PromotedBusinessController@store')->name('store');
-
+                        Route::get('/', 'PromotedBusinessController@index')->name('result-page');
                         Route::prefix('{promoted_business}')->group(function () {
 
                         });

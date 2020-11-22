@@ -47,22 +47,22 @@
         </div>
     </div>
 </section>
-{{--    todo - replace with dynamic Promotion --}}
-{{--    todo - replace static image with business image if available--}}
-<section class="promo-section promo-3 set-bg p-5" data-setbg="{{ parse_url(asset('img/hero-bg.jpg'), PHP_URL_PATH) }}">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="promo-text">
-                    <h2>Promo Business Name</h2>
-                    <p>Some teaser text or business info line</p>
-                    <a href="#" class="btn btn-lg btn-info">See business</a>
+@if(!empty($promotedBusiness3))
+    <section class="promo-section promo-3 set-bg p-5" data-setbg="{{ parse_url(asset('img/hero-bg.jpg'), PHP_URL_PATH) }}">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="promo-text">
+                        <h2>{{ $promotedBusiness3->business->name }}</h2>
+                        <p>Some teaser text or business info line</p>
+                        <a href="{{ route('business.home', ['business' => $promotedBusiness3->business->id]) }}" class="btn btn-lg btn-info">See business</a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="promo-label">
-        <span>Promotion</span>
-    </div>
-</section>
+        <div class="promo-label">
+            <span>Promotion</span>
+        </div>
+    </section>
+@endif
 <!-- Result Section End -->
