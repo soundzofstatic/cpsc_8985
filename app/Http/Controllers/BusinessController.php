@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Business;
 use App\BusinessSocialMedia;
 use App\BusinessVisit;
+use App\PromotedBusiness;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -368,11 +369,21 @@ class BusinessController extends Controller
                 ->orderBy('web_url', 'asc')
                 ->get();
 
+            $now = Carbon::now();
+
+            $promotedBusiness3 =PromotedBusiness::where('is_active','=',true)
+                ->where('promo_location','=','location_3')
+                ->where('start_date','<=', $now)
+                ->where('end_date','>=', $now)
+                ->orderBy('created_at', 'DESC')
+                ->first();
+
             return view('search.results')
                 ->with(
                     compact(
                         [
-                            'businesses'
+                            'businesses',
+                            'promotedBusiness3'
                         ]
                     )
                 );

@@ -19,21 +19,7 @@ class PromotedBusinessController extends Controller
      */
     public function index()
     {
-        $promotedBusiness3 =PromotedBusiness::where('is_active','=',true)
-            ->where('promo_location','=','location_3')
-            ->where('start_date','<=',Carbon::createFromFormat('Y-m-d'))
-            ->where('end_date','>=',Carbon::createFromFormat('Y-m-d'))
-            ->orderBy('created_at', 'DESC')
-            ->first();
-
-        return view('index')
-            ->with(
-                compact(
-                    [
-                        'promotedBusiness3',
-                    ]
-                )
-            );
+        //
     }
 
     /**
