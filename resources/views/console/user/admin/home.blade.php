@@ -179,7 +179,7 @@
             </div>
             <div class="col-md-12">
                 @foreach($reviews as $review)
-                    <div class="review-item pb-3">
+                    <div class="review-item p-3">
                         <div class="rating">
                             @for($i=0;$i<$review->rating;$i++)
                                 <i class="fa fa-star"></i>
@@ -188,7 +188,7 @@
                                 <i class="fa fa-star-o"></i>
                             @endfor
                         </div>
-                        <h5>Review Title</h5>
+                        <h5>On {{ $review->business->name }}</h5>
                         <p>{{ $review->originalFeedback->text }}</p>
                         <div class="client-text">
                             <h5><a href="{{ route('user.home', ['user' => $review->user_id]) }}" class="author-link">{{ $review->user->first_name }} {{ $review->user->last_name }}</a></h5>
@@ -227,8 +227,8 @@
             </div>
             <div class="col-md-12">
                 @foreach($questions as $question)
-                    <div class="review-item pb-3">
-                        <h5>Question Title</h5>
+                    <div class="review-item p-3">
+                        <h5>On {{ $question->business->name }}</h5>
                         <p>{{ $question->originalFeedback->text }}</p>
                         <div class="client-text">
                             <h5><a href="{{ route('user.home', ['user' => $question->user_id]) }}" class="author-link">{{ $question->user->first_name }} {{ $question->user->last_name }}</a></h5>

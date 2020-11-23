@@ -125,7 +125,8 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         @foreach($business->reviews as $key=>$review)
-                                            <div id="feedback-{{ $review->originalFeedback->id }}" class="reviews-item col-md-12">
+                                            @if($review->is_active)
+                                                <div id="feedback-{{ $review->originalFeedback->id }}" class="reviews-item col-md-12">
                                                 <div class="rating">
                                                     @for($i=0;$i<$review->rating;$i++)
                                                         <i class="fa fa-star"></i>
@@ -187,6 +188,7 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            @endif
                                         @endforeach
                                     </div>
                                 </div>
@@ -201,7 +203,8 @@
                             <div class="client-reviews questions row">
                                 <h3>Questions - {{ $business->reviews->count() }}</h3>
                                 @foreach($business->lastHundredQuestions as $question)
-                                    <div id="feedback-{{ $question->originalFeedback->id }}" class="reviews-item col-md-12 quesiton-{{$question->id}}">
+                                    @if($question->is_active)
+                                        <div id="feedback-{{ $question->originalFeedback->id }}" class="reviews-item col-md-12 quesiton-{{$question->id}}">
 {{--                                        <h5>Question Title {{$question->id}}</h5>--}}
                                         <p>{{ $question->originalFeedback['text'] }}</p>
                                         <div class="client-text">
@@ -251,6 +254,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    @endif
                                 @endforeach
                             </div>
                             <!-- Questions End -->

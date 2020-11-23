@@ -116,7 +116,7 @@ class ReviewController extends Controller
                 $feedback->text = $request->input('reply');
                 $feedback->save();
                 Alert::createAlert(
-                    'user.review.store',
+                    'user.review.reply',
                     'Successfully made a review',
                     $user,
                     $business
