@@ -6,6 +6,7 @@ use App\Business;
 use App\Feedback;
 use App\Helpers\Alert;
 use App\Question;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -136,10 +137,10 @@ class QuestionController extends Controller
 
     /**
      * @param User $user
-     * @param Review $question
+     * @param Question $question
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function disableQuestion(User $user, Review $question)
+    public function disableQuestion(User $user, Question $question)
     {
 
         try {
@@ -170,6 +171,46 @@ class QuestionController extends Controller
                 ->withErrors([$e->getMessage()]);
 
         }
+    }
+
+    /**
+     * @param User $user
+     * @param Question $question
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function enableQuestion(User $user, Question $question)
+    {
+
+        try {
+
+            if($user->id != Auth::user()->id) {
+
+                throw new \Exception('Requesting user must be the authenticated user.');
+
+            }
+
+            if(!$user->isAdmin()) {
+
+                throw new \Exception('Requesting user must be administrator.');
+
+            }
+
+            $question->is_active = true;
+            $question->save();
+
+            return redirect()
+                ->back()
+                ->with(['message' => 'Successfully enabled question: ' . $question->id]);
+
+        } catch (\Exception $e) {
+
+            Log::error($e->getMessage());
+            return redirect()
+                ->back()
+                ->withErrors([$e->getMessage()]);
+
+        }
+
     }
 
     public function answer(Request $request)

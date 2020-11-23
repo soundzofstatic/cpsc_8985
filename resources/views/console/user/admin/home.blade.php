@@ -220,6 +220,46 @@
                 @endforeach
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Questions</h2>
+                <p>Last 5 Questions submitted for all businesses</p>
+            </div>
+            <div class="col-md-12">
+                @foreach($questions as $question)
+                    <div class="review-item pb-3">
+                        <h5>Question Title</h5>
+                        <p>{{ $question->originalFeedback->text }}</p>
+                        <div class="client-text">
+                            <h5><a href="{{ route('user.home', ['user' => $question->user_id]) }}" class="author-link">{{ $question->user->first_name }} {{ $question->user->last_name }}</a></h5>
+                            <span>{{ $question->created_at->format('F j, Y, g:i a') }}</span>
+                        </div>
+                        <div class="col-md-12 mt-2">
+                            <div class="row">
+                                @foreach($question->relatedFeedbacks as $relatedFeedback)
+                                    <div class="col-md-11 offset-md-1 mb-5 related-feedback" style="border-left: solid thin red;">
+                                        <p>{{ $relatedFeedback->text }}</p>
+                                        <div class="client-text">
+                                            <h5><a href="{{ route('user.home', ['user' => $relatedFeedback->user_id]) }}" class="author-link">{{ $relatedFeedback->user->first_name }} {{ $relatedFeedback->user->last_name }}</a></h5>
+                                            <span>{{ $relatedFeedback->created_at->format('F j, Y, g:i a') }}</span>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                        <div class="disable-enable">
+                            @if($question->is_active)
+                                <a href="{{ route('console.user.admin.update.question.disable', ['user'=> \Illuminate\Support\Facades\Auth::user()->id, 'review' => $question->id]) }}"
+                                   class="btn btn-sm btn-danger">Disable entire Question</a>
+                            @else
+                                <a href="{{ route('console.user.admin.update.question.enable', ['user'=> \Illuminate\Support\Facades\Auth::user()->id, 'review' => $question->id]) }}"
+                                   class="btn btn-sm btn-success">Enable entire Question</a>
+                            @endif
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
         <!-- Logout Begin -->
         <form method="POST" action="{{ route('logout') }}">
             @csrf

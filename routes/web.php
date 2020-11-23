@@ -49,6 +49,17 @@ Route::prefix('console')->name('console.')->middleware('auth')->group(function (
 
                 });
 
+                Route::prefix('question')->name('question.')->group(function () {
+
+                    Route::prefix('{question}')->group(function () {
+
+                        Route::get('/disable', 'QuestionController@disableQuestion')->name('disable');
+                        Route::get('/enable', 'QuestionController@enableQuestion')->name('enable');
+
+                    });
+
+                });
+
                 Route::prefix('business')->name('business.')->group(function () {
 
                     Route::prefix('{business}')->group(function () {
