@@ -164,6 +164,7 @@
                                         <a href="{{ route('console.user.admin.update.promoted_business.enable', ['user'=> \Illuminate\Support\Facades\Auth::user()->id, 'promoted_business' => $promotedBusiness->id]) }}"
                                            class="btn btn-sm btn-success">Activate Promotion</a>
                                     @endif
+                                    <a href="{{ route('console.user.admin.update.promoted_business.destroy', ['user'=> \Illuminate\Support\Facades\Auth::user()->id, 'promoted_business' => $promotedBusiness->id]) }}" title="Delete Promotion"><i class="fa fa-trash-o"></i></a>
                                 </div>
                             </a>
                         </div>

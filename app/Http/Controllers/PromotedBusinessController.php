@@ -31,11 +31,11 @@ class PromotedBusinessController extends Controller
     {
         try {
 
-            if($user->id != Auth::user()->id) {
-
-                throw new \Exception('Requesting user must be the Authenticated user.');
-
-            }
+//            if($user->id != Auth::user()->id) {
+//
+//                throw new \Exception('Requesting user must be the Authenticated user.');
+//
+//            }
 
             if(!$user->isAdmin()) {
 
@@ -45,7 +45,6 @@ class PromotedBusinessController extends Controller
 
             // todo - Show the user the create a promoted business form
 
-            //dd('Hi, Mythri - Render a view that is a create form for a PromotedBusiness. Collect the start_date, end_date, and promo_location in your form.');
             return view('console.user.business.promote')
                 ->with(compact([
                     'user',
@@ -158,9 +157,40 @@ class PromotedBusinessController extends Controller
      * @param  \App\PromotedBusiness  $promotedBusiness
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PromotedBusiness $promotedBusiness)
+    public function destroy(User $user, PromotedBusiness $promotedBusiness)
     {
-        //
+        try {
+
+            if(Auth::check()) {
+
+                if(!Auth::user()->isAdmin()) {
+
+                    throw new \Exception('Promotion can only be removed by admins.');
+
+                }
+
+                $promotedBusiness->delete();
+
+                return redirect()
+                    ->back()
+                    ->with(['message' => 'Successfully deleted Business Promotion.']);
+
+            } else {
+
+                return redirect()
+                    ->route('login')
+                    ->withErrors(['Must be logged in before you can delete a Business Promotion.']);
+
+            }
+
+        } catch (\Exception $e) {
+
+            Log::error($e->getMessage());
+            return redirect()
+                ->back()
+                ->withErrors([$e->getMessage()]);
+
+        }
     }
 
     public function disablePromotion(User $user, PromotedBusiness $promotedBusiness)

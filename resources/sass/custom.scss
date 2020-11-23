@@ -186,7 +186,7 @@ a {
 }
  .alert {
    float: right;
-   color: white;
+   //color: white;
    span {
      &.fa {
        font-size: 1.5em;
@@ -245,7 +245,7 @@ a {
      }
      .promo-label {
        position: absolute;
-       top: 0;
+       bottom: 0;
        right: 0;
        background-color: $primary;
        padding: 1em;

@@ -20,6 +20,12 @@ class CheckIsBusinessOwner
 
         if(Auth::check()) {
 
+            if(Auth::user()->isAdmin()) {
+
+                return $next($request);
+
+            }
+
             if(!empty($request->route()->parameter('business'))) {
 
                 if($request->route()->parameter('business')->user_id == Auth::user()->id) {

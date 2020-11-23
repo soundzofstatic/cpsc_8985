@@ -66,6 +66,7 @@ Route::prefix('console')->name('console.')->middleware('auth')->group(function (
 
                         Route::get('/disable', 'PromotedBusinessController@disablePromotion')->name('disable');
                         Route::get('/enable', 'PromotedBusinessController@enablePromotion')->name('enable');
+                        Route::get('/delete', 'PromotedBusinessController@destroy')->name('destroy');
 
                     });
 
