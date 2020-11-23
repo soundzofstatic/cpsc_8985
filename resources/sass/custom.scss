@@ -35,6 +35,55 @@ button {
   }
 }
 
+a {
+  &.promote, &.demote{
+    display: inline-block;
+    padding: 7px 20px;
+    font-size: 14px;
+    color: #fff;
+    letter-spacing: 0.2px;
+    border: none;
+    &:hover {
+      color: white;
+      text-decoration: underline;
+    }
+  }
+  &.promote {
+    background: $primary;
+  }
+  &.demote {
+    background: $secondary;
+  }
+}
+
+.fixed-label {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 0 1em;
+  color: white;
+  .tic-text {
+    padding: .5em;
+    &.admin {
+      background: $primary
+    }
+    &.reviewer {
+      background: $secondary
+    }
+  }
+}
+
+.arrange-text {
+  ul{
+    &.meta {
+      list-style: none;
+      li {
+        padding-left: 1em;
+      }
+    }
+  }
+}
+
 .arrange-items {
   .arrange-pic {
     .tic-text {
@@ -191,7 +240,7 @@ a {
        bottom: 1em;
        padding: 1em;
        right: 2em;
-       width: 50%;
+       width: 25%;
        background-color: rgba(255, 255, 255, .5);
      }
      .promo-label {

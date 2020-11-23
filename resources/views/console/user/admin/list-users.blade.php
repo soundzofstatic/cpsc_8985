@@ -42,16 +42,29 @@
                 <div class="row mb-2">
                     @foreach($users as $user)
                         <div class="col-lg-4 col-sm-6">
-                            <a class="arrange-items"
-                               href="{{ route('user.home', ['user'=>$user->id]) }}">
-                                <div class="arrange-text p-3" style="border: thin solid red">
-                                    <h5>{{ $user->first_name }} {{ $user->last_name }}</h5>
-                                    <span>{{ $user->email }}</span>
-                                    <br/>
-                                    <span>{{ $user->created_at->format('m/d/Y g:i:s a') }}</span>
-                                    <br/>
+                            <div class="arrange-items">
+                                <div class="fixed-label">
+                                    @if($user->isAdmin())
+                                        <div class="tic-text admin">Admin</div>
+                                    @else
+                                        <div class="tic-text reviewer">Reviewer</div>
+                                    @endif
+                                </div>
+                                <div class="arrange-text">
+                                    <a href="{{ route('user.home', ['user'=>$user->id]) }}">
+                                        <h5>{{ $user->first_name }} {{ $user->last_name }}</h5>
+                                    </a>
                                     @if(!empty($user->username))
                                         <span>{{ $user->username }}#{{ $user->id }}</span>
+                                    @endif
+                                    <ul class="meta">
+                                        <li><span>Email:</span> {{ $user->email }}</li>
+                                        <li><span>Created:</span> {{ $user->created_at->format('m/d/Y g:i:s a') }}</li>
+                                    </ul>
+                                    @if($user->isAdmin())
+                                        <a class="demote action" href="{{ route('console.update.user.demote-user', ['user'=>$user->id]) }}">Demote</a>
+                                    @else
+                                        <a class="promote action"  href="{{ route('console.update.user.promote-user', ['user'=>$user->id]) }}">Promote</a>
                                     @endif
                                     @if($user->is_active)
                                         <a href="{{ route('console.user.admin.update.disable-user', ['user'=> $user->id]) }}"
@@ -61,7 +74,7 @@
                                            class="btn btn-sm btn-success">Enable User</a>
                                     @endif
                                 </div>
-                            </a>
+                            </div>
                         </div>
                     @endforeach
                 </div>
@@ -128,7 +141,7 @@
 
                             markup += '<div class="col-lg-4 col-sm-6">';
                             markup += '<div class="arrange-items">';
-                            markup += '<div class="arrange-pic">';
+                            markup += '<div class="fixed-label">';
                             if (element.attributes.is_admin) {
                                 markup += '<div class="tic-text admin">Admin</div>';
                             } else {
@@ -137,17 +150,23 @@
 
                             markup += '</div>';
                             markup += '<div class="arrange-text">';
+                            markup += '<a href="/user/' + element.id + '">';
                             markup += '<h5>' + element.attributes.first_name + ' ' + element.attributes.last_name + '</h5>';
+                            markup += '</a>';
                             if (element.attributes.username != null) {
-                                markup += '<span>' + element.attributes.username + '</span>';
+                                markup += '<span>' + element.attributes.username + '#' + element.id +'</span>';
                             }
-                            markup += '<p>' + element.attributes.email + '</p>';
+                            markup += '<ul class="meta">';
+                            markup += '<li><span>Email:</span> ' + element.attributes.email + '</li>';
+                            markup += '</ul>';
+
+
 
                             // todo - Connect click functionality
                             if (element.attributes.is_admin) {
-                                markup += '<button class="demote action" data-action="demote" data-user="' + element.id + '">Demote</button>';
+                                markup += '<button class="demote action mr-1" data-action="demote" data-user="' + element.id + '">Demote</button>';
                             } else {
-                                markup += '<button class="promote action" data-action="promote" data-user="' + element.id + '">Promote</button>';
+                                markup += '<button class="promote action mr-1" data-action="promote" data-user="' + element.id + '">Promote</button>';
                             }
                             if (element.attributes.is_active) {
                                 markup += '<a href="/console/user/' + element.id + '/admin/update/disable-user" class="btn btn-sm btn-danger">Disable User</a>';
