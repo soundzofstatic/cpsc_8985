@@ -10,6 +10,12 @@
         </div>
         <div class="row">
             <div class="col-md-12">
+                <h2>Public Profile Page</h2>
+                <p>See your public profile page by visiting your <a href="{{ route('user.home', ['user' => $user->id]) }}">Public profile page</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
                 <h2>Reviews</h2>
                 <p>See your last 5 reviews. See <a href="{{ route('console.user.reviewer.last-hundred-reviews', ['user' => \Illuminate\Support\Facades\Auth::user()->id]) }}" class="btn btn-sm btn-primary">last 100 reviews</a>.</p>
             </div>
