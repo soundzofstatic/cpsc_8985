@@ -297,7 +297,7 @@
                                                     </div>
                                                     <input type="hidden" name="business_id" value="{{$business->id}}"/>
                                                     <div class="form-group text-right">
-                                                        <button type="submit" name="submit" class="btn btn-outline-dark send-btn" id="{{$relatedFeedback->id}}"><i class="fa fa-paper-plane"></i> Submit</button>
+                                                        <button type="submit" name="submit" class="btn btn-outline-dark send-btn"><i class="fa fa-paper-plane"></i> Submit</button>
                                                     </div>
                                                 </form>
                                             </div>
